@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helios Architecture</title>
+<style>
+  /* ── Reset & Base ─────────────────────────────────────── */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @font-face {
+    font-family: 'HeliosDisplay';
+    src: local('Georgia');
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #050508;
+    color: #e8dcc8;
+    overflow-x: hidden;
+  }
+
+  /* ── Starfield Canvas ─────────────────────────────────── */
+  #starfield {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ── Navigation ───────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 64px;
+    background: linear-gradient(180deg, rgba(5,5,8,0.95) 0%, rgba(5,5,8,0.6) 70%, transparent 100%);
+    border-bottom: 1.5px solid rgba(216,160,72,0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: 64px;
+  }
+
+  nav a {
+    color: rgba(232,220,200,0.7);
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    position: relative;
+    padding: 6px 0;
+    transition: color 0.4s ease;
+  }
+
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #d8a048, transparent);
+    transition: width 0.5s ease;
+  }
+
+  nav a:hover {
+    color: #f0c060;
+    text-shadow: 0 0 20px rgba(240,192,96,0.3);
+  }
+
+  nav a:hover::after {
+    width: 120%;
+  }
+
+  /* ── Hero Section ─────────────────────────────────────── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding-top: 64px;
+  }
+
+  /* Sun Container */
+  .sun-wrap {
+    position: relative;
+    width: 420px;
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sun-core {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 40%,
+      #fff8e7 0%,
+      #fde8a0 15%,
+      #f0b840 35%,
+      #d88820 55%,
+      #b05818 75%,
+      #702808 100%
+    );
+    box-shadow:
+      0 0 60px 20px rgba(240,184,64,0.35),
+      0 0 120px 60px rgba(216,136,32,0.2),
+      0 0 200px 100px rgba(176,88,24,0.1);
+    animation: sunPulse 6s ease-in-out infinite;
+  }
+
+  .sun-corona {
+    position: absolute;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+      rgba(253,232,160,0.12) 0%,
+      rgba(240,184,64,0.06) 40%,
+      transparent 70%
+    );
+    animation: coronaPulse 8s ease-in-out infinite;
+  }
+
+  .sun-flare {
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+      rgba(240,184,64,0.04) 0%,
+      rgba(216,136,32,0.02) 50%,
+      transparent 70%
+    );
+    animation: flarePulse 12s ease-in-out infinite;
+  }
+
+  /* Solar prominence rings */
+  .sun-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(240,184,64,0.06);
+    animation: ringExpand 10s ease-in-out infinite;
+  }
+  .sun-ring:nth-child(4) { width: 280px; height: 280px; animation-delay: 0s; }
+  .sun-ring:nth-child(5) { width: 340px; height: 340px; animation-delay: 2.5s; }
+  .sun-ring:nth-child(6) { width: 400px; height: 400px; animation-delay: 5s; }
+
+  @keyframes sunPulse {
+    0%, 100% { transform: scale(1); filter: brightness(1); }
+    50% { transform: scale(1.03); filter: brightness(1.08); }
+  }
+
+  @keyframes coronaPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.06); opacity: 0.7; }
+  }
+
+  @keyframes flarePulse {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+    50% { transform: scale(1.1) rotate(15deg); opacity: 0.6; }
+  }
+
+  @keyframes ringExpand {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.08); opacity: 0.15; }
+  }
+
+  /* Title */
+  .hero-title {
+    margin-top: 40px;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 56px;
+    font-weight: 400;
+    letter-spacing: 12px;
+    text-transform: uppercase;
+    text-align: center;
+    background: linear-gradient(
+      180deg,
+      #fff8e7 0%,
+      #fde8a0 25%,
+      #f0b840 50%,
+      #d87820 75%,
+      #a04010 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+    filter: drop-shadow(0 0 30px rgba(240,184,64,0.25));
+    animation: titleGlow 5s ease-in-out infinite;
+    position: relative;
+  }
+
+  .hero-title::after {
+    content: 'Helios Architecture';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(255,248,231,0.15) 0%,
+      transparent 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: titleShimmer 4s ease-in-out infinite;
+  }
+
+  @keyframes titleGlow {
+    0%, 100% { filter: drop-shadow(0 0 30px rgba(240,184,64,0.25)); }
+    50% { filter: drop-shadow(0 0 50px rgba(240,184,64,0.4)); }
+  }
+
+  @keyframes titleShimmer {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+
+  .hero-subtitle {
+    margin-top: 18px;
+    font-size: 14px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: rgba(216,160,72,0.45);
+  }
+
+  /* Scroll indicator */
+  .scroll-hint {
+    position: absolute;
+    bottom: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.4;
+    animation: scrollFade 3s ease-in-out infinite;
+  }
+
+  .scroll-hint span {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(232,220,200,0.5);
+  }
+
+  .scroll-hint .chevron {
+    width: 20px;
+    height: 20px;
+    border-right: 1px solid rgba(216,160,72,0.4);
+    border-bottom: 1px solid rgba(216,160,72,0.4);
+    transform: rotate(45deg);
+    animation: chevronBounce 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollFade {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.15; }
+  }
+
+  @keyframes chevronBounce {
+    0%, 100% { transform: rotate(45deg) translateY(0); }
+    50% { transform: rotate(45deg) translateY(6px); }
+  }
+
+  /* ── Content Sections ─────────────────────────────────── */
+  section {
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 140px 40px;
+  }
+
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: rgba(216,160,72,0.5);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 40px;
+    font-weight: 400;
+    letter-spacing: 4px;
+    background: linear-gradient(135deg, #fde8a0, #d88820);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 48px;
+  }
+
+  .section-divider {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, #d8a048, transparent);
+    margin-bottom: 48px;
+  }
+
+  /* ── Projects Section ─────────────────────────────────── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .project-card {
+    background: rgba(216,160,72,0.03);
+    border: 1px solid rgba(216,160,72,0.08);
+    border-radius: 8px;
+    padding: 40px;
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(240,184,64,0.3), transparent);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .project-card:hover {
+    background: rgba(216,160,72,0.06);
+    border-color: rgba(216,160,72,0.15);
+    transform: translateY(-4px);
+  }
+
+  .project-card:hover::before { opacity: 1; }
+
+  .project-card h3 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: #f0c060;
+    margin-bottom: 12px;
+  }
+
+  .project-card .project-type {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(216,160,72,0.5);
+    margin-bottom: 16px;
+  }
+
+  .project-card p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(232,220,200,0.6);
+  }
+
+  /* ── About Section ────────────────────────────────────── */
+  .about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-size: 16px;
+    line-height: 1.9;
+    color: rgba(232,220,200,0.65);
+    margin-bottom: 24px;
+  }
+
+  .about-values {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .value-item {
+    padding-left: 24px;
+    border-left: 1px solid rgba(216,160,72,0.2);
+  }
+
+  .value-item h4 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #f0c060;
+    margin-bottom: 8px;
+  }
+
+  .value-item p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(232,220,200,0.5);
+  }
+
+  /* ── Contact Section ──────────────────────────────────── */
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+  }
+
+  .contact-info p {
+    font-size: 16px;
+    line-height: 1.9;
+    color: rgba(232,220,200,0.6);
+    margin-bottom: 32px;
+  }
+
+  .contact-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .contact-detail a {
+    color: rgba(240,192,96,0.7);
+    text-decoration: none;
+    font-size: 15px;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+  }
+
+  .contact-detail a:hover {
+    color: #f0c060;
+    text-shadow: 0 0 15px rgba(240,192,96,0.2);
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    padding: 16px 20px;
+    background: rgba(216,160,72,0.04);
+    border: 1px solid rgba(216,160,72,0.1);
+    border-radius: 6px;
+    color: #e8dcc8;
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder {
+    color: rgba(232,220,200,0.25);
+  }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    border-color: rgba(216,160,72,0.3);
+    box-shadow: 0 0 20px rgba(216,160,72,0.05);
+  }
+
+  .contact-form textarea { min-height: 140px; resize: vertical; }
+
+  .contact-form button {
+    align-self: flex-start;
+    padding: 14px 40px;
+    background: transparent;
+    border: 1px solid rgba(216,160,72,0.3);
+    border-radius: 6px;
+    color: #f0c060;
+    font-family: inherit;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.4s ease;
+  }
+
+  .contact-form button:hover {
+    background: rgba(216,160,72,0.08);
+    border-color: rgba(216,160,72,0.5);
+    box-shadow: 0 0 30px rgba(216,160,72,0.08);
+  }
+
+  /* ── Footer ───────────────────────────────────────────── */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 60px 40px;
+    border-top: 1px solid rgba(216,160,72,0.06);
+  }
+
+  footer p {
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: rgba(232,220,200,0.2);
+    text-transform: uppercase;
+  }
+
+  /* ── Fade-in on scroll ────────────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Responsive ───────────────────────────────────────── */
+  @media (max-width: 768px) {
+    nav ul { gap: 32px; }
+    nav a { font-size: 12px; letter-spacing: 2px; }
+    .hero-title { font-size: 32px; letter-spacing: 6px; }
+    .sun-wrap { width: 300px; height: 300px; }
+    .sun-core { width: 160px; height: 160px; }
+    .sun-corona { width: 240px; height: 240px; }
+    .sun-flare { width: 300px; height: 300px; }
+    .sun-ring:nth-child(4) { width: 200px; height: 200px; }
+    .sun-ring:nth-child(5) { width: 240px; height: 240px; }
+    .sun-ring:nth-child(6) { width: 280px; height: 280px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .about-content { grid-template-columns: 1fr; }
+    .contact-layout { grid-template-columns: 1fr; }
+    section { padding: 100px 24px; }
+    .section-title { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Starfield -->
+<canvas id="starfield"></canvas>
+
+<!-- Navigation -->
+<nav>
+  <ul>
+    <li><a href="#projects">Past Projects</a></li>
+    <li><a href="#about">About Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="sun-wrap">
+    <div class="sun-flare"></div>
+    <div class="sun-corona"></div>
+    <div class="sun-core"></div>
+    <div class="sun-ring"></div>
+    <div class="sun-ring"></div>
+    <div class="sun-ring"></div>
+  </div>
+  <h1 class="hero-title">Helios Architecture</h1>
+  <p class="hero-subtitle">Where vision meets the cosmos</p>
+  <div class="scroll-hint">
+    <span>Explore</span>
+    <div class="chevron"></div>
+  </div>
+</div>
+
+<!-- Past Projects -->
+<section id="projects">
+  <div class="reveal">
+    <p class="section-label">Portfolio</p>
+    <h2 class="section-title">Past Projects</h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <h3>Solaris Tower</h3>
+      <p class="project-type">Commercial &middot; 2024</p>
+      <p>A 42-story mixed-use tower featuring a solar-responsive facade that shifts orientation throughout the day, maximizing natural light while maintaining thermal efficiency.</p>
+    </div>
+    <div class="project-card reveal">
+      <h3>Ember Pavilion</h3>
+      <p class="project-type">Cultural &middot; 2023</p>
+      <p>An open-air exhibition space with a canopy inspired by solar corona patterns, casting dynamic shadow plays across the gallery floor as the earth rotates.</p>
+    </div>
+    <div class="project-card reveal">
+      <h3>Aurelius Residence</h3>
+      <p class="project-type">Residential &middot; 2023</p>
+      <p>A private hillside retreat designed around a central atrium that channels light deep into the living spaces, blurring the boundary between interior and sky.</p>
+    </div>
+    <div class="project-card reveal">
+      <h3>Corona Research Lab</h3>
+      <p class="project-type">Institutional &middot; 2022</p>
+      <p>A solar physics research facility whose radial floor plan mirrors the structure of solar magnetic fields, fostering collaborative discovery across disciplines.</p>
+    </div>
+  </div>
+</section>
+
+<!-- About Us -->
+<section id="about">
+  <div class="reveal">
+    <p class="section-label">Studio</p>
+    <h2 class="section-title">About Us</h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="about-content">
+    <div class="about-text reveal">
+      <p>Helios Architecture is a design studio rooted in the belief that great architecture should feel inevitable — as though it has always belonged to the landscape it inhabits.</p>
+      <p>We draw inspiration from celestial mechanics, light, and the quiet grandeur of the cosmos. Every project begins with a study of light: how it moves, how it transforms a space, and how it shapes the human experience within.</p>
+      <p>Founded in 2018, our team spans architects, light designers, and material scientists united by a singular vision — to build spaces that resonate with the rhythms of the natural world.</p>
+    </div>
+    <div class="about-values reveal">
+      <div class="value-item">
+        <h4>Light as Material</h4>
+        <p>We treat sunlight as the most essential building material, designing structures that harness, filter, and celebrate its presence.</p>
+      </div>
+      <div class="value-item">
+        <h4>Celestial Precision</h4>
+        <p>Our designs are calibrated to site-specific solar paths, ensuring every space evolves beautifully with the passage of time.</p>
+      </div>
+      <div class="value-item">
+        <h4>Quiet Grandeur</h4>
+        <p>We believe in architecture that speaks softly but resonates deeply — spaces that inspire awe through restraint and intention.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="reveal">
+    <p class="section-label">Connect</p>
+    <h2 class="section-title">Contact</h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="contact-layout">
+    <div class="contact-info reveal">
+      <p>Whether you have a project in mind or simply want to start a conversation about what's possible, we'd love to hear from you.</p>
+      <div class="contact-detail">
+        <a href="mailto:studio@heliosarch.com">studio@heliosarch.com</a>
+        <a href="tel:+15551200">+1 (555) 120-0000</a>
+        <span style="font-size:14px;color:rgba(232,220,200,0.35);">714 Solstice Boulevard, Suite 800<br>San Francisco, CA 94105</span>
+      </div>
+    </div>
+    <form class="contact-form reveal" onsubmit="event.preventDefault();">
+      <input type="text" placeholder="Name" required>
+      <input type="email" placeholder="Email" required>
+      <textarea placeholder="Tell us about your vision..."></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>&copy; 2026 Helios Architecture. All rights reserved.</p>
+</footer>
+
+<script>
+// ── Starfield + Shooting Stars ───────────────────────────
+(function () {
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Stars
+  const STAR_COUNT = 320;
+  const stars = Array.from({ length: STAR_COUNT }, () => ({
+    x: Math.random() * 2000 - 200,
+    y: Math.random() * 6000 - 200,
+    r: Math.random() * 1.4 + 0.3,
+    phase: Math.random() * Math.PI * 2,
+    speed: Math.random() * 0.003 + 0.001,
+    baseAlpha: Math.random() * 0.5 + 0.25,
+  }));
+
+  // Shooting stars
+  const shooters = [];
+
+  function spawnShooter() {
+    shooters.push({
+      x: Math.random() * W * 0.8,
+      y: Math.random() * H * 0.3,
+      vx: (Math.random() * 3 + 2) * (Math.random() > 0.5 ? 1 : -1),
+      vy: Math.random() * 2 + 1.5,
+      life: 1,
+      decay: Math.random() * 0.012 + 0.008,
+      len: Math.random() * 60 + 40,
+    });
+  }
+
+  // Spawn at random intervals
+  function scheduleShooter() {
+    setTimeout(() => {
+      spawnShooter();
+      scheduleShooter();
+    }, Math.random() * 5000 + 3000);
+  }
+  scheduleShooter();
+
+  const scrollY = () => window.scrollY || window.pageYOffset;
+
+  function draw(time) {
+    ctx.clearRect(0, 0, W, H);
+    const sy = scrollY();
+
+    // Stars
+    for (const s of stars) {
+      const screenY = s.y - sy * 0.15;
+      if (screenY < -10 || screenY > H + 10) continue;
+      const alpha = s.baseAlpha * (0.6 + 0.4 * Math.sin(time * s.speed + s.phase));
+      ctx.beginPath();
+      ctx.arc(s.x % W, screenY, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(232,220,200,${alpha})`;
+      ctx.fill();
+    }
+
+    // Shooting stars
+    for (let i = shooters.length - 1; i >= 0; i--) {
+      const sh = shooters[i];
+      sh.x += sh.vx;
+      sh.y += sh.vy;
+      sh.life -= sh.decay;
+      if (sh.life <= 0) { shooters.splice(i, 1); continue; }
+
+      const grad = ctx.createLinearGradient(
+        sh.x, sh.y,
+        sh.x - sh.vx * sh.len * 0.3, sh.y - sh.vy * sh.len * 0.3
+      );
+      grad.addColorStop(0, `rgba(253,232,160,${sh.life * 0.8})`);
+      grad.addColorStop(1, `rgba(253,232,160,0)`);
+
+      ctx.beginPath();
+      ctx.moveTo(sh.x, sh.y);
+      ctx.lineTo(sh.x - sh.vx * sh.len * 0.3, sh.y - sh.vy * sh.len * 0.3);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+    }
+
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+// ── Scroll Reveal ────────────────────────────────────────
+(function () {
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  reveals.forEach((el) => observer.observe(el));
+})();
+</script>
+</body>
+</html>
