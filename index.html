@@ -8,11 +8,6 @@
   /* ── Reset & Base ─────────────────────────────────────── */
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-  @font-face {
-    font-family: 'HeliosDisplay';
-    src: local('Georgia');
-  }
-
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;
@@ -20,16 +15,22 @@
 
   body {
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: #050508;
+    background: #030306;
     color: #e8dcc8;
     overflow-x: hidden;
   }
 
-  /* ── Starfield Canvas ─────────────────────────────────── */
-  #starfield {
+  /* ── Background Canvases ──────────────────────────────── */
+  #cosmos {
     position: fixed;
     inset: 0;
     z-index: 0;
+    pointer-events: none;
+  }
+
+  #sun-canvas {
+    position: absolute;
+    z-index: 1;
     pointer-events: none;
   }
 
@@ -44,7 +45,7 @@
     justify-content: center;
     align-items: center;
     height: 64px;
-    background: linear-gradient(180deg, rgba(5,5,8,0.95) 0%, rgba(5,5,8,0.6) 70%, transparent 100%);
+    background: linear-gradient(180deg, rgba(3,3,6,0.95) 0%, rgba(3,3,6,0.6) 70%, transparent 100%);
     border-bottom: 1.5px solid rgba(216,160,72,0.15);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -91,7 +92,7 @@
   /* ── Hero Section ─────────────────────────────────────── */
   .hero {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -100,91 +101,9 @@
     padding-top: 64px;
   }
 
-  /* Sun Container */
-  .sun-wrap {
-    position: relative;
+  .sun-placeholder {
     width: 420px;
     height: 420px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .sun-core {
-    position: absolute;
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 40% 40%,
-      #fff8e7 0%,
-      #fde8a0 15%,
-      #f0b840 35%,
-      #d88820 55%,
-      #b05818 75%,
-      #702808 100%
-    );
-    box-shadow:
-      0 0 60px 20px rgba(240,184,64,0.35),
-      0 0 120px 60px rgba(216,136,32,0.2),
-      0 0 200px 100px rgba(176,88,24,0.1);
-    animation: sunPulse 6s ease-in-out infinite;
-  }
-
-  .sun-corona {
-    position: absolute;
-    width: 340px;
-    height: 340px;
-    border-radius: 50%;
-    background: radial-gradient(circle,
-      rgba(253,232,160,0.12) 0%,
-      rgba(240,184,64,0.06) 40%,
-      transparent 70%
-    );
-    animation: coronaPulse 8s ease-in-out infinite;
-  }
-
-  .sun-flare {
-    position: absolute;
-    width: 420px;
-    height: 420px;
-    border-radius: 50%;
-    background: radial-gradient(circle,
-      rgba(240,184,64,0.04) 0%,
-      rgba(216,136,32,0.02) 50%,
-      transparent 70%
-    );
-    animation: flarePulse 12s ease-in-out infinite;
-  }
-
-  /* Solar prominence rings */
-  .sun-ring {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid rgba(240,184,64,0.06);
-    animation: ringExpand 10s ease-in-out infinite;
-  }
-  .sun-ring:nth-child(4) { width: 280px; height: 280px; animation-delay: 0s; }
-  .sun-ring:nth-child(5) { width: 340px; height: 340px; animation-delay: 2.5s; }
-  .sun-ring:nth-child(6) { width: 400px; height: 400px; animation-delay: 5s; }
-
-  @keyframes sunPulse {
-    0%, 100% { transform: scale(1); filter: brightness(1); }
-    50% { transform: scale(1.03); filter: brightness(1.08); }
-  }
-
-  @keyframes coronaPulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.06); opacity: 0.7; }
-  }
-
-  @keyframes flarePulse {
-    0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
-    50% { transform: scale(1.1) rotate(15deg); opacity: 0.6; }
-  }
-
-  @keyframes ringExpand {
-    0%, 100% { transform: scale(1); opacity: 0.5; }
-    50% { transform: scale(1.08); opacity: 0.15; }
   }
 
   /* Title */
@@ -211,6 +130,7 @@
     filter: drop-shadow(0 0 30px rgba(240,184,64,0.25));
     animation: titleGlow 5s ease-in-out infinite;
     position: relative;
+    z-index: 3;
   }
 
   .hero-title::after {
@@ -244,6 +164,7 @@
     letter-spacing: 6px;
     text-transform: uppercase;
     color: rgba(216,160,72,0.45);
+    z-index: 3;
   }
 
   /* Scroll indicator */
@@ -256,6 +177,7 @@
     gap: 8px;
     opacity: 0.4;
     animation: scrollFade 3s ease-in-out infinite;
+    z-index: 3;
   }
 
   .scroll-hint span {
@@ -287,7 +209,7 @@
   /* ── Content Sections ─────────────────────────────────── */
   section {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     max-width: 960px;
     margin: 0 auto;
     padding: 140px 40px;
@@ -380,11 +302,8 @@
   }
 
   /* ── About Section ────────────────────────────────────── */
-  .about-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    align-items: start;
+  .about-text {
+    max-width: 760px;
   }
 
   .about-text p {
@@ -392,31 +311,6 @@
     line-height: 1.9;
     color: rgba(232,220,200,0.65);
     margin-bottom: 24px;
-  }
-
-  .about-values {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  .value-item {
-    padding-left: 24px;
-    border-left: 1px solid rgba(216,160,72,0.2);
-  }
-
-  .value-item h4 {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 18px;
-    font-weight: 400;
-    color: #f0c060;
-    margin-bottom: 8px;
-  }
-
-  .value-item p {
-    font-size: 14px;
-    line-height: 1.7;
-    color: rgba(232,220,200,0.5);
   }
 
   /* ── Contact Section ──────────────────────────────────── */
@@ -509,7 +403,7 @@
   /* ── Footer ───────────────────────────────────────────── */
   footer {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     text-align: center;
     padding: 60px 40px;
     border-top: 1px solid rgba(216,160,72,0.06);
@@ -539,15 +433,8 @@
     nav ul { gap: 32px; }
     nav a { font-size: 12px; letter-spacing: 2px; }
     .hero-title { font-size: 32px; letter-spacing: 6px; }
-    .sun-wrap { width: 300px; height: 300px; }
-    .sun-core { width: 160px; height: 160px; }
-    .sun-corona { width: 240px; height: 240px; }
-    .sun-flare { width: 300px; height: 300px; }
-    .sun-ring:nth-child(4) { width: 200px; height: 200px; }
-    .sun-ring:nth-child(5) { width: 240px; height: 240px; }
-    .sun-ring:nth-child(6) { width: 280px; height: 280px; }
+    .sun-placeholder { width: 300px; height: 300px; }
     .projects-grid { grid-template-columns: 1fr; }
-    .about-content { grid-template-columns: 1fr; }
     .contact-layout { grid-template-columns: 1fr; }
     section { padding: 100px 24px; }
     .section-title { font-size: 28px; }
@@ -556,8 +443,11 @@
 </head>
 <body>
 
-<!-- Starfield -->
-<canvas id="starfield"></canvas>
+<!-- Cosmic background -->
+<canvas id="cosmos"></canvas>
+
+<!-- Sun canvas (positioned over hero) -->
+<canvas id="sun-canvas"></canvas>
 
 <!-- Navigation -->
 <nav>
@@ -569,15 +459,8 @@
 </nav>
 
 <!-- Hero -->
-<div class="hero">
-  <div class="sun-wrap">
-    <div class="sun-flare"></div>
-    <div class="sun-corona"></div>
-    <div class="sun-core"></div>
-    <div class="sun-ring"></div>
-    <div class="sun-ring"></div>
-    <div class="sun-ring"></div>
-  </div>
+<div class="hero" id="hero">
+  <div class="sun-placeholder"></div>
   <h1 class="hero-title">Helios Architecture</h1>
   <p class="hero-subtitle">Where vision meets the cosmos</p>
   <div class="scroll-hint">
@@ -624,26 +507,11 @@
     <h2 class="section-title">About Us</h2>
     <div class="section-divider"></div>
   </div>
-  <div class="about-content">
-    <div class="about-text reveal">
-      <p>Helios Architecture is a design studio rooted in the belief that great architecture should feel inevitable — as though it has always belonged to the landscape it inhabits.</p>
-      <p>We draw inspiration from celestial mechanics, light, and the quiet grandeur of the cosmos. Every project begins with a study of light: how it moves, how it transforms a space, and how it shapes the human experience within.</p>
-      <p>Founded in 2018, our team spans architects, light designers, and material scientists united by a singular vision — to build spaces that resonate with the rhythms of the natural world.</p>
-    </div>
-    <div class="about-values reveal">
-      <div class="value-item">
-        <h4>Light as Material</h4>
-        <p>We treat sunlight as the most essential building material, designing structures that harness, filter, and celebrate its presence.</p>
-      </div>
-      <div class="value-item">
-        <h4>Celestial Precision</h4>
-        <p>Our designs are calibrated to site-specific solar paths, ensuring every space evolves beautifully with the passage of time.</p>
-      </div>
-      <div class="value-item">
-        <h4>Quiet Grandeur</h4>
-        <p>We believe in architecture that speaks softly but resonates deeply — spaces that inspire awe through restraint and intention.</p>
-      </div>
-    </div>
+  <div class="about-text reveal">
+    <p>Helios Architecture is a design studio rooted in the belief that great architecture should feel inevitable.</p>
+    <p>Created by Ryan Lancellotti in Wilmington, North Carolina, Helios Architecture is a creative-driven company dedicated to bringing real-life ideas and bold visions into reality — efficiently and with purpose. Our focus is on transforming concepts into tangible, impactful solutions through thoughtful design, strategic execution, and timely delivery.</p>
+    <p>By bridging imagination with precision, we help individuals and brands turn inspiration into results without losing momentum.</p>
+    <p>At our core, we believe great ideas deserve to move fast, stay intentional, and make a lasting impression.</p>
   </div>
 </section>
 
@@ -659,8 +527,7 @@
       <p>Whether you have a project in mind or simply want to start a conversation about what's possible, we'd love to hear from you.</p>
       <div class="contact-detail">
         <a href="mailto:studio@heliosarch.com">studio@heliosarch.com</a>
-        <a href="tel:+15551200">+1 (555) 120-0000</a>
-        <span style="font-size:14px;color:rgba(232,220,200,0.35);">714 Solstice Boulevard, Suite 800<br>San Francisco, CA 94105</span>
+        <span style="font-size:14px;color:rgba(232,220,200,0.35);">Wilmington, North Carolina</span>
       </div>
     </div>
     <form class="contact-form reveal" onsubmit="event.preventDefault();">
@@ -678,9 +545,11 @@
 </footer>
 
 <script>
-// ── Starfield + Shooting Stars ───────────────────────────
+// ════════════════════════════════════════════════════════════
+//  COSMIC BACKGROUND — stars, nebulae, dust, shooting stars
+// ════════════════════════════════════════════════════════════
 (function () {
-  const canvas = document.getElementById('starfield');
+  const canvas = document.getElementById('cosmos');
   const ctx = canvas.getContext('2d');
   let W, H;
 
@@ -691,38 +560,107 @@
   resize();
   window.addEventListener('resize', resize);
 
-  // Stars
-  const STAR_COUNT = 320;
-  const stars = Array.from({ length: STAR_COUNT }, () => ({
-    x: Math.random() * 2000 - 200,
-    y: Math.random() * 6000 - 200,
-    r: Math.random() * 1.4 + 0.3,
-    phase: Math.random() * Math.PI * 2,
-    speed: Math.random() * 0.003 + 0.001,
-    baseAlpha: Math.random() * 0.5 + 0.25,
-  }));
+  // ── Dense star field with color variety ──
+  const STAR_COUNT = 800;
+  const starColors = [
+    [232,220,200], // warm white
+    [200,210,255], // cool blue
+    [255,220,180], // warm yellow
+    [180,200,255], // pale blue
+    [255,200,200], // soft red
+    [220,255,220], // faint green
+  ];
+  const stars = Array.from({ length: STAR_COUNT }, () => {
+    const col = starColors[Math.floor(Math.random() * starColors.length)];
+    return {
+      x: Math.random() * 3000 - 200,
+      y: Math.random() * 8000 - 200,
+      r: Math.random() < 0.05 ? Math.random() * 2.2 + 1.2 : Math.random() * 1.2 + 0.2,
+      phase: Math.random() * Math.PI * 2,
+      speed: Math.random() * 0.004 + 0.0008,
+      baseAlpha: Math.random() * 0.6 + 0.2,
+      color: col,
+      hasDiffraction: Math.random() < 0.03,
+    };
+  });
 
-  // Shooting stars
+  // ── Nebula clouds (painted once to offscreen buffer, composited each frame) ──
+  let nebulaCanvas, nebulaCtx;
+  function generateNebula() {
+    nebulaCanvas = document.createElement('canvas');
+    nebulaCanvas.width = 2000;
+    nebulaCanvas.height = 2000;
+    nebulaCtx = nebulaCanvas.getContext('2d');
+
+    const nebulae = [
+      { x: 300,  y: 400,  r: 350, color: [180, 80, 40],  alpha: 0.035 },
+      { x: 1500, y: 300,  r: 400, color: [60, 40, 120],   alpha: 0.03 },
+      { x: 800,  y: 1200, r: 500, color: [40, 80, 140],   alpha: 0.025 },
+      { x: 1600, y: 1000, r: 300, color: [140, 50, 60],   alpha: 0.03 },
+      { x: 400,  y: 1600, r: 350, color: [60, 100, 100],  alpha: 0.025 },
+      { x: 1000, y: 600,  r: 280, color: [120, 60, 30],   alpha: 0.02 },
+      { x: 200,  y: 900,  r: 220, color: [80, 50, 130],   alpha: 0.02 },
+      { x: 1300, y: 1500, r: 320, color: [50, 70, 120],   alpha: 0.025 },
+    ];
+
+    for (const n of nebulae) {
+      // Multiple layered radial gradients for organic feel
+      for (let layer = 0; layer < 4; layer++) {
+        const ox = (Math.random() - 0.5) * n.r * 0.5;
+        const oy = (Math.random() - 0.5) * n.r * 0.5;
+        const grad = nebulaCtx.createRadialGradient(
+          n.x + ox, n.y + oy, 0,
+          n.x + ox, n.y + oy, n.r * (0.6 + Math.random() * 0.6)
+        );
+        const a = n.alpha * (0.5 + Math.random() * 0.8);
+        grad.addColorStop(0, `rgba(${n.color[0]},${n.color[1]},${n.color[2]},${a})`);
+        grad.addColorStop(0.4, `rgba(${n.color[0]},${n.color[1]},${n.color[2]},${a * 0.4})`);
+        grad.addColorStop(1, `rgba(${n.color[0]},${n.color[1]},${n.color[2]},0)`);
+        nebulaCtx.fillStyle = grad;
+        nebulaCtx.fillRect(0, 0, 2000, 2000);
+      }
+    }
+
+    // Cosmic dust streaks
+    for (let i = 0; i < 40; i++) {
+      const x1 = Math.random() * 2000;
+      const y1 = Math.random() * 2000;
+      const angle = Math.random() * Math.PI * 2;
+      const len = Math.random() * 300 + 100;
+      const grad = nebulaCtx.createLinearGradient(
+        x1, y1,
+        x1 + Math.cos(angle) * len, y1 + Math.sin(angle) * len
+      );
+      const dustAlpha = Math.random() * 0.015 + 0.005;
+      const c = Math.random() > 0.5 ? '180,140,100' : '100,120,180';
+      grad.addColorStop(0, `rgba(${c},0)`);
+      grad.addColorStop(0.5, `rgba(${c},${dustAlpha})`);
+      grad.addColorStop(1, `rgba(${c},0)`);
+      nebulaCtx.strokeStyle = grad;
+      nebulaCtx.lineWidth = Math.random() * 40 + 10;
+      nebulaCtx.beginPath();
+      nebulaCtx.moveTo(x1, y1);
+      nebulaCtx.lineTo(x1 + Math.cos(angle) * len, y1 + Math.sin(angle) * len);
+      nebulaCtx.stroke();
+    }
+  }
+  generateNebula();
+
+  // ── Shooting stars ──
   const shooters = [];
-
   function spawnShooter() {
     shooters.push({
-      x: Math.random() * W * 0.8,
-      y: Math.random() * H * 0.3,
-      vx: (Math.random() * 3 + 2) * (Math.random() > 0.5 ? 1 : -1),
-      vy: Math.random() * 2 + 1.5,
+      x: Math.random() * W,
+      y: Math.random() * H * 0.4,
+      vx: (Math.random() * 4 + 3) * (Math.random() > 0.5 ? 1 : -1),
+      vy: Math.random() * 2.5 + 2,
       life: 1,
-      decay: Math.random() * 0.012 + 0.008,
-      len: Math.random() * 60 + 40,
+      decay: Math.random() * 0.01 + 0.006,
+      len: Math.random() * 80 + 50,
     });
   }
-
-  // Spawn at random intervals
   function scheduleShooter() {
-    setTimeout(() => {
-      spawnShooter();
-      scheduleShooter();
-    }, Math.random() * 5000 + 3000);
+    setTimeout(() => { spawnShooter(); scheduleShooter(); }, Math.random() * 5000 + 2500);
   }
   scheduleShooter();
 
@@ -732,14 +670,45 @@
     ctx.clearRect(0, 0, W, H);
     const sy = scrollY();
 
+    // Nebula (parallax-shifted)
+    const nebulaOffsetY = -sy * 0.05;
+    ctx.globalAlpha = 1;
+    ctx.drawImage(nebulaCanvas, -200, nebulaOffsetY - 200, 2000, 2000);
+
     // Stars
     for (const s of stars) {
-      const screenY = s.y - sy * 0.15;
+      const screenY = s.y - sy * 0.12;
       if (screenY < -10 || screenY > H + 10) continue;
-      const alpha = s.baseAlpha * (0.6 + 0.4 * Math.sin(time * s.speed + s.phase));
+      const sx = s.x % W;
+      const alpha = s.baseAlpha * (0.5 + 0.5 * Math.sin(time * s.speed + s.phase));
+      const [r, g, b] = s.color;
+
+      // Diffraction spikes on bright stars
+      if (s.hasDiffraction && alpha > 0.3) {
+        const spikeLen = s.r * 8;
+        const spikeAlpha = alpha * 0.3;
+        ctx.strokeStyle = `rgba(${r},${g},${b},${spikeAlpha})`;
+        ctx.lineWidth = 0.5;
+        ctx.beginPath();
+        ctx.moveTo(sx - spikeLen, screenY);
+        ctx.lineTo(sx + spikeLen, screenY);
+        ctx.moveTo(sx, screenY - spikeLen);
+        ctx.lineTo(sx, screenY + spikeLen);
+        ctx.stroke();
+      }
+
+      // Glow halo on brighter stars
+      if (s.r > 1) {
+        const glowGrad = ctx.createRadialGradient(sx, screenY, 0, sx, screenY, s.r * 4);
+        glowGrad.addColorStop(0, `rgba(${r},${g},${b},${alpha * 0.25})`);
+        glowGrad.addColorStop(1, `rgba(${r},${g},${b},0)`);
+        ctx.fillStyle = glowGrad;
+        ctx.fillRect(sx - s.r * 4, screenY - s.r * 4, s.r * 8, s.r * 8);
+      }
+
       ctx.beginPath();
-      ctx.arc(s.x % W, screenY, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(232,220,200,${alpha})`;
+      ctx.arc(sx, screenY, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
       ctx.fill();
     }
 
@@ -751,19 +720,26 @@
       sh.life -= sh.decay;
       if (sh.life <= 0) { shooters.splice(i, 1); continue; }
 
-      const grad = ctx.createLinearGradient(
-        sh.x, sh.y,
-        sh.x - sh.vx * sh.len * 0.3, sh.y - sh.vy * sh.len * 0.3
-      );
-      grad.addColorStop(0, `rgba(253,232,160,${sh.life * 0.8})`);
-      grad.addColorStop(1, `rgba(253,232,160,0)`);
+      const tailX = sh.x - sh.vx * sh.len * 0.4;
+      const tailY = sh.y - sh.vy * sh.len * 0.4;
+      const grad = ctx.createLinearGradient(sh.x, sh.y, tailX, tailY);
+      grad.addColorStop(0, `rgba(255,240,200,${sh.life * 0.9})`);
+      grad.addColorStop(0.3, `rgba(255,200,120,${sh.life * 0.5})`);
+      grad.addColorStop(1, `rgba(255,200,120,0)`);
 
       ctx.beginPath();
       ctx.moveTo(sh.x, sh.y);
-      ctx.lineTo(sh.x - sh.vx * sh.len * 0.3, sh.y - sh.vy * sh.len * 0.3);
+      ctx.lineTo(tailX, tailY);
       ctx.strokeStyle = grad;
-      ctx.lineWidth = 1.2;
+      ctx.lineWidth = 1.5;
       ctx.stroke();
+
+      // Head glow
+      const headGrad = ctx.createRadialGradient(sh.x, sh.y, 0, sh.x, sh.y, 4);
+      headGrad.addColorStop(0, `rgba(255,250,230,${sh.life * 0.8})`);
+      headGrad.addColorStop(1, `rgba(255,250,230,0)`);
+      ctx.fillStyle = headGrad;
+      ctx.fillRect(sh.x - 4, sh.y - 4, 8, 8);
     }
 
     requestAnimationFrame(draw);
@@ -771,17 +747,265 @@
   requestAnimationFrame(draw);
 })();
 
+
+// ════════════════════════════════════════════════════════════
+//  LIVING SUN — procedural flames, turbulence, prominences
+// ════════════════════════════════════════════════════════════
+(function () {
+  const canvas = document.getElementById('sun-canvas');
+  const ctx = canvas.getContext('2d');
+  const hero = document.getElementById('hero');
+  const SIZE = 600;
+  const CENTER = SIZE / 2;
+  const CORE_R = 100;
+
+  canvas.width = SIZE;
+  canvas.height = SIZE;
+
+  // Position canvas over the sun placeholder
+  function position() {
+    const placeholder = document.querySelector('.sun-placeholder');
+    const rect = placeholder.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2 + window.scrollY;
+    canvas.style.position = 'absolute';
+    canvas.style.left = (cx - SIZE / 2) + 'px';
+    canvas.style.top = (cy - SIZE / 2) + 'px';
+    canvas.style.width = SIZE + 'px';
+    canvas.style.height = SIZE + 'px';
+  }
+  position();
+  window.addEventListener('resize', position);
+  window.addEventListener('scroll', position);
+
+  // ── Simplex-like noise (fast 2D) ──
+  function noise2D(x, y) {
+    const n = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+    return n - Math.floor(n);
+  }
+
+  function smoothNoise(x, y) {
+    const ix = Math.floor(x), iy = Math.floor(y);
+    const fx = x - ix, fy = y - iy;
+    const sx = fx * fx * (3 - 2 * fx);
+    const sy = fy * fy * (3 - 2 * fy);
+    const n00 = noise2D(ix, iy);
+    const n10 = noise2D(ix + 1, iy);
+    const n01 = noise2D(ix, iy + 1);
+    const n11 = noise2D(ix + 1, iy + 1);
+    const nx0 = n00 + (n10 - n00) * sx;
+    const nx1 = n01 + (n11 - n01) * sx;
+    return nx0 + (nx1 - nx0) * sy;
+  }
+
+  function fbm(x, y, octaves) {
+    let val = 0, amp = 0.5, freq = 1;
+    for (let i = 0; i < octaves; i++) {
+      val += amp * smoothNoise(x * freq, y * freq);
+      amp *= 0.5;
+      freq *= 2.1;
+    }
+    return val;
+  }
+
+  // ── Flame tendrils ──
+  const TENDRIL_COUNT = 28;
+  const tendrils = Array.from({ length: TENDRIL_COUNT }, (_, i) => ({
+    angle: (i / TENDRIL_COUNT) * Math.PI * 2,
+    baseLen: Math.random() * 40 + 30,
+    speed: (Math.random() - 0.5) * 0.3 + 0.15,
+    noiseOff: Math.random() * 100,
+    width: Math.random() * 12 + 8,
+  }));
+
+  // ── Solar prominences (large arcing flames) ──
+  const PROM_COUNT = 5;
+  const prominences = Array.from({ length: PROM_COUNT }, (_, i) => ({
+    angle: (i / PROM_COUNT) * Math.PI * 2 + Math.random() * 0.5,
+    arcHeight: Math.random() * 60 + 50,
+    arcWidth: Math.random() * 0.5 + 0.3,
+    speed: Math.random() * 0.1 + 0.05,
+    phase: Math.random() * Math.PI * 2,
+    life: Math.random(),
+  }));
+
+  function draw(time) {
+    const t = time * 0.001;
+    ctx.clearRect(0, 0, SIZE, SIZE);
+
+    // ── Outer glow ──
+    const outerGlow = ctx.createRadialGradient(CENTER, CENTER, CORE_R, CENTER, CENTER, SIZE / 2);
+    outerGlow.addColorStop(0, 'rgba(240,160,40,0.12)');
+    outerGlow.addColorStop(0.3, 'rgba(200,100,20,0.05)');
+    outerGlow.addColorStop(0.6, 'rgba(160,60,10,0.02)');
+    outerGlow.addColorStop(1, 'rgba(160,60,10,0)');
+    ctx.fillStyle = outerGlow;
+    ctx.fillRect(0, 0, SIZE, SIZE);
+
+    // ── Flame tendrils (drawn behind the core) ──
+    for (const tend of tendrils) {
+      const noiseVal = fbm(t * tend.speed + tend.noiseOff, tend.angle * 2, 4);
+      const flameLen = CORE_R + tend.baseLen * (0.6 + noiseVal * 1.2);
+      const angle = tend.angle + Math.sin(t * tend.speed * 0.7 + tend.noiseOff) * 0.12;
+      const tipX = CENTER + Math.cos(angle) * flameLen;
+      const tipY = CENTER + Math.sin(angle) * flameLen;
+      const baseX = CENTER + Math.cos(angle) * (CORE_R * 0.92);
+      const baseY = CENTER + Math.sin(angle) * (CORE_R * 0.92);
+
+      // Perpendicular offset for width
+      const perpX = -Math.sin(angle);
+      const perpY = Math.cos(angle);
+      const hw = tend.width * (0.5 + noiseVal * 0.5) * 0.5;
+
+      const flameGrad = ctx.createLinearGradient(baseX, baseY, tipX, tipY);
+      flameGrad.addColorStop(0, 'rgba(255,220,120,0.6)');
+      flameGrad.addColorStop(0.3, 'rgba(255,160,40,0.4)');
+      flameGrad.addColorStop(0.6, 'rgba(220,80,10,0.2)');
+      flameGrad.addColorStop(1, 'rgba(180,40,5,0)');
+
+      ctx.beginPath();
+      ctx.moveTo(baseX + perpX * hw, baseY + perpY * hw);
+
+      // Curved flame body
+      const mid = 0.5 + (noiseVal - 0.5) * 0.3;
+      const midX = baseX + (tipX - baseX) * mid;
+      const midY = baseY + (tipY - baseY) * mid;
+      const bulge = hw * (1.3 + noiseVal * 0.8);
+      ctx.quadraticCurveTo(
+        midX + perpX * bulge, midY + perpY * bulge,
+        tipX, tipY
+      );
+      ctx.quadraticCurveTo(
+        midX - perpX * bulge, midY - perpY * bulge,
+        baseX - perpX * hw, baseY - perpY * hw
+      );
+      ctx.closePath();
+      ctx.fillStyle = flameGrad;
+      ctx.fill();
+    }
+
+    // ── Solar prominences (large arching flames) ──
+    for (const p of prominences) {
+      p.life += 0.002;
+      const lifePhase = (Math.sin(p.life * Math.PI * 2 * 0.1 + p.phase) + 1) * 0.5;
+      const height = p.arcHeight * lifePhase;
+      if (height < 5) continue;
+
+      const a1 = p.angle - p.arcWidth * 0.5 + Math.sin(t * p.speed) * 0.1;
+      const a2 = p.angle + p.arcWidth * 0.5 + Math.sin(t * p.speed + 1) * 0.1;
+      const aMid = (a1 + a2) * 0.5;
+
+      const x1 = CENTER + Math.cos(a1) * CORE_R;
+      const y1 = CENTER + Math.sin(a1) * CORE_R;
+      const x2 = CENTER + Math.cos(a2) * CORE_R;
+      const y2 = CENTER + Math.sin(a2) * CORE_R;
+      const cpX = CENTER + Math.cos(aMid) * (CORE_R + height);
+      const cpY = CENTER + Math.sin(aMid) * (CORE_R + height);
+
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.quadraticCurveTo(cpX, cpY, x2, y2);
+      ctx.strokeStyle = `rgba(255,140,30,${lifePhase * 0.35})`;
+      ctx.lineWidth = 4 + lifePhase * 6;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+
+      // Inner bright line
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.quadraticCurveTo(cpX, cpY, x2, y2);
+      ctx.strokeStyle = `rgba(255,220,120,${lifePhase * 0.2})`;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    // ── Core with turbulent surface ──
+    // Draw multiple offset circles to simulate granulation
+    for (let layer = 0; layer < 6; layer++) {
+      const layerNoise = fbm(t * 0.3 + layer * 3.7, layer * 2.1, 3);
+      const ox = (layerNoise - 0.5) * 6;
+      const oy = (fbm(t * 0.3 + layer * 5.1, layer * 1.3, 3) - 0.5) * 6;
+      const lr = CORE_R * (0.88 + layer * 0.025);
+
+      const coreGrad = ctx.createRadialGradient(
+        CENTER + ox - 15, CENTER + oy - 15, 0,
+        CENTER + ox, CENTER + oy, lr
+      );
+
+      if (layer === 0) {
+        coreGrad.addColorStop(0, '#fffbe8');
+        coreGrad.addColorStop(0.2, '#fff0b0');
+        coreGrad.addColorStop(0.5, '#f0b840');
+        coreGrad.addColorStop(0.75, '#d87818');
+        coreGrad.addColorStop(1, '#a04010');
+      } else {
+        const a = 0.12 - layer * 0.015;
+        coreGrad.addColorStop(0, `rgba(255,248,200,${a})`);
+        coreGrad.addColorStop(0.5, `rgba(240,180,60,${a * 0.5})`);
+        coreGrad.addColorStop(1, `rgba(200,80,20,0)`);
+      }
+
+      ctx.beginPath();
+      ctx.arc(CENTER + ox, CENTER + oy, lr, 0, Math.PI * 2);
+      ctx.fillStyle = coreGrad;
+      ctx.fill();
+    }
+
+    // Surface turbulence (moving hot spots)
+    for (let i = 0; i < 12; i++) {
+      const spotAngle = t * 0.15 + i * 0.52;
+      const spotDist = CORE_R * (0.3 + fbm(t * 0.2 + i * 3, i, 3) * 0.55);
+      const sx = CENTER + Math.cos(spotAngle) * spotDist;
+      const sy = CENTER + Math.sin(spotAngle) * spotDist;
+      const spotR = 8 + fbm(t * 0.5 + i, i * 2, 2) * 18;
+      const spotAlpha = 0.08 + fbm(t * 0.3 + i * 7, 0, 2) * 0.12;
+
+      const spotGrad = ctx.createRadialGradient(sx, sy, 0, sx, sy, spotR);
+      spotGrad.addColorStop(0, `rgba(255,255,220,${spotAlpha})`);
+      spotGrad.addColorStop(0.5, `rgba(255,200,80,${spotAlpha * 0.4})`);
+      spotGrad.addColorStop(1, 'rgba(255,200,80,0)');
+      ctx.fillStyle = spotGrad;
+      ctx.beginPath();
+      ctx.arc(sx, sy, spotR, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // ── Corona glow rings ──
+    for (let ring = 0; ring < 3; ring++) {
+      const ringR = CORE_R + 20 + ring * 30;
+      const ringAlpha = 0.04 - ring * 0.01;
+      const pulseR = ringR + Math.sin(t * 0.5 + ring * 2) * 5;
+      ctx.beginPath();
+      ctx.arc(CENTER, CENTER, pulseR, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(240,180,60,${ringAlpha})`;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+
+    // ── Inner corona glow ──
+    const coronaGlow = ctx.createRadialGradient(CENTER, CENTER, CORE_R * 0.95, CENTER, CENTER, CORE_R * 1.8);
+    coronaGlow.addColorStop(0, 'rgba(255,200,80,0.15)');
+    coronaGlow.addColorStop(0.3, 'rgba(255,160,40,0.06)');
+    coronaGlow.addColorStop(1, 'rgba(255,100,20,0)');
+    ctx.fillStyle = coronaGlow;
+    ctx.beginPath();
+    ctx.arc(CENTER, CENTER, CORE_R * 1.8, 0, Math.PI * 2);
+    ctx.fill();
+
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+
 // ── Scroll Reveal ────────────────────────────────────────
 (function () {
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-      }
+      if (e.isIntersecting) e.target.classList.add('visible');
     });
   }, { threshold: 0.15 });
-
   reveals.forEach((el) => observer.observe(el));
 })();
 </script>
