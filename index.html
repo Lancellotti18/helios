@@ -10,8 +10,8 @@
   html { scroll-behavior: smooth; overflow-x: hidden; }
   body {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    background: #0a0808;
-    color: #e0d0c8;
+    background: #f4f8fc;
+    color: #2a3a4a;
     overflow-x: hidden;
   }
 
@@ -19,331 +19,399 @@
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; justify-content: center; align-items: center; height: 68px;
-    background: linear-gradient(180deg, rgba(10,8,8,0.97) 0%, rgba(10,8,8,0.7) 70%, transparent 100%);
-    border-bottom: 1px solid rgba(160,30,30,0.2);
+    background: linear-gradient(180deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.85) 70%, rgba(255,255,255,0) 100%);
+    border-bottom: 1px solid rgba(135,190,220,0.2);
     backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   }
   nav ul { display: flex; list-style: none; gap: 48px; }
   nav a {
     font-family: 'Cinzel', serif;
-    color: rgba(200,180,170,0.65); text-decoration: none;
+    color: rgba(80,120,150,0.65); text-decoration: none;
     font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
     position: relative; padding: 6px 0; transition: color 0.4s ease;
   }
   nav a::after {
     content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
     width: 0; height: 1px;
-    background: linear-gradient(90deg, transparent, #a02020, transparent);
+    background: linear-gradient(90deg, transparent, #7ab8d9, transparent);
     transition: width 0.5s ease;
   }
-  nav a:hover { color: #d03030; }
+  nav a:hover { color: #5a9bbe; }
   nav a:hover::after { width: 120%; }
 
   /* ── Hero ──────────────────────────────────────────── */
   .hero {
     position: relative;
-    min-height: 100vh;
+    height: 100vh;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
     padding: 80px 40px;
     overflow: hidden;
-    background: radial-gradient(ellipse at 50% 60%, rgba(80,15,15,0.15) 0%, transparent 60%);
+    background: linear-gradient(170deg, #e8f2fa 0%, #f4f8fc 30%, #ffffff 60%, #eaf1f8 100%);
   }
 
-  /* Column frame */
+  /* Column frame - condensed, more square */
   .column-frame {
-    position: absolute; inset: 40px;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(680px, 85vw);
+    height: min(560px, 75vh);
     pointer-events: none; z-index: 1;
   }
 
-  /* Top entablature */
+  /* Entablature - top and bottom horizontal bars */
   .entablature-top, .entablature-bottom {
-    position: absolute; left: 0; right: 0; height: 40px;
+    position: absolute; left: 0; right: 0; height: 28px;
+    background: linear-gradient(180deg, #d6e8f2, #c0d8e8);
+    border: 2px solid #a8cce0;
   }
-  .entablature-top { top: 0; }
-  .entablature-bottom { bottom: 0; }
-
-  .entablature-top::before, .entablature-bottom::before {
-    content: ''; position: absolute; left: 0; right: 0;
-    height: 3px; background: linear-gradient(90deg, transparent 2%, rgba(160,30,30,0.4) 15%, rgba(160,30,30,0.6) 50%, rgba(160,30,30,0.4) 85%, transparent 98%);
+  .entablature-top {
+    top: 0;
+    border-radius: 2px 2px 0 0;
+    box-shadow: 0 4px 12px rgba(135,190,220,0.15);
   }
-  .entablature-top::before { bottom: 0; }
-  .entablature-bottom::before { top: 0; }
-
-  .entablature-top::after, .entablature-bottom::after {
-    content: ''; position: absolute; left: 0; right: 0;
-    height: 1px; background: linear-gradient(90deg, transparent 5%, rgba(160,30,30,0.25) 20%, rgba(160,30,30,0.35) 50%, rgba(160,30,30,0.25) 80%, transparent 95%);
+  .entablature-top::before {
+    content: ''; position: absolute; bottom: -8px; left: 8px; right: 8px;
+    height: 6px; background: linear-gradient(180deg, #b8d4e6, transparent);
+    border-left: 1px solid rgba(135,190,220,0.3);
+    border-right: 1px solid rgba(135,190,220,0.3);
   }
-  .entablature-top::after { bottom: 8px; }
-  .entablature-bottom::after { top: 8px; }
+  .entablature-top::after {
+    content: ''; position: absolute; top: -10px; left: -4px; right: -4px;
+    height: 10px;
+    background: linear-gradient(180deg, #bfd8ea, #c8ddef);
+    border: 2px solid #a8cce0;
+    border-bottom: none;
+    border-radius: 3px 3px 0 0;
+  }
+  .entablature-bottom {
+    bottom: 0;
+    border-radius: 0 0 2px 2px;
+    box-shadow: 0 -2px 8px rgba(135,190,220,0.1);
+  }
+  .entablature-bottom::before {
+    content: ''; position: absolute; top: -6px; left: 10px; right: 10px;
+    height: 4px; background: linear-gradient(0deg, #b8d4e6, transparent);
+  }
 
-  /* Individual columns */
+  /* ── Thick Roman columns ─────────────────────────── */
   .col-left, .col-right {
-    position: absolute; top: 40px; bottom: 40px; width: 32px;
-    display: flex; flex-direction: column;
+    position: absolute; top: 28px; bottom: 28px; width: 52px;
+    display: flex; flex-direction: column; align-items: center;
   }
-  .col-left { left: 0; }
-  .col-right { right: 0; }
+  .col-left { left: -8px; }
+  .col-right { right: -8px; }
+
+  /* Outer columns */
+  .col-left-2, .col-right-2 {
+    position: absolute; top: 28px; bottom: 28px; width: 42px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .col-left-2 { left: 56px; }
+  .col-right-2 { right: 56px; }
 
   .column {
-    position: absolute; top: 0; bottom: 0; width: 100%;
+    width: 100%; height: 100%;
     display: flex; flex-direction: column; align-items: center;
   }
 
+  /* Capitals - Corinthian style */
   .col-capital {
-    width: 32px; height: 18px; position: relative;
-    border-bottom: 2px solid rgba(160,30,30,0.4);
+    width: 100%; height: 32px; position: relative;
+    background: linear-gradient(180deg, #c8ddef, #b0ccdf);
+    border: 2px solid #9cc0d6;
+    border-radius: 3px 3px 0 0;
   }
   .col-capital::before {
-    content: ''; position: absolute; bottom: 2px; left: 4px; right: 4px;
-    height: 8px; border: 1px solid rgba(160,30,30,0.25);
+    content: ''; position: absolute; bottom: 4px; left: 6px; right: 6px;
+    height: 14px;
+    border: 1.5px solid rgba(120,170,200,0.5);
+    border-bottom: none; border-radius: 6px 6px 0 0;
+  }
+  .col-capital::after {
+    content: ''; position: absolute; bottom: 2px; left: 12px; right: 12px;
+    height: 8px;
+    border: 1px solid rgba(120,170,200,0.35);
     border-bottom: none; border-radius: 4px 4px 0 0;
   }
+  .col-left-2 .col-capital, .col-right-2 .col-capital {
+    height: 26px;
+  }
+  .col-left-2 .col-capital::before, .col-right-2 .col-capital::before {
+    height: 10px; left: 5px; right: 5px;
+  }
+  .col-left-2 .col-capital::after, .col-right-2 .col-capital::after {
+    height: 6px; left: 9px; right: 9px;
+  }
 
+  /* Shaft - thick with deep fluting */
   .col-shaft {
-    flex: 1; width: 18px;
+    flex: 1; width: 38px;
     background: linear-gradient(90deg,
-      rgba(160,30,30,0.08) 0%,
-      rgba(160,30,30,0.18) 30%,
-      rgba(160,30,30,0.22) 50%,
-      rgba(160,30,30,0.18) 70%,
-      rgba(160,30,30,0.08) 100%
+      #aac8dc 0%, #c0d8ea 15%, #d0e4f0 30%,
+      #d8eaf4 50%,
+      #d0e4f0 70%, #c0d8ea 85%, #aac8dc 100%
     );
+    border-left: 2px solid #9cc0d6;
+    border-right: 2px solid #9cc0d6;
     position: relative;
   }
-  /* Fluting lines */
+  /* Fluting grooves */
   .col-shaft::before {
     content: ''; position: absolute; inset: 0;
     background: repeating-linear-gradient(90deg,
-      transparent 0px, transparent 2px,
-      rgba(160,30,30,0.06) 2px, rgba(160,30,30,0.06) 3px
+      transparent 0px, transparent 4px,
+      rgba(100,150,180,0.12) 4px, rgba(100,150,180,0.12) 5px,
+      transparent 5px, transparent 6px
     );
   }
-
-  .col-base {
-    width: 28px; height: 10px;
-    border-top: 2px solid rgba(160,30,30,0.35);
-    background: linear-gradient(180deg, rgba(160,30,30,0.1), transparent);
+  .col-shaft::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg,
+      rgba(255,255,255,0.3) 0%, transparent 5%,
+      transparent 95%, rgba(255,255,255,0.2) 100%
+    );
+  }
+  .col-left-2 .col-shaft, .col-right-2 .col-shaft {
+    width: 30px;
   }
 
-  /* Second set of columns */
-  .col-left-2 { position: absolute; top: 40px; bottom: 40px; left: 60px; width: 24px; }
-  .col-right-2 { position: absolute; top: 40px; bottom: 40px; right: 60px; width: 24px; }
-  .col-left-2 .col-shaft, .col-right-2 .col-shaft { width: 14px; }
-  .col-left-2 .col-capital, .col-right-2 .col-capital { width: 24px; height: 14px; }
-  .col-left-2 .col-capital::before, .col-right-2 .col-capital::before { left: 3px; right: 3px; height: 6px; }
-  .col-left-2 .col-base, .col-right-2 .col-base { width: 22px; height: 8px; }
+  /* Entasis - slight taper via clip */
+  .col-left .col-shaft, .col-right .col-shaft {
+    clip-path: polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%);
+  }
+  .col-left-2 .col-shaft, .col-right-2 .col-shaft {
+    clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
+  }
 
-  /* Corner ornaments */
-  .corner { position: absolute; width: 20px; height: 20px; }
-  .corner-tl { top: 30px; left: 30px; border-top: 2px solid rgba(160,30,30,0.4); border-left: 2px solid rgba(160,30,30,0.4); }
-  .corner-tr { top: 30px; right: 30px; border-top: 2px solid rgba(160,30,30,0.4); border-right: 2px solid rgba(160,30,30,0.4); }
-  .corner-bl { bottom: 30px; left: 30px; border-bottom: 2px solid rgba(160,30,30,0.4); border-left: 2px solid rgba(160,30,30,0.4); }
-  .corner-br { bottom: 30px; right: 30px; border-bottom: 2px solid rgba(160,30,30,0.4); border-right: 2px solid rgba(160,30,30,0.4); }
+  /* Base - Attic base with torus moldings */
+  .col-base {
+    width: 100%; height: 24px;
+    position: relative;
+    background: linear-gradient(180deg, #b8d4e6, #c8ddef);
+    border: 2px solid #9cc0d6;
+    border-radius: 0 0 3px 3px;
+  }
+  .col-base::before {
+    content: ''; position: absolute; top: 4px; left: 4px; right: 4px;
+    height: 6px; border-radius: 3px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.4), rgba(150,190,215,0.3));
+    border: 1px solid rgba(120,170,200,0.3);
+  }
+  .col-base::after {
+    content: ''; position: absolute; bottom: 0; left: -4px; right: -4px;
+    height: 6px; background: #b0ccdf;
+    border: 1.5px solid #9cc0d6;
+    border-radius: 0 0 2px 2px;
+  }
+  .col-left-2 .col-base, .col-right-2 .col-base { height: 20px; }
 
-  /* ── Coliseum SVG ─────────────────────────────────── */
+  /* ── Colosseum SVG ─────────────────────────────────── */
   .coliseum-wrap {
     position: relative; z-index: 2;
-    width: 100%; max-width: 700px;
-    margin-bottom: 48px;
-    opacity: 0.85;
+    width: 100%; max-width: 520px;
+    margin-bottom: 32px;
   }
   .coliseum-wrap svg {
     width: 100%; height: auto;
-    filter: drop-shadow(0 0 40px rgba(160,30,30,0.15));
+    filter: drop-shadow(0 4px 20px rgba(100,160,200,0.12));
   }
 
   /* ── Hero text ────────────────────────────────────── */
   .hero-title {
     font-family: 'Cinzel', serif;
-    font-size: 54px; font-weight: 600;
-    letter-spacing: 10px; text-transform: uppercase;
+    font-size: 48px; font-weight: 600;
+    letter-spacing: 8px; text-transform: uppercase;
     text-align: center; line-height: 1.15;
-    color: #e0d0c8;
-    text-shadow: 0 0 60px rgba(160,30,30,0.3);
+    color: #3a5a72;
+    text-shadow: 0 1px 3px rgba(100,160,200,0.15);
     position: relative; z-index: 2;
   }
   .hero-title span {
-    display: block; font-size: 16px; font-weight: 400;
-    letter-spacing: 8px; margin-top: 14px;
-    color: rgba(180,50,50,0.6);
+    display: block; font-size: 15px; font-weight: 400;
+    letter-spacing: 7px; margin-top: 12px;
+    color: rgba(100,155,190,0.6);
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
   }
 
   .hero-line {
-    width: 120px; height: 1px; margin: 32px auto;
-    background: linear-gradient(90deg, transparent, rgba(160,30,30,0.5), transparent);
+    width: 100px; height: 1px; margin: 28px auto;
+    background: linear-gradient(90deg, transparent, rgba(135,190,220,0.5), transparent);
     position: relative; z-index: 2;
   }
   .hero-line::before {
-    content: ''; position: absolute; top: -3px; left: 50%; transform: translateX(-50%);
-    width: 7px; height: 7px; border: 1px solid rgba(160,30,30,0.5);
-    transform: translateX(-50%) rotate(45deg);
-    background: #0a0808;
+    content: ''; position: absolute; top: -3px; left: 50%; transform: translateX(-50%) rotate(45deg);
+    width: 7px; height: 7px; border: 1px solid rgba(135,190,220,0.5);
+    background: #f4f8fc;
   }
 
   .hero-subtitle {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 18px; font-style: italic;
-    color: rgba(200,180,170,0.5);
+    font-size: 17px; font-style: italic;
+    color: rgba(80,130,160,0.5);
     text-align: center; z-index: 2; position: relative;
     letter-spacing: 2px;
   }
 
   .scroll-hint {
-    position: absolute; bottom: 36px;
+    position: absolute; bottom: 32px;
     display: flex; flex-direction: column; align-items: center; gap: 6px;
-    opacity: 0.35; animation: scrollFade 3s ease-in-out infinite; z-index: 2;
+    opacity: 0.4; animation: scrollFade 3s ease-in-out infinite; z-index: 2;
   }
   .scroll-hint span {
     font-family: 'Cinzel', serif;
-    font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: rgba(200,180,170,0.5);
+    font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: rgba(100,155,190,0.5);
   }
   .scroll-hint .chevron {
-    width: 16px; height: 16px;
-    border-right: 1px solid rgba(160,30,30,0.4); border-bottom: 1px solid rgba(160,30,30,0.4);
+    width: 14px; height: 14px;
+    border-right: 1px solid rgba(135,190,220,0.5); border-bottom: 1px solid rgba(135,190,220,0.5);
     transform: rotate(45deg); animation: chevronBounce 2s ease-in-out infinite;
   }
-  @keyframes scrollFade { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.12; } }
+  @keyframes scrollFade { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.15; } }
   @keyframes chevronBounce { 0%, 100% { transform: rotate(45deg) translateY(0); } 50% { transform: rotate(45deg) translateY(5px); } }
 
   /* ── Sections ─────────────────────────────────────── */
   section {
-    position: relative; max-width: 960px; margin: 0 auto; padding: 140px 40px;
+    position: relative; max-width: 960px; margin: 0 auto; padding: 120px 40px;
   }
   .section-label {
     font-family: 'Cinzel', serif;
     font-size: 11px; letter-spacing: 5px; text-transform: uppercase;
-    color: rgba(160,50,50,0.5); margin-bottom: 12px;
+    color: rgba(100,160,200,0.5); margin-bottom: 12px;
   }
   .section-title {
     font-family: 'Cinzel', serif;
-    font-size: 38px; font-weight: 500; letter-spacing: 4px;
-    color: #d03030; margin-bottom: 16px;
+    font-size: 36px; font-weight: 500; letter-spacing: 4px;
+    color: #4a8ab0; margin-bottom: 16px;
   }
   .section-divider {
     width: 80px; height: 1px;
-    background: linear-gradient(90deg, rgba(160,30,30,0.5), transparent);
+    background: linear-gradient(90deg, rgba(135,190,220,0.5), transparent);
     margin-bottom: 48px; position: relative;
   }
   .section-divider::before {
     content: ''; position: absolute; top: -2.5px; left: 0;
-    width: 6px; height: 6px; border: 1px solid rgba(160,30,30,0.4);
-    transform: rotate(45deg); background: #0a0808;
+    width: 6px; height: 6px; border: 1px solid rgba(135,190,220,0.5);
+    transform: rotate(45deg); background: #f4f8fc;
   }
 
   /* ── Cards ────────────────────────────────────────── */
-  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
   .card {
-    background: rgba(160,30,30,0.03);
-    border: 1px solid rgba(160,30,30,0.1);
-    border-radius: 4px; padding: 40px; transition: all 0.5s ease;
+    background: #ffffff;
+    border: 1px solid rgba(135,190,220,0.2);
+    border-radius: 6px; padding: 36px; transition: all 0.5s ease;
     position: relative; overflow: hidden;
+    box-shadow: 0 2px 12px rgba(100,160,200,0.06);
   }
   .card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(160,30,30,0.3), transparent);
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(135,190,220,0.4), transparent);
     opacity: 0; transition: opacity 0.5s ease;
   }
   .card:hover {
-    background: rgba(160,30,30,0.06);
-    border-color: rgba(160,30,30,0.2);
+    background: #fcfeff;
+    border-color: rgba(135,190,220,0.35);
     transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(100,160,200,0.1);
   }
   .card:hover::before { opacity: 1; }
   .card h3 {
     font-family: 'Cinzel', serif;
-    font-size: 20px; font-weight: 500; color: #c83030; margin-bottom: 12px;
+    font-size: 19px; font-weight: 500; color: #4a8ab0; margin-bottom: 10px;
   }
   .card .meta {
     font-family: 'Cinzel', serif;
     font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-    color: rgba(160,50,50,0.45); margin-bottom: 16px;
+    color: rgba(100,160,200,0.5); margin-bottom: 14px;
   }
-  .card p { font-size: 16px; line-height: 1.8; color: rgba(200,180,170,0.55); }
+  .card p { font-size: 15.5px; line-height: 1.8; color: rgba(60,80,100,0.6); }
 
-  .services-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+  .services-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; }
 
   /* ── Pricing ──────────────────────────────────────── */
-  .pricing-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+  .pricing-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; }
   .pricing-card {
-    background: rgba(160,30,30,0.03); border: 1px solid rgba(160,30,30,0.1);
-    border-radius: 4px; padding: 44px 36px; text-align: center;
+    background: #ffffff; border: 1px solid rgba(135,190,220,0.2);
+    border-radius: 6px; padding: 40px 32px; text-align: center;
     transition: all 0.5s ease; position: relative;
+    box-shadow: 0 2px 12px rgba(100,160,200,0.06);
   }
-  .pricing-card.featured { border-color: rgba(160,30,30,0.3); background: rgba(160,30,30,0.06); }
-  .pricing-card:hover { border-color: rgba(160,30,30,0.25); transform: translateY(-4px); }
-  .pricing-card h3 { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 500; color: #c83030; margin-bottom: 8px; }
-  .pricing-card .price { font-family: 'Cinzel', serif; font-size: 36px; font-weight: 600; color: #e0d0c8; margin: 20px 0; }
-  .pricing-card .price span { font-size: 14px; font-weight: 400; color: rgba(200,180,170,0.4); }
-  .pricing-card .tier-desc { font-size: 14px; color: rgba(200,180,170,0.4); margin-bottom: 24px; font-style: italic; }
-  .pricing-card ul { list-style: none; text-align: left; margin-bottom: 32px; }
-  .pricing-card li { font-size: 15px; color: rgba(200,180,170,0.55); padding: 8px 0; border-bottom: 1px solid rgba(160,30,30,0.06); }
-  .pricing-card li::before { content: '\2022 '; color: rgba(160,50,50,0.4); }
+  .pricing-card.featured { border-color: rgba(100,170,210,0.4); background: #f8fcff; box-shadow: 0 4px 24px rgba(100,160,200,0.1); }
+  .pricing-card:hover { border-color: rgba(135,190,220,0.4); transform: translateY(-4px); box-shadow: 0 8px 30px rgba(100,160,200,0.1); }
+  .pricing-card h3 { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 500; color: #4a8ab0; margin-bottom: 8px; }
+  .pricing-card .price { font-family: 'Cinzel', serif; font-size: 34px; font-weight: 600; color: #3a5a72; margin: 18px 0; }
+  .pricing-card .price span { font-size: 14px; font-weight: 400; color: rgba(80,130,160,0.45); }
+  .pricing-card .tier-desc { font-size: 14px; color: rgba(80,130,160,0.5); margin-bottom: 22px; font-style: italic; }
+  .pricing-card ul { list-style: none; text-align: left; margin-bottom: 28px; }
+  .pricing-card li { font-size: 15px; color: rgba(60,80,100,0.6); padding: 8px 0; border-bottom: 1px solid rgba(135,190,220,0.08); }
+  .pricing-card li::before { content: '\2022 '; color: rgba(100,170,210,0.5); }
   .pricing-btn {
-    display: inline-block; padding: 12px 32px; background: transparent;
-    border: 1px solid rgba(160,30,30,0.3); border-radius: 3px;
-    color: #c83030; font-family: 'Cinzel', serif; font-size: 11px;
+    display: inline-block; padding: 12px 30px; background: transparent;
+    border: 1px solid rgba(100,170,210,0.35); border-radius: 4px;
+    color: #4a8ab0; font-family: 'Cinzel', serif; font-size: 11px;
     letter-spacing: 3px; text-transform: uppercase; text-decoration: none;
     cursor: pointer; transition: all 0.4s ease;
   }
-  .pricing-btn:hover { background: rgba(160,30,30,0.08); border-color: rgba(160,30,30,0.5); }
+  .pricing-btn:hover { background: rgba(135,190,220,0.08); border-color: rgba(100,170,210,0.55); }
 
   /* ── About ────────────────────────────────────────── */
   .about-text { max-width: 760px; }
-  .about-text p { font-size: 17px; line-height: 2; color: rgba(200,180,170,0.6); margin-bottom: 24px; }
+  .about-text p { font-size: 17px; line-height: 2; color: rgba(60,80,100,0.6); margin-bottom: 24px; }
 
   /* ── Contact ──────────────────────────────────────── */
-  .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
-  .contact-info p { font-size: 17px; line-height: 2; color: rgba(200,180,170,0.55); margin-bottom: 32px; }
-  .contact-detail { display: flex; flex-direction: column; gap: 20px; }
-  .contact-detail a { color: rgba(200,60,60,0.7); text-decoration: none; font-size: 16px; letter-spacing: 1px; transition: color 0.3s ease; }
-  .contact-detail a:hover { color: #d03030; }
-  .contact-form { display: flex; flex-direction: column; gap: 24px; }
+  .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+  .contact-info p { font-size: 17px; line-height: 2; color: rgba(60,80,100,0.55); margin-bottom: 28px; }
+  .contact-detail { display: flex; flex-direction: column; gap: 18px; }
+  .contact-detail a { color: rgba(70,130,170,0.75); text-decoration: none; font-size: 16px; letter-spacing: 1px; transition: color 0.3s ease; }
+  .contact-detail a:hover { color: #4a8ab0; }
+  .contact-form { display: flex; flex-direction: column; gap: 22px; }
   .contact-form input, .contact-form textarea {
-    width: 100%; padding: 16px 20px;
-    background: rgba(160,30,30,0.04);
-    border: 1px solid rgba(160,30,30,0.12); border-radius: 3px;
-    color: #e0d0c8; font-family: 'Cormorant Garamond', serif; font-size: 16px;
+    width: 100%; padding: 14px 18px;
+    background: #ffffff;
+    border: 1px solid rgba(135,190,220,0.2); border-radius: 4px;
+    color: #3a5a72; font-family: 'Cormorant Garamond', serif; font-size: 16px;
     outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
-  .contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(200,180,170,0.25); }
-  .contact-form input:focus, .contact-form textarea:focus { border-color: rgba(160,30,30,0.3); box-shadow: 0 0 20px rgba(160,30,30,0.05); }
-  .contact-form textarea { min-height: 140px; resize: vertical; }
+  .contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(100,155,190,0.35); }
+  .contact-form input:focus, .contact-form textarea:focus { border-color: rgba(100,170,210,0.4); box-shadow: 0 0 16px rgba(135,190,220,0.1); }
+  .contact-form textarea { min-height: 130px; resize: vertical; }
   .contact-form button {
-    align-self: flex-start; padding: 14px 40px; background: transparent;
-    border: 1px solid rgba(160,30,30,0.3); border-radius: 3px;
-    color: #c83030; font-family: 'Cinzel', serif; font-size: 12px;
+    align-self: flex-start; padding: 13px 36px; background: transparent;
+    border: 1px solid rgba(100,170,210,0.35); border-radius: 4px;
+    color: #4a8ab0; font-family: 'Cinzel', serif; font-size: 12px;
     letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease;
   }
-  .contact-form button:hover { background: rgba(160,30,30,0.08); border-color: rgba(160,30,30,0.5); }
+  .contact-form button:hover { background: rgba(135,190,220,0.08); border-color: rgba(100,170,210,0.55); }
 
   /* ── Footer ───────────────────────────────────────── */
   footer {
-    text-align: center; padding: 60px 40px;
-    border-top: 1px solid rgba(160,30,30,0.08);
+    text-align: center; padding: 56px 40px;
+    border-top: 1px solid rgba(135,190,220,0.12);
+    background: #f0f6fb;
   }
   footer p {
     font-family: 'Cinzel', serif;
-    font-size: 11px; letter-spacing: 3px; color: rgba(200,180,170,0.2); text-transform: uppercase;
+    font-size: 11px; letter-spacing: 3px; color: rgba(100,155,190,0.35); text-transform: uppercase;
   }
 
   /* ── Reveal ───────────────────────────────────────── */
-  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
   /* ── Responsive ───────────────────────────────────── */
   @media (max-width: 900px) { .services-grid, .pricing-grid { grid-template-columns: 1fr; } }
   @media (max-width: 768px) {
     nav ul { gap: 20px; } nav a { font-size: 10px; letter-spacing: 2px; }
-    .hero-title { font-size: 30px; letter-spacing: 5px; }
+    .hero-title { font-size: 28px; letter-spacing: 4px; }
+    .column-frame { width: 92vw; height: 70vh; }
+    .col-left-2, .col-right-2 { display: none; }
     .coliseum-wrap { max-width: 90%; }
     .projects-grid { grid-template-columns: 1fr; }
     .contact-layout { grid-template-columns: 1fr; }
-    section { padding: 100px 24px; } .section-title { font-size: 28px; }
-    .column-frame { inset: 20px; }
-    .col-left-2, .col-right-2 { display: none; }
+    section { padding: 80px 24px; } .section-title { font-size: 26px; }
   }
 </style>
 </head>
@@ -367,107 +435,294 @@
     <div class="col-right"><div class="column"><div class="col-capital"></div><div class="col-shaft"></div><div class="col-base"></div></div></div>
     <div class="col-left-2"><div class="column"><div class="col-capital"></div><div class="col-shaft"></div><div class="col-base"></div></div></div>
     <div class="col-right-2"><div class="column"><div class="col-capital"></div><div class="col-shaft"></div><div class="col-base"></div></div></div>
-
-    <div class="corner corner-tl"></div>
-    <div class="corner corner-tr"></div>
-    <div class="corner corner-bl"></div>
-    <div class="corner corner-br"></div>
   </div>
 
-  <!-- Coliseum -->
+  <!-- Colosseum - full side elevation view -->
   <div class="coliseum-wrap">
-    <svg viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Outer wall - main elliptical structure -->
-      <ellipse cx="400" cy="340" rx="380" ry="60" stroke="rgba(160,30,30,0.15)" stroke-width="1" fill="none"/>
-
-      <!-- Base platform -->
-      <path d="M60 310 Q400 360 740 310 Q400 330 60 310Z" fill="rgba(160,30,30,0.04)" stroke="rgba(160,30,30,0.2)" stroke-width="1"/>
-
-      <!-- Main facade - 3 tiers of arches -->
-      <!-- Tier 3 (top) - smallest arches -->
-      <g stroke="rgba(160,30,30,0.35)" stroke-width="1" fill="none">
-        <path d="M160 130 L160 155 M640 130 L640 155"/>
-        <line x1="145" y1="130" x2="655" y2="130" stroke="rgba(160,30,30,0.3)"/>
-        <line x1="150" y1="155" x2="650" y2="155" stroke="rgba(160,30,30,0.3)"/>
-        <!-- Small arches -->
-        <path d="M175 155 L175 135 Q195 125 215 135 L215 155"/>
-        <path d="M230 155 L230 135 Q250 125 270 135 L270 155"/>
-        <path d="M285 155 L285 135 Q305 125 325 135 L325 155"/>
-        <path d="M340 155 L340 135 Q360 125 380 135 L380 155"/>
-        <path d="M395 155 L395 135 Q415 125 435 135 L435 155"/>
-        <path d="M450 155 L450 135 Q470 125 490 135 L490 155"/>
-        <path d="M505 155 L505 135 Q525 125 545 135 L545 155"/>
-        <path d="M560 155 L560 135 Q580 125 600 135 L600 155"/>
-      </g>
-
-      <!-- Tier 2 (middle) - medium arches -->
-      <g stroke="rgba(160,30,30,0.4)" stroke-width="1" fill="none">
-        <line x1="135" y1="160" x2="665" y2="160" stroke="rgba(160,30,30,0.25)"/>
-        <line x1="130" y1="220" x2="670" y2="220" stroke="rgba(160,30,30,0.3)"/>
-        <path d="M155 220 L155 170 Q190 150 225 170 L225 220"/>
-        <path d="M240 220 L240 170 Q275 150 310 170 L310 220"/>
-        <path d="M325 220 L325 170 Q360 150 395 170 L395 220"/>
-        <path d="M410 220 L410 170 Q445 150 480 170 L480 220"/>
-        <path d="M495 220 L495 170 Q530 150 565 170 L565 220"/>
-        <path d="M580 220 L580 170 Q615 150 650 170 L650 220"/>
-      </g>
-
-      <!-- Tier 1 (bottom) - largest arches -->
-      <g stroke="rgba(160,30,30,0.5)" stroke-width="1.5" fill="none">
-        <line x1="120" y1="225" x2="680" y2="225" stroke="rgba(160,30,30,0.3)"/>
-        <line x1="110" y1="310" x2="690" y2="310" stroke="rgba(160,30,30,0.35)"/>
-        <!-- Arches with column details -->
-        <path d="M130 310 L130 240 Q175 215 220 240 L220 310"/>
-        <path d="M235 310 L235 240 Q280 215 325 240 L325 310"/>
-        <path d="M340 310 L340 240 Q385 215 430 240 L430 310"/>
-        <path d="M445 310 L445 240 Q490 215 535 240 L535 310"/>
-        <path d="M550 310 L550 240 Q595 215 640 240 L640 310"/>
-      </g>
-
-      <!-- Column capitals on bottom tier -->
-      <g stroke="rgba(160,30,30,0.35)" fill="none" stroke-width="1">
-        <rect x="126" y="232" width="8" height="6" rx="1"/>
-        <rect x="216" y="232" width="8" height="6" rx="1"/>
-        <rect x="231" y="232" width="8" height="6" rx="1"/>
-        <rect x="321" y="232" width="8" height="6" rx="1"/>
-        <rect x="336" y="232" width="8" height="6" rx="1"/>
-        <rect x="426" y="232" width="8" height="6" rx="1"/>
-        <rect x="441" y="232" width="8" height="6" rx="1"/>
-        <rect x="531" y="232" width="8" height="6" rx="1"/>
-        <rect x="546" y="232" width="8" height="6" rx="1"/>
-        <rect x="636" y="232" width="8" height="6" rx="1"/>
-      </g>
-
-      <!-- Decorative top cornice / attic wall -->
-      <g stroke="rgba(160,30,30,0.3)" fill="none" stroke-width="1">
-        <line x1="155" y1="125" x2="645" y2="125"/>
-        <line x1="165" y1="118" x2="635" y2="118"/>
-        <!-- Top attic solid wall suggestion -->
-        <path d="M170 118 L170 100 L630 100 L630 118" stroke="rgba(160,30,30,0.2)"/>
-        <line x1="175" y1="100" x2="625" y2="100" stroke="rgba(160,30,30,0.15)"/>
-      </g>
-
-      <!-- Interior shadow/depth -->
-      <path d="M200 310 Q400 260 600 310" fill="rgba(160,30,30,0.03)" stroke="none"/>
-
-      <!-- Subtle ground shadow -->
-      <ellipse cx="400" cy="320" rx="300" ry="15" fill="rgba(160,30,30,0.04)"/>
-
-      <!-- Red accent glow in arches -->
-      <g opacity="0.3">
-        <circle cx="175" cy="265" r="20" fill="url(#archGlow)"/>
-        <circle cx="280" cy="265" r="20" fill="url(#archGlow)"/>
-        <circle cx="385" cy="265" r="20" fill="url(#archGlow)"/>
-        <circle cx="490" cy="265" r="20" fill="url(#archGlow)"/>
-        <circle cx="595" cy="265" r="20" fill="url(#archGlow)"/>
-      </g>
-
+    <svg viewBox="0 0 900 420" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id="archGlow">
-          <stop offset="0%" stop-color="rgba(160,30,30,0.3)"/>
-          <stop offset="100%" stop-color="rgba(160,30,30,0)"/>
+        <linearGradient id="stoneGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#9ec5db"/>
+          <stop offset="100%" stop-color="#7aadca"/>
+        </linearGradient>
+        <linearGradient id="shadowGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(60,110,145,0.08)"/>
+          <stop offset="100%" stop-color="rgba(60,110,145,0.02)"/>
+        </linearGradient>
+        <radialGradient id="archShadow">
+          <stop offset="0%" stop-color="rgba(60,120,160,0.12)"/>
+          <stop offset="100%" stop-color="rgba(60,120,160,0)"/>
         </radialGradient>
       </defs>
+
+      <!-- Ground shadow -->
+      <ellipse cx="450" cy="400" rx="420" ry="18" fill="rgba(100,160,200,0.06)"/>
+
+      <!-- Foundation / podium -->
+      <rect x="30" y="370" width="840" height="28" rx="2" fill="#b8d4e6" stroke="#8dbdd4" stroke-width="1.5"/>
+      <rect x="22" y="382" width="856" height="18" rx="2" fill="#aecce0" stroke="#8dbdd4" stroke-width="1.5"/>
+      <line x1="30" y1="378" x2="870" y2="378" stroke="#9cc4d8" stroke-width="1"/>
+
+      <!-- ── Tier 1 (Bottom) - Doric order, largest arches ── -->
+      <rect x="50" y="250" width="800" height="122" fill="url(#shadowGrad)" rx="1"/>
+      <!-- Horizontal cornices -->
+      <line x1="45" y1="250" x2="855" y2="250" stroke="#8dbdd4" stroke-width="2"/>
+      <line x1="48" y1="256" x2="852" y2="256" stroke="#9ec5db" stroke-width="1"/>
+      <line x1="42" y1="370" x2="858" y2="370" stroke="#8dbdd4" stroke-width="2"/>
+
+      <!-- Pillars and arches - Tier 1 -->
+      <g stroke="#7aadca" stroke-width="1.8" fill="none">
+        <!-- 9 arches across -->
+        <path d="M72 370 L72 272 M152 370 L152 272"/>
+        <path d="M80 272 Q112 244 144 272"/>
+        <path d="M160 370 L160 272 M240 370 L240 272"/>
+        <path d="M168 272 Q200 244 232 272"/>
+        <path d="M248 370 L248 272 M328 370 L328 272"/>
+        <path d="M256 272 Q288 244 320 272"/>
+        <path d="M336 370 L336 272 M416 370 L416 272"/>
+        <path d="M344 272 Q376 244 408 272"/>
+        <path d="M424 370 L424 272 M504 370 L504 272"/>
+        <path d="M432 272 Q464 244 496 272"/>
+        <path d="M512 370 L512 272 M592 370 L592 272"/>
+        <path d="M520 272 Q552 244 584 272"/>
+        <path d="M600 370 L600 272 M680 370 L680 272"/>
+        <path d="M608 272 Q640 244 672 272"/>
+        <path d="M688 370 L688 272 M768 370 L768 272"/>
+        <path d="M696 272 Q728 244 760 272"/>
+        <path d="M776 370 L776 272 M840 370 L840 272"/>
+        <path d="M782 272 Q808 252 834 272"/>
+      </g>
+
+      <!-- Pilaster capitals - Tier 1 (Doric - simple square blocks) -->
+      <g fill="#aecce0" stroke="#8dbdd4" stroke-width="1">
+        <rect x="66" y="260" width="16" height="10" rx="1"/>
+        <rect x="146" y="260" width="16" height="10" rx="1"/>
+        <rect x="154" y="260" width="16" height="10" rx="1"/>
+        <rect x="234" y="260" width="16" height="10" rx="1"/>
+        <rect x="242" y="260" width="16" height="10" rx="1"/>
+        <rect x="322" y="260" width="16" height="10" rx="1"/>
+        <rect x="330" y="260" width="16" height="10" rx="1"/>
+        <rect x="410" y="260" width="16" height="10" rx="1"/>
+        <rect x="418" y="260" width="16" height="10" rx="1"/>
+        <rect x="498" y="260" width="16" height="10" rx="1"/>
+        <rect x="506" y="260" width="16" height="10" rx="1"/>
+        <rect x="586" y="260" width="16" height="10" rx="1"/>
+        <rect x="594" y="260" width="16" height="10" rx="1"/>
+        <rect x="674" y="260" width="16" height="10" rx="1"/>
+        <rect x="682" y="260" width="16" height="10" rx="1"/>
+        <rect x="762" y="260" width="16" height="10" rx="1"/>
+        <rect x="772" y="260" width="16" height="10" rx="1"/>
+        <rect x="834" y="260" width="12" height="10" rx="1"/>
+      </g>
+
+      <!-- Arch depth shadows - Tier 1 -->
+      <g fill="rgba(60,120,160,0.06)">
+        <rect x="82" y="272" width="60" height="98" rx="2"/>
+        <rect x="170" y="272" width="60" height="98" rx="2"/>
+        <rect x="258" y="272" width="60" height="98" rx="2"/>
+        <rect x="346" y="272" width="60" height="98" rx="2"/>
+        <rect x="434" y="272" width="60" height="98" rx="2"/>
+        <rect x="522" y="272" width="60" height="98" rx="2"/>
+        <rect x="610" y="272" width="60" height="98" rx="2"/>
+        <rect x="698" y="272" width="60" height="98" rx="2"/>
+      </g>
+
+      <!-- ── Tier 2 (Middle) - Ionic order ── -->
+      <rect x="55" y="160" width="790" height="92" fill="url(#shadowGrad)" rx="1"/>
+      <line x1="50" y1="160" x2="850" y2="160" stroke="#8dbdd4" stroke-width="2"/>
+      <line x1="53" y1="166" x2="847" y2="166" stroke="#9ec5db" stroke-width="1"/>
+      <line x1="48" y1="250" x2="852" y2="250" stroke="#8dbdd4" stroke-width="1"/>
+
+      <!-- Pillars and arches - Tier 2 -->
+      <g stroke="#7aadca" stroke-width="1.5" fill="none">
+        <path d="M76 250 L76 178 M148 250 L148 178"/>
+        <path d="M82 178 Q112 156 142 178"/>
+        <path d="M156 250 L156 178 M228 250 L228 178"/>
+        <path d="M162 178 Q192 156 222 178"/>
+        <path d="M236 250 L236 178 M308 250 L308 178"/>
+        <path d="M242 178 Q272 156 302 178"/>
+        <path d="M316 250 L316 178 M388 250 L388 178"/>
+        <path d="M322 178 Q352 156 382 178"/>
+        <path d="M396 250 L396 178 M468 250 L468 178"/>
+        <path d="M402 178 Q432 156 462 178"/>
+        <path d="M476 250 L476 178 M548 250 L548 178"/>
+        <path d="M482 178 Q512 156 542 178"/>
+        <path d="M556 250 L556 178 M628 250 L628 178"/>
+        <path d="M562 178 Q592 156 622 178"/>
+        <path d="M636 250 L636 178 M708 250 L708 178"/>
+        <path d="M642 178 Q672 156 702 178"/>
+        <path d="M716 250 L716 178 M788 250 L788 178"/>
+        <path d="M722 178 Q752 156 782 178"/>
+        <path d="M796 250 L796 178 M840 250 L840 178"/>
+        <path d="M800 178 Q818 162 836 178"/>
+      </g>
+
+      <!-- Ionic capitals - scroll volutes suggested -->
+      <g fill="#b0d0e4" stroke="#8dbdd4" stroke-width="0.8">
+        <rect x="70" y="170" width="14" height="8" rx="2"/>
+        <rect x="142" y="170" width="14" height="8" rx="2"/>
+        <rect x="150" y="170" width="14" height="8" rx="2"/>
+        <rect x="222" y="170" width="14" height="8" rx="2"/>
+        <rect x="230" y="170" width="14" height="8" rx="2"/>
+        <rect x="302" y="170" width="14" height="8" rx="2"/>
+        <rect x="310" y="170" width="14" height="8" rx="2"/>
+        <rect x="382" y="170" width="14" height="8" rx="2"/>
+        <rect x="390" y="170" width="14" height="8" rx="2"/>
+        <rect x="462" y="170" width="14" height="8" rx="2"/>
+        <rect x="470" y="170" width="14" height="8" rx="2"/>
+        <rect x="542" y="170" width="14" height="8" rx="2"/>
+        <rect x="550" y="170" width="14" height="8" rx="2"/>
+        <rect x="622" y="170" width="14" height="8" rx="2"/>
+        <rect x="630" y="170" width="14" height="8" rx="2"/>
+        <rect x="702" y="170" width="14" height="8" rx="2"/>
+        <rect x="710" y="170" width="14" height="8" rx="2"/>
+        <rect x="782" y="170" width="14" height="8" rx="2"/>
+        <rect x="792" y="170" width="12" height="8" rx="2"/>
+        <rect x="834" y="170" width="10" height="8" rx="2"/>
+      </g>
+
+      <!-- Arch depth shadows - Tier 2 -->
+      <g fill="rgba(60,120,160,0.05)">
+        <rect x="84" y="178" width="58" height="72" rx="2"/>
+        <rect x="164" y="178" width="58" height="72" rx="2"/>
+        <rect x="244" y="178" width="58" height="72" rx="2"/>
+        <rect x="324" y="178" width="58" height="72" rx="2"/>
+        <rect x="404" y="178" width="58" height="72" rx="2"/>
+        <rect x="484" y="178" width="58" height="72" rx="2"/>
+        <rect x="564" y="178" width="58" height="72" rx="2"/>
+        <rect x="644" y="178" width="58" height="72" rx="2"/>
+        <rect x="724" y="178" width="58" height="72" rx="2"/>
+      </g>
+
+      <!-- ── Tier 3 (Top) - Corinthian order, smallest arches ── -->
+      <rect x="60" y="90" width="780" height="72" fill="url(#shadowGrad)" rx="1"/>
+      <line x1="55" y1="90" x2="845" y2="90" stroke="#8dbdd4" stroke-width="2"/>
+      <line x1="58" y1="96" x2="842" y2="96" stroke="#9ec5db" stroke-width="1"/>
+      <line x1="53" y1="160" x2="847" y2="160" stroke="#8dbdd4" stroke-width="1"/>
+
+      <!-- Pillars and arches - Tier 3 -->
+      <g stroke="#7aadca" stroke-width="1.2" fill="none">
+        <path d="M80 160 L80 106 M140 160 L140 106"/>
+        <path d="M86 106 Q110 90 134 106"/>
+        <path d="M148 160 L148 106 M208 160 L208 106"/>
+        <path d="M154 106 Q178 90 202 106"/>
+        <path d="M216 160 L216 106 M276 160 L276 106"/>
+        <path d="M222 106 Q246 90 270 106"/>
+        <path d="M284 160 L284 106 M344 160 L344 106"/>
+        <path d="M290 106 Q314 90 338 106"/>
+        <path d="M352 160 L352 106 M412 160 L412 106"/>
+        <path d="M358 106 Q382 90 406 106"/>
+        <path d="M420 160 L420 106 M480 160 L480 106"/>
+        <path d="M426 106 Q450 90 474 106"/>
+        <path d="M488 160 L488 106 M548 160 L548 106"/>
+        <path d="M494 106 Q518 90 542 106"/>
+        <path d="M556 160 L556 106 M616 160 L616 106"/>
+        <path d="M562 106 Q586 90 610 106"/>
+        <path d="M624 160 L624 106 M684 160 L684 106"/>
+        <path d="M630 106 Q654 90 678 106"/>
+        <path d="M692 160 L692 106 M752 160 L752 106"/>
+        <path d="M698 106 Q722 90 746 106"/>
+        <path d="M760 160 L760 106 M820 160 L820 106"/>
+        <path d="M766 106 Q790 90 814 106"/>
+        <path d="M828 160 L828 112 M845 160 L845 112"/>
+        <path d="M830 112 Q836 104 842 112"/>
+      </g>
+
+      <!-- Corinthian capitals -->
+      <g fill="#b8d8ea" stroke="#8dbdd4" stroke-width="0.6">
+        <rect x="75" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="135" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="143" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="203" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="211" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="271" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="279" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="339" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="347" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="407" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="415" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="475" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="483" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="543" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="551" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="611" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="619" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="679" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="687" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="747" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="755" y="99" width="10" height="7" rx="1.5"/>
+        <rect x="815" y="99" width="10" height="7" rx="1.5"/>
+      </g>
+
+      <!-- ── Tier 4 (Attic) - solid wall with pilasters and windows ── -->
+      <rect x="65" y="44" width="770" height="48" fill="rgba(180,210,230,0.15)" rx="1"/>
+      <line x1="60" y1="44" x2="840" y2="44" stroke="#8dbdd4" stroke-width="2"/>
+      <line x1="62" y1="49" x2="838" y2="49" stroke="#9ec5db" stroke-width="0.8"/>
+      <line x1="58" y1="90" x2="842" y2="90" stroke="#8dbdd4" stroke-width="1"/>
+
+      <!-- Attic pilasters -->
+      <g stroke="#8dbdd4" stroke-width="1" fill="rgba(160,200,220,0.08)">
+        <rect x="84" y="50" width="8" height="38"/>
+        <rect x="152" y="50" width="8" height="38"/>
+        <rect x="220" y="50" width="8" height="38"/>
+        <rect x="288" y="50" width="8" height="38"/>
+        <rect x="356" y="50" width="8" height="38"/>
+        <rect x="424" y="50" width="8" height="38"/>
+        <rect x="492" y="50" width="8" height="38"/>
+        <rect x="560" y="50" width="8" height="38"/>
+        <rect x="628" y="50" width="8" height="38"/>
+        <rect x="696" y="50" width="8" height="38"/>
+        <rect x="764" y="50" width="8" height="38"/>
+        <rect x="820" y="50" width="8" height="38"/>
+      </g>
+
+      <!-- Small rectangular windows in attic -->
+      <g fill="rgba(60,120,160,0.08)" stroke="#8dbdd4" stroke-width="0.6">
+        <rect x="108" y="58" width="28" height="22" rx="1"/>
+        <rect x="176" y="58" width="28" height="22" rx="1"/>
+        <rect x="244" y="58" width="28" height="22" rx="1"/>
+        <rect x="312" y="58" width="28" height="22" rx="1"/>
+        <rect x="380" y="58" width="28" height="22" rx="1"/>
+        <rect x="448" y="58" width="28" height="22" rx="1"/>
+        <rect x="516" y="58" width="28" height="22" rx="1"/>
+        <rect x="584" y="58" width="28" height="22" rx="1"/>
+        <rect x="652" y="58" width="28" height="22" rx="1"/>
+        <rect x="720" y="58" width="28" height="22" rx="1"/>
+        <rect x="785" y="58" width="22" height="22" rx="1"/>
+      </g>
+
+      <!-- Top cornice crown -->
+      <line x1="56" y1="42" x2="844" y2="42" stroke="#7aadca" stroke-width="2.5"/>
+      <line x1="54" y1="38" x2="846" y2="38" stroke="#8dbdd4" stroke-width="1.5"/>
+      <line x1="58" y1="35" x2="842" y2="35" stroke="#9ec5db" stroke-width="1"/>
+
+      <!-- Corbel mast holes at top -->
+      <g fill="#8dbdd4">
+        <circle cx="96" cy="39" r="1.5"/>
+        <circle cx="164" cy="39" r="1.5"/>
+        <circle cx="232" cy="39" r="1.5"/>
+        <circle cx="300" cy="39" r="1.5"/>
+        <circle cx="368" cy="39" r="1.5"/>
+        <circle cx="436" cy="39" r="1.5"/>
+        <circle cx="504" cy="39" r="1.5"/>
+        <circle cx="572" cy="39" r="1.5"/>
+        <circle cx="640" cy="39" r="1.5"/>
+        <circle cx="708" cy="39" r="1.5"/>
+        <circle cx="776" cy="39" r="1.5"/>
+        <circle cx="830" cy="39" r="1.5"/>
+      </g>
+
+      <!-- Keystones in main arches (Tier 1) -->
+      <g fill="#b8d4e6" stroke="#8dbdd4" stroke-width="0.8">
+        <polygon points="112,244 108,252 116,252"/>
+        <polygon points="200,244 196,252 204,252"/>
+        <polygon points="288,244 284,252 292,252"/>
+        <polygon points="376,244 372,252 380,252"/>
+        <polygon points="464,244 460,252 468,252"/>
+        <polygon points="552,244 548,252 556,252"/>
+        <polygon points="640,244 636,252 644,252"/>
+        <polygon points="728,244 724,252 732,252"/>
+      </g>
     </svg>
   </div>
 
@@ -532,7 +787,7 @@
       <p>Whether you have a project in mind or simply want to start a conversation about what's possible, we'd love to hear from you.</p>
       <div class="contact-detail">
         <a href="mailto:studio@heliosarch.com">studio@heliosarch.com</a>
-        <span style="font-size:15px;color:rgba(200,180,170,0.3);">Wilmington, North Carolina</span>
+        <span style="font-size:15px;color:rgba(80,130,160,0.4);">Wilmington, North Carolina</span>
       </div>
     </div>
     <form class="contact-form reveal" onsubmit="event.preventDefault();">
