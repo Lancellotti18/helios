@@ -437,84 +437,70 @@
     <div class="col-right-2"><div class="column"><div class="col-capital"></div><div class="col-shaft"></div><div class="col-base"></div></div></div>
   </div>
 
-  <!-- Amphitheater Logo Mark -->
+  <!-- Colosseum Logo Mark -->
   <div class="logo-wrap">
-    <svg viewBox="0 0 400 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <clipPath id="outerClip">
-          <ellipse cx="200" cy="280" rx="185" ry="120"/>
+        <!-- Outer silhouette shape - the iconic Colosseum front profile -->
+        <clipPath id="coloClip">
+          <path d="M20 270 L20 90 Q30 60 60 45 Q120 15 200 10 Q280 15 340 45 Q370 60 380 90 L380 270 Z"/>
         </clipPath>
       </defs>
 
-      <!-- Outer elliptical shell -->
-      <ellipse cx="200" cy="280" rx="185" ry="120" fill="#2c3e50" stroke="none"/>
-      <!-- Inner cutout to create the wall thickness -->
-      <ellipse cx="200" cy="280" rx="155" ry="100" fill="#f4f8fc"/>
+      <!-- Main solid silhouette -->
+      <path d="M20 270 L20 90 Q30 60 60 45 Q120 15 200 10 Q280 15 340 45 Q370 60 380 90 L380 270 Z" fill="#2c3e50"/>
 
-      <!-- Solid wall bands between tiers -->
-      <!-- Tier 3 band (top) -->
-      <path d="M48 195 Q200 115 352 195 L348 180 Q200 102 52 180 Z" fill="#2c3e50" clip-path="url(#outerClip)"/>
-      <!-- Tier 2 band (middle) -->
-      <path d="M32 230 Q200 145 368 230 L365 218 Q200 135 35 218 Z" fill="#2c3e50" clip-path="url(#outerClip)"/>
-      <!-- Tier 1 band (bottom) -->
-      <path d="M20 270 Q200 185 380 270 L378 255 Q200 172 22 255 Z" fill="#2c3e50" clip-path="url(#outerClip)"/>
-
-      <!-- ── Tier 3 (Top) - 11 small arches ── -->
-      <g fill="#f4f8fc" clip-path="url(#outerClip)">
-        <ellipse cx="105" cy="186" rx="8" ry="10"/>
-        <ellipse cx="125" cy="181" rx="8" ry="10"/>
-        <ellipse cx="145" cy="177" rx="8" ry="10"/>
-        <ellipse cx="165" cy="174" rx="8" ry="10"/>
-        <ellipse cx="185" cy="172" rx="8" ry="10"/>
-        <ellipse cx="205" cy="172" rx="8" ry="10"/>
-        <ellipse cx="225" cy="173" rx="8" ry="10"/>
-        <ellipse cx="245" cy="176" rx="8" ry="10"/>
-        <ellipse cx="265" cy="180" rx="8" ry="10"/>
-        <ellipse cx="285" cy="185" rx="8" ry="10"/>
-        <ellipse cx="305" cy="191" rx="8" ry="10"/>
+      <!-- ══ Tier 1 (Bottom) - 7 tall arches ══ -->
+      <g fill="#f4f8fc">
+        <path d="M36 270 L36 200 Q36 175 58 175 Q80 175 80 200 L80 270 Z"/>
+        <path d="M90 270 L90 200 Q90 175 112 175 Q134 175 134 200 L134 270 Z"/>
+        <path d="M144 270 L144 200 Q144 175 166 175 Q188 175 188 200 L188 270 Z"/>
+        <path d="M198 270 L198 200 Q198 175 220 175 Q242 175 242 200 L242 270 Z"/>
+        <path d="M252 270 L252 200 Q252 175 274 175 Q296 175 296 200 L296 270 Z"/>
+        <path d="M306 270 L306 200 Q306 175 328 175 Q350 175 350 200 L350 270 Z"/>
+        <path d="M360 270 L360 205 Q360 185 372 185 Q380 185 380 205 L380 270 Z"/>
       </g>
 
-      <!-- ── Tier 2 (Middle) - 11 medium arches ── -->
-      <g fill="#f4f8fc" clip-path="url(#outerClip)">
-        <ellipse cx="95" cy="225" rx="10" ry="13"/>
-        <ellipse cx="118" cy="219" rx="10" ry="13"/>
-        <ellipse cx="141" cy="214" rx="10" ry="13"/>
-        <ellipse cx="164" cy="210" rx="10" ry="13"/>
-        <ellipse cx="187" cy="208" rx="10" ry="13"/>
-        <ellipse cx="210" cy="208" rx="10" ry="13"/>
-        <ellipse cx="233" cy="209" rx="10" ry="13"/>
-        <ellipse cx="256" cy="212" rx="10" ry="13"/>
-        <ellipse cx="279" cy="217" rx="10" ry="13"/>
-        <ellipse cx="302" cy="223" rx="10" ry="13"/>
-        <ellipse cx="322" cy="229" rx="10" ry="13"/>
+      <!-- Cornice line between Tier 1 and 2 -->
+      <rect x="18" y="162" width="364" height="6" fill="#2c3e50" clip-path="url(#coloClip)"/>
+
+      <!-- ══ Tier 2 (Middle) - 9 medium arches ══ -->
+      <g fill="#f4f8fc" clip-path="url(#coloClip)">
+        <path d="M30 160 L30 120 Q30 105 46 105 Q62 105 62 120 L62 160 Z"/>
+        <path d="M72 160 L72 115 Q72 100 88 100 Q104 100 104 115 L104 160 Z"/>
+        <path d="M114 160 L114 112 Q114 97 130 97 Q146 97 146 112 L146 160 Z"/>
+        <path d="M156 160 L156 110 Q156 95 172 95 Q188 95 188 110 L188 160 Z"/>
+        <path d="M198 160 L198 108 Q198 93 214 93 Q230 93 230 108 L230 160 Z"/>
+        <path d="M240 160 L240 110 Q240 95 256 95 Q272 95 272 110 L272 160 Z"/>
+        <path d="M282 160 L282 112 Q282 97 298 97 Q314 97 314 112 L314 160 Z"/>
+        <path d="M324 160 L324 115 Q324 100 340 100 Q356 100 356 115 L356 160 Z"/>
+        <path d="M366 160 L366 125 Q366 112 376 112 Q382 112 382 125 L382 160 Z"/>
       </g>
 
-      <!-- ── Tier 1 (Bottom) - 10 large arches ── -->
-      <g fill="#f4f8fc" clip-path="url(#outerClip)">
-        <ellipse cx="88" cy="264" rx="12" ry="16"/>
-        <ellipse cx="115" cy="257" rx="12" ry="16"/>
-        <ellipse cx="142" cy="251" rx="12" ry="16"/>
-        <ellipse cx="169" cy="247" rx="12" ry="16"/>
-        <ellipse cx="196" cy="245" rx="12" ry="16"/>
-        <ellipse cx="223" cy="245" rx="12" ry="16"/>
-        <ellipse cx="250" cy="248" rx="12" ry="16"/>
-        <ellipse cx="277" cy="253" rx="12" ry="16"/>
-        <ellipse cx="304" cy="259" rx="12" ry="16"/>
-        <ellipse cx="328" cy="266" rx="12" ry="16"/>
+      <!-- Cornice line between Tier 2 and 3 -->
+      <rect x="22" y="82" width="356" height="5" fill="#2c3e50" clip-path="url(#coloClip)"/>
+
+      <!-- ══ Tier 3 (Top) - 11 small arches ══ -->
+      <g fill="#f4f8fc" clip-path="url(#coloClip)">
+        <path d="M40 80 L40 68 Q40 58 50 58 Q60 58 60 68 L60 80 Z"/>
+        <path d="M68 80 L68 62 Q68 52 78 52 Q88 52 88 62 L88 80 Z"/>
+        <path d="M96 80 L96 58 Q96 48 106 48 Q116 48 116 58 L116 80 Z"/>
+        <path d="M124 80 L124 54 Q124 44 134 44 Q144 44 144 54 L144 80 Z"/>
+        <path d="M152 80 L152 50 Q152 40 162 40 Q172 40 172 50 L172 80 Z"/>
+        <path d="M180 80 L180 48 Q180 38 190 38 Q200 38 200 48 L200 80 Z"/>
+        <path d="M208 80 L208 48 Q208 38 218 38 Q228 38 228 48 L228 80 Z"/>
+        <path d="M236 80 L236 50 Q236 40 246 40 Q256 40 256 50 L256 80 Z"/>
+        <path d="M264 80 L264 54 Q264 44 274 44 Q284 44 284 54 L284 80 Z"/>
+        <path d="M292 80 L292 58 Q292 48 302 48 Q312 48 312 58 L312 80 Z"/>
+        <path d="M320 80 L320 62 Q320 52 330 52 Q340 52 340 62 L340 80 Z"/>
+        <path d="M348 80 L348 66 Q348 58 356 58 Q364 58 364 66 L364 80 Z"/>
       </g>
 
-      <!-- Attic wall (top solid band) -->
-      <path d="M55 178 Q200 100 345 178 L350 168 Q200 88 50 168 Z" fill="#2c3e50" clip-path="url(#outerClip)"/>
+      <!-- Attic crown - solid top band -->
+      <path d="M38 40 Q120 14 200 10 Q280 14 362 40 L362 34 Q280 8 200 4 Q120 8 38 34 Z" fill="#2c3e50"/>
 
-      <!-- Top cornice - bold crown line -->
-      <path d="M50 168 Q200 86 350 168" stroke="#2c3e50" stroke-width="5" fill="none" stroke-linecap="round"/>
-
-      <!-- Inner ellipse shadow line for depth -->
-      <ellipse cx="200" cy="285" rx="140" ry="88" fill="none" stroke="#2c3e50" stroke-width="1.5" opacity="0.15"/>
-
-      <!-- Base platform -->
-      <path d="M15 300 Q200 210 385 300" stroke="#2c3e50" stroke-width="4" fill="none" stroke-linecap="round"/>
-      <path d="M10 308 Q200 220 390 308" stroke="#2c3e50" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+      <!-- Base line -->
+      <rect x="14" y="270" width="372" height="6" rx="1" fill="#2c3e50"/>
     </svg>
   </div>
 
