@@ -4,39 +4,39 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Helios Web Architecture</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; overflow-x: hidden; }
   body {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    background: #f5f0e8;
-    color: #3a4a5a;
+    background: #0b1a2a;
+    color: #e8e4dc;
     overflow-x: hidden;
   }
 
   /* ── Nav ───────────────────────────────────────────── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: center; align-items: center; height: 68px;
-    background: linear-gradient(180deg, rgba(245,240,232,0.97) 0%, rgba(245,240,232,0.85) 70%, rgba(245,240,232,0) 100%);
-    border-bottom: 1px solid rgba(135,190,220,0.18);
-    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    display: flex; justify-content: center; align-items: center; height: 78px;
+    background: linear-gradient(180deg, rgba(8,18,32,0.97) 0%, rgba(8,18,32,0.85) 70%, transparent 100%);
+    border-bottom: 1px solid rgba(120,190,230,0.12);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
   }
-  nav ul { display: flex; list-style: none; gap: 48px; }
+  nav ul { display: flex; list-style: none; gap: 44px; }
   nav a {
     font-family: 'Cinzel', serif;
-    color: rgba(100,160,200,0.6); text-decoration: none;
-    font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
-    position: relative; padding: 6px 0; transition: color 0.4s ease;
+    color: rgba(160,210,240,0.7); text-decoration: none;
+    font-size: 15px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+    position: relative; padding: 8px 0; transition: color 0.4s ease;
   }
   nav a::after {
     content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-    width: 0; height: 1px;
-    background: linear-gradient(90deg, transparent, #7ab8d9, transparent);
+    width: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, #7ac4e8, transparent);
     transition: width 0.5s ease;
   }
-  nav a:hover { color: #5a9ec8; }
+  nav a:hover { color: #8ad0f0; }
   nav a:hover::after { width: 120%; }
 
   /* ── Hero ──────────────────────────────────────────── */
@@ -47,196 +47,272 @@
     align-items: center; justify-content: center;
     padding: 100px 40px 80px;
     overflow: hidden;
-    background: linear-gradient(170deg, #eee8de 0%, #f5f0e8 25%, #faf6f0 50%, #f5f0e8 75%, #eee8de 100%);
+    background: linear-gradient(180deg, #081220 0%, #0d2035 30%, #0f2840 60%, #0b1a2a 100%);
+  }
+
+  /* ── Cloud animation ───────────────────────────────── */
+  .clouds {
+    position: absolute; inset: 0; overflow: hidden; z-index: 0;
+    pointer-events: none;
+  }
+  .cloud {
+    position: absolute;
+    background: radial-gradient(ellipse at center,
+      rgba(120,190,235,0.06) 0%,
+      rgba(100,170,220,0.03) 40%,
+      transparent 70%
+    );
+    border-radius: 50%;
+    animation: cloudDrift linear infinite;
+  }
+  .cloud:nth-child(1) { width: 800px; height: 250px; top: 8%; left: -200px; animation-duration: 80s; opacity: 0.8; }
+  .cloud:nth-child(2) { width: 600px; height: 200px; top: 25%; left: -150px; animation-duration: 100s; animation-delay: -20s; opacity: 0.6; }
+  .cloud:nth-child(3) { width: 900px; height: 280px; top: 50%; left: -250px; animation-duration: 120s; animation-delay: -40s; opacity: 0.5; }
+  .cloud:nth-child(4) { width: 700px; height: 220px; top: 70%; left: -180px; animation-duration: 90s; animation-delay: -60s; opacity: 0.7; }
+  .cloud:nth-child(5) { width: 500px; height: 180px; top: 15%; left: -120px; animation-duration: 110s; animation-delay: -50s; opacity: 0.4; }
+  .cloud:nth-child(6) { width: 750px; height: 240px; top: 40%; left: -200px; animation-duration: 95s; animation-delay: -30s; opacity: 0.55; }
+  .cloud:nth-child(7) { width: 650px; height: 210px; top: 60%; left: -160px; animation-duration: 85s; animation-delay: -70s; opacity: 0.45; }
+  .cloud:nth-child(8) { width: 850px; height: 260px; top: 5%; left: -220px; animation-duration: 105s; animation-delay: -15s; opacity: 0.35; }
+
+  @keyframes cloudDrift {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(100vw + 900px)); }
+  }
+
+  /* Subtle ambient glow behind logo */
+  .hero::before {
+    content: ''; position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -55%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(100,180,230,0.08) 0%, rgba(80,160,220,0.03) 40%, transparent 70%);
+    z-index: 0; pointer-events: none;
   }
 
   /* ── Logo ───────────────────────────────────────────── */
   .logo-wrap {
     position: relative; z-index: 2;
-    width: 100%; max-width: 420px;
-    margin-bottom: 40px;
+    width: 100%; max-width: 600px;
+    margin-bottom: 48px;
   }
   .logo-wrap img {
     width: 100%; height: auto;
-    mix-blend-mode: multiply;
+    filter: drop-shadow(0 0 40px rgba(100,180,235,0.15)) drop-shadow(0 0 80px rgba(80,160,220,0.08));
   }
 
   /* ── Hero text ────────────────────────────────────── */
   .hero-title {
     font-family: 'Cinzel', serif;
-    font-size: 48px; font-weight: 600;
-    letter-spacing: 8px; text-transform: uppercase;
+    font-size: 52px; font-weight: 700;
+    letter-spacing: 10px; text-transform: uppercase;
     text-align: center; line-height: 1.15;
-    color: #5a9ec8;
+    color: #ffffff;
+    text-shadow: 0 0 30px rgba(100,180,235,0.2);
     position: relative; z-index: 2;
   }
   .hero-title span {
-    display: block; font-size: 15px; font-weight: 400;
-    letter-spacing: 7px; margin-top: 12px;
-    color: rgba(100,165,210,0.5);
+    display: block; font-size: 17px; font-weight: 500;
+    letter-spacing: 8px; margin-top: 16px;
+    color: rgba(130,200,240,0.6);
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
   }
 
   .hero-line {
-    width: 100px; height: 1px; margin: 28px auto;
-    background: linear-gradient(90deg, transparent, rgba(120,185,220,0.4), transparent);
+    width: 120px; height: 1px; margin: 32px auto;
+    background: linear-gradient(90deg, transparent, rgba(120,190,235,0.4), transparent);
     position: relative; z-index: 2;
   }
   .hero-line::before {
     content: ''; position: absolute; top: -3px; left: 50%; transform: translateX(-50%) rotate(45deg);
-    width: 7px; height: 7px; border: 1px solid rgba(120,185,220,0.4);
-    background: #f5f0e8;
+    width: 7px; height: 7px; border: 1px solid rgba(120,190,235,0.4);
+    background: #0d2035;
   }
 
   .hero-subtitle {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 17px; font-style: italic;
-    color: rgba(100,160,200,0.45);
+    font-size: 19px; font-style: italic; font-weight: 500;
+    color: rgba(160,210,240,0.5);
     text-align: center; z-index: 2; position: relative;
     letter-spacing: 2px;
   }
 
   .scroll-hint {
-    position: absolute; bottom: 32px;
-    display: flex; flex-direction: column; align-items: center; gap: 6px;
-    opacity: 0.4; animation: scrollFade 3s ease-in-out infinite; z-index: 2;
+    position: absolute; bottom: 36px;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0.5; animation: scrollFade 3s ease-in-out infinite; z-index: 2;
   }
   .scroll-hint span {
     font-family: 'Cinzel', serif;
-    font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: rgba(100,165,210,0.45);
+    font-size: 11px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase;
+    color: rgba(130,200,240,0.5);
   }
   .scroll-hint .chevron {
-    width: 14px; height: 14px;
-    border-right: 1px solid rgba(120,185,220,0.4); border-bottom: 1px solid rgba(120,185,220,0.4);
+    width: 16px; height: 16px;
+    border-right: 2px solid rgba(120,190,235,0.4); border-bottom: 2px solid rgba(120,190,235,0.4);
     transform: rotate(45deg); animation: chevronBounce 2s ease-in-out infinite;
   }
-  @keyframes scrollFade { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.15; } }
-  @keyframes chevronBounce { 0%, 100% { transform: rotate(45deg) translateY(0); } 50% { transform: rotate(45deg) translateY(5px); } }
+  @keyframes scrollFade { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.2; } }
+  @keyframes chevronBounce { 0%, 100% { transform: rotate(45deg) translateY(0); } 50% { transform: rotate(45deg) translateY(6px); } }
 
   /* ── Sections ─────────────────────────────────────── */
   section {
-    position: relative; max-width: 960px; margin: 0 auto; padding: 120px 40px;
+    position: relative; max-width: 1000px; margin: 0 auto; padding: 120px 40px;
   }
   .section-label {
     font-family: 'Cinzel', serif;
-    font-size: 11px; letter-spacing: 5px; text-transform: uppercase;
-    color: rgba(100,165,210,0.45); margin-bottom: 12px;
+    font-size: 13px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase;
+    color: rgba(120,190,235,0.5); margin-bottom: 12px;
   }
   .section-title {
     font-family: 'Cinzel', serif;
-    font-size: 36px; font-weight: 500; letter-spacing: 4px;
-    color: #5a9ec8; margin-bottom: 16px;
+    font-size: 40px; font-weight: 600; letter-spacing: 4px;
+    color: #8ad0f0; margin-bottom: 18px;
   }
   .section-divider {
-    width: 80px; height: 1px;
-    background: linear-gradient(90deg, rgba(120,185,220,0.4), transparent);
+    width: 80px; height: 2px;
+    background: linear-gradient(90deg, rgba(120,190,235,0.5), transparent);
     margin-bottom: 48px; position: relative;
   }
   .section-divider::before {
-    content: ''; position: absolute; top: -2.5px; left: 0;
-    width: 6px; height: 6px; border: 1px solid rgba(120,185,220,0.4);
-    transform: rotate(45deg); background: #f5f0e8;
+    content: ''; position: absolute; top: -3px; left: 0;
+    width: 8px; height: 8px; border: 1.5px solid rgba(120,190,235,0.5);
+    transform: rotate(45deg); background: #0b1a2a;
   }
 
   /* ── Cards ────────────────────────────────────────── */
   .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
   .card {
-    background: #faf6f0;
-    border: 1px solid rgba(120,185,220,0.15);
-    border-radius: 6px; padding: 36px; transition: all 0.5s ease;
+    background: rgba(15,35,55,0.6);
+    border: 1px solid rgba(120,190,235,0.1);
+    border-radius: 8px; padding: 36px; transition: all 0.5s ease;
     position: relative; overflow: hidden;
-    box-shadow: 0 2px 12px rgba(100,160,200,0.05);
+    backdrop-filter: blur(8px);
   }
   .card::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(120,185,220,0.35), transparent);
+    background: linear-gradient(90deg, transparent, rgba(120,190,235,0.3), transparent);
     opacity: 0; transition: opacity 0.5s ease;
   }
   .card:hover {
-    background: #fdfaf5;
-    border-color: rgba(120,185,220,0.3);
+    background: rgba(15,40,65,0.7);
+    border-color: rgba(120,190,235,0.25);
     transform: translateY(-4px);
-    box-shadow: 0 8px 30px rgba(100,160,200,0.08);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
   }
   .card:hover::before { opacity: 1; }
   .card h3 {
     font-family: 'Cinzel', serif;
-    font-size: 19px; font-weight: 500; color: #5a9ec8; margin-bottom: 10px;
+    font-size: 21px; font-weight: 600; color: #8ad0f0; margin-bottom: 10px;
   }
   .card .meta {
     font-family: 'Cinzel', serif;
-    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-    color: rgba(100,165,210,0.45); margin-bottom: 14px;
+    font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(120,190,235,0.4); margin-bottom: 14px;
   }
-  .card p { font-size: 15.5px; line-height: 1.8; color: rgba(60,75,90,0.6); }
+  .card p { font-size: 17px; font-weight: 500; line-height: 1.8; color: rgba(220,215,205,0.7); }
 
   .services-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; }
 
   /* ── Pricing ──────────────────────────────────────── */
   .pricing-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; }
   .pricing-card {
-    background: #faf6f0; border: 1px solid rgba(120,185,220,0.15);
-    border-radius: 6px; padding: 40px 32px; text-align: center;
+    background: rgba(15,35,55,0.6); border: 1px solid rgba(120,190,235,0.1);
+    border-radius: 8px; padding: 44px 32px; text-align: center;
     transition: all 0.5s ease; position: relative;
-    box-shadow: 0 2px 12px rgba(100,160,200,0.05);
+    backdrop-filter: blur(8px);
   }
-  .pricing-card.featured { border-color: rgba(100,175,220,0.35); background: #fdfaf5; box-shadow: 0 4px 24px rgba(100,160,200,0.08); }
-  .pricing-card:hover { border-color: rgba(120,185,220,0.35); transform: translateY(-4px); box-shadow: 0 8px 30px rgba(100,160,200,0.08); }
-  .pricing-card h3 { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 500; color: #5a9ec8; margin-bottom: 8px; }
-  .pricing-card .price { font-family: 'Cinzel', serif; font-size: 34px; font-weight: 600; color: #4a7a98; margin: 18px 0; }
-  .pricing-card .price span { font-size: 14px; font-weight: 400; color: rgba(90,140,180,0.4); }
-  .pricing-card .tier-desc { font-size: 14px; color: rgba(90,140,180,0.45); margin-bottom: 22px; font-style: italic; }
-  .pricing-card ul { list-style: none; text-align: left; margin-bottom: 28px; }
-  .pricing-card li { font-size: 15px; color: rgba(60,75,90,0.6); padding: 8px 0; border-bottom: 1px solid rgba(120,185,220,0.06); }
-  .pricing-card li::before { content: '\2022 '; color: rgba(100,175,220,0.4); }
+  .pricing-card.featured {
+    border-color: rgba(120,190,235,0.3);
+    background: rgba(20,45,70,0.7);
+    box-shadow: 0 0 40px rgba(100,180,235,0.06);
+  }
+  .pricing-card:hover { border-color: rgba(120,190,235,0.3); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+  .pricing-card h3 { font-family: 'Cinzel', serif; font-size: 22px; font-weight: 600; color: #8ad0f0; margin-bottom: 8px; }
+  .pricing-card .price { font-family: 'Cinzel', serif; font-size: 38px; font-weight: 700; color: #ffffff; margin: 20px 0; }
+  .pricing-card .price span { font-size: 15px; font-weight: 400; color: rgba(160,210,240,0.4); }
+  .pricing-card .tier-desc { font-size: 16px; font-weight: 500; color: rgba(160,210,240,0.5); margin-bottom: 24px; font-style: italic; }
+  .pricing-card ul { list-style: none; text-align: left; margin-bottom: 32px; }
+  .pricing-card li { font-size: 16px; font-weight: 500; color: rgba(220,215,205,0.65); padding: 9px 0; border-bottom: 1px solid rgba(120,190,235,0.06); }
+  .pricing-card li::before { content: '\2022 '; color: rgba(120,190,235,0.4); }
   .pricing-btn {
-    display: inline-block; padding: 12px 30px; background: transparent;
-    border: 1px solid rgba(100,175,220,0.3); border-radius: 4px;
-    color: #5a9ec8; font-family: 'Cinzel', serif; font-size: 11px;
+    display: inline-block; padding: 14px 34px; background: transparent;
+    border: 1.5px solid rgba(120,190,235,0.3); border-radius: 4px;
+    color: #8ad0f0; font-family: 'Cinzel', serif; font-size: 12px; font-weight: 600;
     letter-spacing: 3px; text-transform: uppercase; text-decoration: none;
     cursor: pointer; transition: all 0.4s ease;
   }
-  .pricing-btn:hover { background: rgba(120,185,220,0.06); border-color: rgba(100,175,220,0.5); }
+  .pricing-btn:hover { background: rgba(120,190,235,0.08); border-color: rgba(120,190,235,0.5); box-shadow: 0 0 20px rgba(100,180,235,0.1); }
+
+  /* ── Guarantee banner ──────────────────────────────── */
+  .guarantee {
+    margin-top: 48px; text-align: center;
+    padding: 36px; border: 1px solid rgba(120,190,235,0.15);
+    border-radius: 8px; background: rgba(15,40,65,0.4);
+  }
+  .guarantee h3 {
+    font-family: 'Cinzel', serif; font-size: 24px; font-weight: 700;
+    color: #8ad0f0; margin-bottom: 12px;
+  }
+  .guarantee .g-price {
+    font-family: 'Cinzel', serif; font-size: 48px; font-weight: 800;
+    color: #ffffff; margin: 16px 0;
+  }
+  .guarantee .g-price span { font-size: 18px; font-weight: 400; color: rgba(160,210,240,0.45); }
+  .guarantee p {
+    font-size: 18px; font-weight: 500; line-height: 1.9;
+    color: rgba(220,215,205,0.65); max-width: 640px; margin: 0 auto;
+  }
+  .guarantee .g-tag {
+    display: inline-block; margin-top: 20px; padding: 10px 28px;
+    background: rgba(120,190,235,0.08); border: 1px solid rgba(120,190,235,0.2);
+    border-radius: 4px; font-family: 'Cinzel', serif; font-size: 12px;
+    font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+    color: #8ad0f0;
+  }
 
   /* ── About ────────────────────────────────────────── */
   .about-text { max-width: 760px; }
-  .about-text p { font-size: 17px; line-height: 2; color: rgba(60,75,90,0.6); margin-bottom: 24px; }
+  .about-text p { font-size: 18px; font-weight: 500; line-height: 2; color: rgba(220,215,205,0.65); margin-bottom: 24px; }
 
   /* ── Contact ──────────────────────────────────────── */
   .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
-  .contact-info p { font-size: 17px; line-height: 2; color: rgba(60,75,90,0.55); margin-bottom: 28px; }
+  .contact-info p { font-size: 18px; font-weight: 500; line-height: 2; color: rgba(220,215,205,0.6); margin-bottom: 28px; }
   .contact-detail { display: flex; flex-direction: column; gap: 18px; }
-  .contact-detail a { color: rgba(80,145,190,0.7); text-decoration: none; font-size: 16px; letter-spacing: 1px; transition: color 0.3s ease; }
-  .contact-detail a:hover { color: #5a9ec8; }
+  .contact-detail a { color: rgba(130,200,240,0.75); text-decoration: none; font-size: 17px; font-weight: 600; letter-spacing: 1px; transition: color 0.3s ease; }
+  .contact-detail a:hover { color: #8ad0f0; }
   .contact-form { display: flex; flex-direction: column; gap: 22px; }
   .contact-form input, .contact-form textarea {
-    width: 100%; padding: 14px 18px;
-    background: #faf6f0;
-    border: 1px solid rgba(120,185,220,0.15); border-radius: 4px;
-    color: #4a7a98; font-family: 'Cormorant Garamond', serif; font-size: 16px;
+    width: 100%; padding: 16px 20px;
+    background: rgba(15,35,55,0.5);
+    border: 1px solid rgba(120,190,235,0.12); border-radius: 5px;
+    color: #e8e4dc; font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500;
     outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
-  .contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(100,160,200,0.3); }
-  .contact-form input:focus, .contact-form textarea:focus { border-color: rgba(100,175,220,0.35); box-shadow: 0 0 16px rgba(120,185,220,0.08); }
-  .contact-form textarea { min-height: 130px; resize: vertical; }
+  .contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(160,210,240,0.25); }
+  .contact-form input:focus, .contact-form textarea:focus { border-color: rgba(120,190,235,0.3); box-shadow: 0 0 20px rgba(100,180,235,0.08); }
+  .contact-form textarea { min-height: 140px; resize: vertical; }
   .contact-form button {
-    align-self: flex-start; padding: 13px 36px; background: transparent;
-    border: 1px solid rgba(100,175,220,0.3); border-radius: 4px;
-    color: #5a9ec8; font-family: 'Cinzel', serif; font-size: 12px;
+    align-self: flex-start; padding: 15px 40px; background: transparent;
+    border: 1.5px solid rgba(120,190,235,0.3); border-radius: 4px;
+    color: #8ad0f0; font-family: 'Cinzel', serif; font-size: 13px; font-weight: 600;
     letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease;
   }
-  .contact-form button:hover { background: rgba(120,185,220,0.06); border-color: rgba(100,175,220,0.5); }
+  .contact-form button:hover { background: rgba(120,190,235,0.08); border-color: rgba(120,190,235,0.5); box-shadow: 0 0 20px rgba(100,180,235,0.1); }
+  .form-status {
+    font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 2px;
+    color: #8ad0f0; display: none; margin-top: 8px;
+  }
 
   /* ── Footer ───────────────────────────────────────── */
   footer {
-    text-align: center; padding: 56px 40px;
-    border-top: 1px solid rgba(120,185,220,0.1);
-    background: #efe9df;
+    text-align: center; padding: 60px 40px;
+    border-top: 1px solid rgba(120,190,235,0.08);
+    background: rgba(6,14,24,0.6);
   }
   footer p {
     font-family: 'Cinzel', serif;
-    font-size: 11px; letter-spacing: 3px; color: rgba(100,160,200,0.3); text-transform: uppercase;
+    font-size: 12px; font-weight: 600; letter-spacing: 3px;
+    color: rgba(130,200,240,0.25); text-transform: uppercase;
   }
 
   /* ── Reveal ───────────────────────────────────────── */
@@ -246,12 +322,15 @@
   /* ── Responsive ───────────────────────────────────── */
   @media (max-width: 900px) { .services-grid, .pricing-grid { grid-template-columns: 1fr; } }
   @media (max-width: 768px) {
-    nav ul { gap: 20px; } nav a { font-size: 10px; letter-spacing: 2px; }
-    .hero-title { font-size: 28px; letter-spacing: 4px; }
-    .logo-wrap { max-width: 300px; }
+    nav ul { gap: 18px; flex-wrap: wrap; justify-content: center; }
+    nav a { font-size: 12px; letter-spacing: 2px; }
+    .hero-title { font-size: 30px; letter-spacing: 5px; }
+    .logo-wrap { max-width: 340px; }
     .projects-grid { grid-template-columns: 1fr; }
     .contact-layout { grid-template-columns: 1fr; }
-    section { padding: 80px 24px; } .section-title { font-size: 26px; }
+    section { padding: 80px 24px; }
+    .section-title { font-size: 30px; }
+    .guarantee .g-price { font-size: 36px; }
   }
 </style>
 </head>
@@ -266,9 +345,21 @@
 </ul></nav>
 
 <div class="hero">
-  <!-- Colosseum Logo -->
+  <!-- Animated clouds -->
+  <div class="clouds">
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+    <div class="cloud"></div>
+  </div>
+
+  <!-- Logo -->
   <div class="logo-wrap">
-    <img src="logo.png?v=2" alt="Helios Web Architecture - Colosseum Logo">
+    <img src="logo.png?v=3" alt="Helios Web Architecture Logo">
   </div>
 
   <h1 class="hero-title">
@@ -313,6 +404,14 @@
     <div class="pricing-card featured reveal"><h3>Radiance</h3><p class="tier-desc">For growing businesses ready to stand out</p><div class="price">$6,000 <span>starting</span></div><ul><li>Full website + brand identity</li><li>Custom animations & interactions</li><li>3 revision rounds</li><li>14-day turnaround</li><li>30-day post-launch support</li></ul><a href="#contact" class="pricing-btn">Get Started</a></div>
     <div class="pricing-card reveal"><h3>Supernova</h3><p class="tier-desc">For established brands seeking premium execution</p><div class="price">$12,000+ <span>custom</span></div><ul><li>End-to-end creative direction</li><li>Multi-page site + motion design</li><li>Unlimited revisions</li><li>Priority turnaround</li><li>Ongoing retainer available</li></ul><a href="#contact" class="pricing-btn">Get Started</a></div>
   </div>
+
+  <!-- Base Package Guarantee -->
+  <div class="guarantee reveal">
+    <h3>Your Vision, Built Fast</h3>
+    <div class="g-price">$1,500 <span>base package</span></div>
+    <p>A fully custom, professionally designed website — delivered in under two weeks. No templates. No shortcuts. Just clean, modern design built for speed, performance, and results. We move fast so you can launch faster.</p>
+    <div class="g-tag">14-Day Delivery Guarantee</div>
+  </div>
 </section>
 
 <section id="about">
@@ -331,15 +430,16 @@
     <div class="contact-info reveal">
       <p>Whether you have a project in mind or simply want to start a conversation about what's possible, we'd love to hear from you.</p>
       <div class="contact-detail">
-        <a href="mailto:studio@heliosarch.com">studio@heliosarch.com</a>
-        <span style="font-size:15px;color:rgba(90,140,180,0.35);">Wilmington, North Carolina</span>
+        <a href="mailto:helios.archstudios@gmail.com">helios.archstudios@gmail.com</a>
+        <span style="font-size:16px;font-weight:500;color:rgba(160,210,240,0.35);">Wilmington, North Carolina</span>
       </div>
     </div>
-    <form class="contact-form reveal" onsubmit="event.preventDefault();">
-      <input type="text" placeholder="Name" required>
-      <input type="email" placeholder="Email" required>
-      <textarea placeholder="Tell us about your vision..."></textarea>
+    <form class="contact-form reveal" id="contactForm">
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <textarea name="message" placeholder="Tell us about your vision..."></textarea>
       <button type="submit">Send Message</button>
+      <p class="form-status" id="formStatus">Message sent successfully!</p>
     </form>
   </div>
 </section>
@@ -355,6 +455,21 @@
   }, { threshold: 0.15 });
   r.forEach(el => o.observe(el));
 })();
+
+// Contact form — sends via mailto as fallback, or integrate with Formspree/EmailJS
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = this.name.value;
+  const email = this.email.value;
+  const message = this.message.value;
+  const subject = encodeURIComponent('Helios Web Architecture — New Inquiry from ' + name);
+  const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
+  window.location.href = 'mailto:helios.archstudios@gmail.com?subject=' + subject + '&body=' + body;
+  const status = document.getElementById('formStatus');
+  status.style.display = 'block';
+  this.reset();
+  setTimeout(() => { status.style.display = 'none'; }, 4000);
+});
 </script>
 </body>
 </html>
