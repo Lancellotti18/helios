@@ -50,167 +50,68 @@
     background: linear-gradient(170deg, #e8f2fa 0%, #f4f8fc 30%, #ffffff 60%, #eaf1f8 100%);
   }
 
-  /* Column frame - condensed, more square */
+  /* Column frame */
   .column-frame {
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    width: min(680px, 85vw);
-    height: min(560px, 75vh);
+    width: min(740px, 90vw);
+    height: min(600px, 80vh);
     pointer-events: none; z-index: 1;
   }
 
-  /* Entablature - top and bottom horizontal bars */
+  /* SVG columns positioned at frame edges */
+  .column-svg {
+    position: absolute; top: 0; bottom: 0;
+    width: 80px;
+  }
+  .column-svg.left { left: -10px; }
+  .column-svg.right { right: -10px; transform: scaleX(-1); }
+  .column-svg svg { width: 100%; height: 100%; }
+
+  /* Entablature bars */
   .entablature-top, .entablature-bottom {
-    position: absolute; left: 0; right: 0; height: 28px;
-    background: linear-gradient(180deg, #d6e8f2, #c0d8e8);
-    border: 2px solid #a8cce0;
+    position: absolute; left: 60px; right: 60px;
   }
   .entablature-top {
-    top: 0;
-    border-radius: 2px 2px 0 0;
-    box-shadow: 0 4px 12px rgba(135,190,220,0.15);
+    top: -6px; height: 42px;
+    background: linear-gradient(180deg, #b0ccdf 0%, #c4dcec 20%, #d2e6f2 40%, #c4dcec 60%, #b0ccdf 80%, #a0c0d6 100%);
+    border: 1.5px solid #8eb8d0;
+    border-radius: 2px;
+    box-shadow: 0 4px 16px rgba(120,170,210,0.12);
   }
   .entablature-top::before {
-    content: ''; position: absolute; bottom: -8px; left: 8px; right: 8px;
-    height: 6px; background: linear-gradient(180deg, #b8d4e6, transparent);
-    border-left: 1px solid rgba(135,190,220,0.3);
-    border-right: 1px solid rgba(135,190,220,0.3);
-  }
-  .entablature-top::after {
-    content: ''; position: absolute; top: -10px; left: -4px; right: -4px;
-    height: 10px;
-    background: linear-gradient(180deg, #bfd8ea, #c8ddef);
-    border: 2px solid #a8cce0;
+    content: ''; position: absolute; top: -12px; left: -6px; right: -6px;
+    height: 12px;
+    background: linear-gradient(180deg, #a8cce0, #b8d6ea, #c8e0f0, #b0ccdf);
+    border: 1.5px solid #8eb8d0;
     border-bottom: none;
     border-radius: 3px 3px 0 0;
   }
+  .entablature-top::after {
+    content: ''; position: absolute; bottom: -8px; left: 4px; right: 4px;
+    height: 8px;
+    background: linear-gradient(180deg, #bcd6e8 0%, #d0e4f0 50%, transparent 100%);
+    border-left: 1px solid rgba(120,170,200,0.2);
+    border-right: 1px solid rgba(120,170,200,0.2);
+  }
   .entablature-bottom {
-    bottom: 0;
-    border-radius: 0 0 2px 2px;
-    box-shadow: 0 -2px 8px rgba(135,190,220,0.1);
+    bottom: -4px; height: 36px;
+    background: linear-gradient(0deg, #b0ccdf 0%, #c4dcec 30%, #d2e6f2 50%, #c4dcec 70%, #b0ccdf 100%);
+    border: 1.5px solid #8eb8d0;
+    border-radius: 2px;
+    box-shadow: 0 -3px 12px rgba(120,170,210,0.08);
   }
   .entablature-bottom::before {
-    content: ''; position: absolute; top: -6px; left: 10px; right: 10px;
-    height: 4px; background: linear-gradient(0deg, #b8d4e6, transparent);
+    content: ''; position: absolute; top: -6px; left: 4px; right: 4px;
+    height: 6px;
+    background: linear-gradient(0deg, #bcd6e8, transparent);
   }
-
-  /* ── Thick Roman columns ─────────────────────────── */
-  .col-left, .col-right {
-    position: absolute; top: 28px; bottom: 28px; width: 52px;
-    display: flex; flex-direction: column; align-items: center;
-  }
-  .col-left { left: -8px; }
-  .col-right { right: -8px; }
-
-  /* Outer columns */
-  .col-left-2, .col-right-2 {
-    position: absolute; top: 28px; bottom: 28px; width: 42px;
-    display: flex; flex-direction: column; align-items: center;
-  }
-  .col-left-2 { left: 56px; }
-  .col-right-2 { right: 56px; }
-
-  .column {
-    width: 100%; height: 100%;
-    display: flex; flex-direction: column; align-items: center;
-  }
-
-  /* Capitals - Corinthian style */
-  .col-capital {
-    width: 100%; height: 32px; position: relative;
-    background: linear-gradient(180deg, #c8ddef, #b0ccdf);
-    border: 2px solid #9cc0d6;
-    border-radius: 3px 3px 0 0;
-  }
-  .col-capital::before {
-    content: ''; position: absolute; bottom: 4px; left: 6px; right: 6px;
-    height: 14px;
-    border: 1.5px solid rgba(120,170,200,0.5);
-    border-bottom: none; border-radius: 6px 6px 0 0;
-  }
-  .col-capital::after {
-    content: ''; position: absolute; bottom: 2px; left: 12px; right: 12px;
-    height: 8px;
-    border: 1px solid rgba(120,170,200,0.35);
-    border-bottom: none; border-radius: 4px 4px 0 0;
-  }
-  .col-left-2 .col-capital, .col-right-2 .col-capital {
-    height: 26px;
-  }
-  .col-left-2 .col-capital::before, .col-right-2 .col-capital::before {
-    height: 10px; left: 5px; right: 5px;
-  }
-  .col-left-2 .col-capital::after, .col-right-2 .col-capital::after {
-    height: 6px; left: 9px; right: 9px;
-  }
-
-  /* Shaft - thick with deep fluting */
-  .col-shaft {
-    flex: 1; width: 38px;
-    background: linear-gradient(90deg,
-      #aac8dc 0%, #c0d8ea 15%, #d0e4f0 30%,
-      #d8eaf4 50%,
-      #d0e4f0 70%, #c0d8ea 85%, #aac8dc 100%
-    );
-    border-left: 2px solid #9cc0d6;
-    border-right: 2px solid #9cc0d6;
-    position: relative;
-  }
-  /* Fluting grooves */
-  .col-shaft::before {
-    content: ''; position: absolute; inset: 0;
-    background: repeating-linear-gradient(90deg,
-      transparent 0px, transparent 4px,
-      rgba(100,150,180,0.12) 4px, rgba(100,150,180,0.12) 5px,
-      transparent 5px, transparent 6px
-    );
-  }
-  .col-shaft::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(180deg,
-      rgba(255,255,255,0.3) 0%, transparent 5%,
-      transparent 95%, rgba(255,255,255,0.2) 100%
-    );
-  }
-  .col-left-2 .col-shaft, .col-right-2 .col-shaft {
-    width: 30px;
-  }
-
-  /* Entasis - slight taper via clip */
-  .col-left .col-shaft, .col-right .col-shaft {
-    clip-path: polygon(4% 0%, 96% 0%, 100% 100%, 0% 100%);
-  }
-  .col-left-2 .col-shaft, .col-right-2 .col-shaft {
-    clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
-  }
-
-  /* Base - Attic base with torus moldings */
-  .col-base {
-    width: 100%; height: 24px;
-    position: relative;
-    background: linear-gradient(180deg, #b8d4e6, #c8ddef);
-    border: 2px solid #9cc0d6;
-    border-radius: 0 0 3px 3px;
-  }
-  .col-base::before {
-    content: ''; position: absolute; top: 4px; left: 4px; right: 4px;
-    height: 6px; border-radius: 3px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.4), rgba(150,190,215,0.3));
-    border: 1px solid rgba(120,170,200,0.3);
-  }
-  .col-base::after {
-    content: ''; position: absolute; bottom: 0; left: -4px; right: -4px;
-    height: 6px; background: #b0ccdf;
-    border: 1.5px solid #9cc0d6;
-    border-radius: 0 0 2px 2px;
-  }
-  .col-left-2 .col-base, .col-right-2 .col-base { height: 20px; }
 
   /* ── Logo Mark ────────────────────────────────────── */
   .logo-wrap {
     position: relative; z-index: 2;
-    width: 100%; max-width: 340px;
+    width: 100%; max-width: 480px;
     margin-bottom: 36px;
   }
   .logo-wrap img {
@@ -406,9 +307,10 @@
   @media (max-width: 768px) {
     nav ul { gap: 20px; } nav a { font-size: 10px; letter-spacing: 2px; }
     .hero-title { font-size: 28px; letter-spacing: 4px; }
-    .column-frame { width: 92vw; height: 70vh; }
-    .col-left-2, .col-right-2 { display: none; }
-    .logo-wrap { max-width: 220px; }
+    .column-frame { width: 95vw; height: 72vh; }
+    .column-svg { width: 50px; }
+    .entablature-top, .entablature-bottom { left: 36px; right: 36px; }
+    .logo-wrap { max-width: 320px; }
     .projects-grid { grid-template-columns: 1fr; }
     .contact-layout { grid-template-columns: 1fr; }
     section { padding: 80px 24px; } .section-title { font-size: 26px; }
@@ -431,10 +333,157 @@
     <div class="entablature-top"></div>
     <div class="entablature-bottom"></div>
 
-    <div class="col-left"><div class="column"><div class="col-capital"></div><div class="col-shaft"></div><div class="col-base"></div></div></div>
-    <div class="col-right"><div class="column"><div class="col-capital"></div><div class="col-shaft"></div><div class="col-base"></div></div></div>
-    <div class="col-left-2"><div class="column"><div class="col-capital"></div><div class="col-shaft"></div><div class="col-base"></div></div></div>
-    <div class="col-right-2"><div class="column"><div class="col-capital"></div><div class="col-shaft"></div><div class="col-base"></div></div></div>
+    <!-- Left Column (SVG) -->
+    <div class="column-svg left">
+      <svg viewBox="0 0 80 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="shaftGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#92bcd4"/>
+            <stop offset="15%" stop-color="#b0d0e4"/>
+            <stop offset="30%" stop-color="#c8e0f0"/>
+            <stop offset="50%" stop-color="#d6eaf6"/>
+            <stop offset="70%" stop-color="#c8e0f0"/>
+            <stop offset="85%" stop-color="#b0d0e4"/>
+            <stop offset="100%" stop-color="#92bcd4"/>
+          </linearGradient>
+          <linearGradient id="capGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#c8ddef"/>
+            <stop offset="50%" stop-color="#b0ccdf"/>
+            <stop offset="100%" stop-color="#a0c0d6"/>
+          </linearGradient>
+          <linearGradient id="baseGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#a0c0d6"/>
+            <stop offset="50%" stop-color="#b8d4e6"/>
+            <stop offset="100%" stop-color="#c8ddef"/>
+          </linearGradient>
+        </defs>
+
+        <!-- ═══ Corinthian Capital ═══ -->
+        <!-- Abacus (top slab) -->
+        <rect x="2" y="16" width="76" height="10" rx="1" fill="url(#capGrad)" stroke="#88b8d0" stroke-width="1.2"/>
+        <!-- Echinus curve -->
+        <path d="M8 26 Q40 30 72 26 L72 32 Q40 36 8 32 Z" fill="#b0ccdf" stroke="#88b8d0" stroke-width="0.8"/>
+        <!-- Volute scrolls - left -->
+        <path d="M10 34 Q6 38 8 44 Q10 50 16 48 Q20 46 18 40 Q16 36 12 36" fill="none" stroke="#7aabc4" stroke-width="1.5"/>
+        <circle cx="14" cy="42" r="2.5" fill="#c0d8ea" stroke="#7aabc4" stroke-width="1"/>
+        <!-- Volute scrolls - right -->
+        <path d="M70 34 Q74 38 72 44 Q70 50 64 48 Q60 46 62 40 Q64 36 68 36" fill="none" stroke="#7aabc4" stroke-width="1.5"/>
+        <circle cx="66" cy="42" r="2.5" fill="#c0d8ea" stroke="#7aabc4" stroke-width="1"/>
+        <!-- Acanthus leaves -->
+        <path d="M24 48 Q20 42 22 34 Q24 28 28 32 Q30 38 26 46" fill="#bcd6e8" stroke="#7aabc4" stroke-width="0.8"/>
+        <path d="M32 48 Q30 40 32 32 Q34 26 38 30 Q40 36 34 46" fill="#bcd6e8" stroke="#7aabc4" stroke-width="0.8"/>
+        <path d="M40 48 Q38 38 40 30 Q42 24 44 30 Q46 38 42 48" fill="#c4dcec" stroke="#7aabc4" stroke-width="0.8"/>
+        <path d="M48 48 Q46 40 48 32 Q50 26 54 30 Q56 36 50 46" fill="#bcd6e8" stroke="#7aabc4" stroke-width="0.8"/>
+        <path d="M56 48 Q54 42 56 34 Q58 28 62 32 Q64 38 58 46" fill="#bcd6e8" stroke="#7aabc4" stroke-width="0.8"/>
+        <!-- Astragal (bead ring below capital) -->
+        <rect x="14" y="50" width="52" height="4" rx="2" fill="#a8cce0" stroke="#88b8d0" stroke-width="0.8"/>
+        <!-- Necking -->
+        <rect x="16" y="54" width="48" height="6" fill="#b8d4e6" stroke="#88b8d0" stroke-width="0.6"/>
+
+        <!-- ═══ Fluted Shaft ═══ -->
+        <!-- Main shaft with entasis taper -->
+        <path d="M18 60 L16 540 L64 540 L62 60 Z" fill="url(#shaftGrad)" stroke="#88b8d0" stroke-width="1"/>
+        <!-- 20 fluting channels -->
+        <g stroke="#8ab4cc" stroke-width="0.6" opacity="0.5">
+          <line x1="21" y1="62" x2="19" y2="538"/>
+          <line x1="24" y1="62" x2="22" y2="538"/>
+          <line x1="27" y1="62" x2="25.5" y2="538"/>
+          <line x1="30" y1="62" x2="28.5" y2="538"/>
+          <line x1="33" y1="62" x2="31.5" y2="538"/>
+          <line x1="36" y1="62" x2="35" y2="538"/>
+          <line x1="39" y1="62" x2="38" y2="538"/>
+          <line x1="42" y1="62" x2="41" y2="538"/>
+          <line x1="45" y1="62" x2="44.5" y2="538"/>
+          <line x1="48" y1="62" x2="47.5" y2="538"/>
+          <line x1="51" y1="62" x2="50.5" y2="538"/>
+          <line x1="54" y1="62" x2="53.5" y2="538"/>
+          <line x1="57" y1="62" x2="56.5" y2="538"/>
+          <line x1="60" y1="62" x2="59.5" y2="538"/>
+        </g>
+        <!-- Highlight reflection down shaft -->
+        <path d="M34 62 L33 538" stroke="rgba(255,255,255,0.25)" stroke-width="3"/>
+        <path d="M38 62 L37 538" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+
+        <!-- ═══ Attic Base ═══ -->
+        <!-- Upper torus -->
+        <ellipse cx="40" cy="542" rx="26" ry="5" fill="#b8d4e6" stroke="#88b8d0" stroke-width="1"/>
+        <!-- Scotia (concave groove) -->
+        <rect x="16" y="546" width="48" height="6" fill="#a0c0d6" stroke="#88b8d0" stroke-width="0.6"/>
+        <path d="M18 546 Q40 552 62 546" fill="none" stroke="#78a8c4" stroke-width="0.5"/>
+        <!-- Lower torus -->
+        <ellipse cx="40" cy="555" rx="28" ry="5.5" fill="#b8d4e6" stroke="#88b8d0" stroke-width="1"/>
+        <!-- Plinth -->
+        <rect x="8" y="558" width="64" height="12" rx="1" fill="url(#baseGrad)" stroke="#88b8d0" stroke-width="1.2"/>
+        <!-- Plinth highlight -->
+        <rect x="10" y="560" width="60" height="3" rx="1" fill="rgba(255,255,255,0.2)"/>
+      </svg>
+    </div>
+
+    <!-- Right Column (SVG, mirrored) -->
+    <div class="column-svg right">
+      <svg viewBox="0 0 80 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <use href="#leftCol" x="0" y="0"/>
+        <rect x="2" y="16" width="76" height="10" rx="1" fill="url(#capGrad)" stroke="#88b8d0" stroke-width="1.2"/>
+        <path d="M8 26 Q40 30 72 26 L72 32 Q40 36 8 32 Z" fill="#b0ccdf" stroke="#88b8d0" stroke-width="0.8"/>
+        <path d="M10 34 Q6 38 8 44 Q10 50 16 48 Q20 46 18 40 Q16 36 12 36" fill="none" stroke="#7aabc4" stroke-width="1.5"/>
+        <circle cx="14" cy="42" r="2.5" fill="#c0d8ea" stroke="#7aabc4" stroke-width="1"/>
+        <path d="M70 34 Q74 38 72 44 Q70 50 64 48 Q60 46 62 40 Q64 36 68 36" fill="none" stroke="#7aabc4" stroke-width="1.5"/>
+        <circle cx="66" cy="42" r="2.5" fill="#c0d8ea" stroke="#7aabc4" stroke-width="1"/>
+        <path d="M24 48 Q20 42 22 34 Q24 28 28 32 Q30 38 26 46" fill="#bcd6e8" stroke="#7aabc4" stroke-width="0.8"/>
+        <path d="M32 48 Q30 40 32 32 Q34 26 38 30 Q40 36 34 46" fill="#bcd6e8" stroke="#7aabc4" stroke-width="0.8"/>
+        <path d="M40 48 Q38 38 40 30 Q42 24 44 30 Q46 38 42 48" fill="#c4dcec" stroke="#7aabc4" stroke-width="0.8"/>
+        <path d="M48 48 Q46 40 48 32 Q50 26 54 30 Q56 36 50 46" fill="#bcd6e8" stroke="#7aabc4" stroke-width="0.8"/>
+        <path d="M56 48 Q54 42 56 34 Q58 28 62 32 Q64 38 58 46" fill="#bcd6e8" stroke="#7aabc4" stroke-width="0.8"/>
+        <rect x="14" y="50" width="52" height="4" rx="2" fill="#a8cce0" stroke="#88b8d0" stroke-width="0.8"/>
+        <rect x="16" y="54" width="48" height="6" fill="#b8d4e6" stroke="#88b8d0" stroke-width="0.6"/>
+        <defs>
+          <linearGradient id="shaftGrad2" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#92bcd4"/>
+            <stop offset="15%" stop-color="#b0d0e4"/>
+            <stop offset="30%" stop-color="#c8e0f0"/>
+            <stop offset="50%" stop-color="#d6eaf6"/>
+            <stop offset="70%" stop-color="#c8e0f0"/>
+            <stop offset="85%" stop-color="#b0d0e4"/>
+            <stop offset="100%" stop-color="#92bcd4"/>
+          </linearGradient>
+          <linearGradient id="capGrad2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#c8ddef"/>
+            <stop offset="50%" stop-color="#b0ccdf"/>
+            <stop offset="100%" stop-color="#a0c0d6"/>
+          </linearGradient>
+          <linearGradient id="baseGrad2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#a0c0d6"/>
+            <stop offset="50%" stop-color="#b8d4e6"/>
+            <stop offset="100%" stop-color="#c8ddef"/>
+          </linearGradient>
+        </defs>
+        <path d="M18 60 L16 540 L64 540 L62 60 Z" fill="url(#shaftGrad2)" stroke="#88b8d0" stroke-width="1"/>
+        <g stroke="#8ab4cc" stroke-width="0.6" opacity="0.5">
+          <line x1="21" y1="62" x2="19" y2="538"/>
+          <line x1="24" y1="62" x2="22" y2="538"/>
+          <line x1="27" y1="62" x2="25.5" y2="538"/>
+          <line x1="30" y1="62" x2="28.5" y2="538"/>
+          <line x1="33" y1="62" x2="31.5" y2="538"/>
+          <line x1="36" y1="62" x2="35" y2="538"/>
+          <line x1="39" y1="62" x2="38" y2="538"/>
+          <line x1="42" y1="62" x2="41" y2="538"/>
+          <line x1="45" y1="62" x2="44.5" y2="538"/>
+          <line x1="48" y1="62" x2="47.5" y2="538"/>
+          <line x1="51" y1="62" x2="50.5" y2="538"/>
+          <line x1="54" y1="62" x2="53.5" y2="538"/>
+          <line x1="57" y1="62" x2="56.5" y2="538"/>
+          <line x1="60" y1="62" x2="59.5" y2="538"/>
+        </g>
+        <path d="M34 62 L33 538" stroke="rgba(255,255,255,0.25)" stroke-width="3"/>
+        <path d="M38 62 L37 538" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+        <ellipse cx="40" cy="542" rx="26" ry="5" fill="#b8d4e6" stroke="#88b8d0" stroke-width="1"/>
+        <rect x="16" y="546" width="48" height="6" fill="#a0c0d6" stroke="#88b8d0" stroke-width="0.6"/>
+        <path d="M18 546 Q40 552 62 546" fill="none" stroke="#78a8c4" stroke-width="0.5"/>
+        <ellipse cx="40" cy="555" rx="28" ry="5.5" fill="#b8d4e6" stroke="#88b8d0" stroke-width="1"/>
+        <rect x="8" y="558" width="64" height="12" rx="1" fill="url(#baseGrad2)" stroke="#88b8d0" stroke-width="1.2"/>
+        <rect x="10" y="560" width="60" height="3" rx="1" fill="rgba(255,255,255,0.2)"/>
+      </svg>
+    </div>
   </div>
 
   <!-- Colosseum Logo -->
