@@ -10,8 +10,8 @@
   html { scroll-behavior: smooth; overflow-x: hidden; }
   body {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    background: #f4f8fc;
-    color: #2a3a4a;
+    background: #f5f0e8;
+    color: #3a4a5a;
     overflow-x: hidden;
   }
 
@@ -19,14 +19,14 @@
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; justify-content: center; align-items: center; height: 68px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.85) 70%, rgba(255,255,255,0) 100%);
-    border-bottom: 1px solid rgba(135,190,220,0.2);
+    background: linear-gradient(180deg, rgba(245,240,232,0.97) 0%, rgba(245,240,232,0.85) 70%, rgba(245,240,232,0) 100%);
+    border-bottom: 1px solid rgba(135,190,220,0.18);
     backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   }
   nav ul { display: flex; list-style: none; gap: 48px; }
   nav a {
     font-family: 'Cinzel', serif;
-    color: rgba(80,120,150,0.65); text-decoration: none;
+    color: rgba(100,160,200,0.6); text-decoration: none;
     font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
     position: relative; padding: 6px 0; transition: color 0.4s ease;
   }
@@ -36,88 +36,29 @@
     background: linear-gradient(90deg, transparent, #7ab8d9, transparent);
     transition: width 0.5s ease;
   }
-  nav a:hover { color: #5a9bbe; }
+  nav a:hover { color: #5a9ec8; }
   nav a:hover::after { width: 120%; }
 
   /* ── Hero ──────────────────────────────────────────── */
   .hero {
     position: relative;
-    height: 100vh;
+    min-height: 100vh;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    padding: 80px 40px;
+    padding: 100px 40px 80px;
     overflow: hidden;
-    background: linear-gradient(170deg, #e8f2fa 0%, #f4f8fc 30%, #ffffff 60%, #eaf1f8 100%);
+    background: linear-gradient(170deg, #eee8de 0%, #f5f0e8 25%, #faf6f0 50%, #f5f0e8 75%, #eee8de 100%);
   }
 
-  /* Column frame */
-  .column-frame {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: min(740px, 90vw);
-    height: min(600px, 80vh);
-    pointer-events: none; z-index: 1;
-  }
-
-  /* SVG columns positioned at frame edges */
-  .column-svg {
-    position: absolute; top: 0; bottom: 0;
-    width: 80px;
-  }
-  .column-svg.left { left: -10px; }
-  .column-svg.right { right: -10px; transform: scaleX(-1); }
-  .column-svg svg { width: 100%; height: 100%; }
-
-  /* Entablature bars */
-  .entablature-top, .entablature-bottom {
-    position: absolute; left: 60px; right: 60px;
-  }
-  .entablature-top {
-    top: -6px; height: 42px;
-    background: linear-gradient(180deg, #b0ccdf 0%, #c4dcec 20%, #d2e6f2 40%, #c4dcec 60%, #b0ccdf 80%, #a0c0d6 100%);
-    border: 1.5px solid #8eb8d0;
-    border-radius: 2px;
-    box-shadow: 0 4px 16px rgba(120,170,210,0.12);
-  }
-  .entablature-top::before {
-    content: ''; position: absolute; top: -12px; left: -6px; right: -6px;
-    height: 12px;
-    background: linear-gradient(180deg, #a8cce0, #b8d6ea, #c8e0f0, #b0ccdf);
-    border: 1.5px solid #8eb8d0;
-    border-bottom: none;
-    border-radius: 3px 3px 0 0;
-  }
-  .entablature-top::after {
-    content: ''; position: absolute; bottom: -8px; left: 4px; right: 4px;
-    height: 8px;
-    background: linear-gradient(180deg, #bcd6e8 0%, #d0e4f0 50%, transparent 100%);
-    border-left: 1px solid rgba(120,170,200,0.2);
-    border-right: 1px solid rgba(120,170,200,0.2);
-  }
-  .entablature-bottom {
-    bottom: -4px; height: 36px;
-    background: linear-gradient(0deg, #b0ccdf 0%, #c4dcec 30%, #d2e6f2 50%, #c4dcec 70%, #b0ccdf 100%);
-    border: 1.5px solid #8eb8d0;
-    border-radius: 2px;
-    box-shadow: 0 -3px 12px rgba(120,170,210,0.08);
-  }
-  .entablature-bottom::before {
-    content: ''; position: absolute; top: -6px; left: 4px; right: 4px;
-    height: 6px;
-    background: linear-gradient(0deg, #bcd6e8, transparent);
-  }
-
-  /* ── Logo Mark ────────────────────────────────────── */
+  /* ── Logo ───────────────────────────────────────────── */
   .logo-wrap {
     position: relative; z-index: 2;
-    width: 100%; max-width: 480px;
-    margin-bottom: 36px;
+    width: 100%; max-width: 420px;
+    margin-bottom: 40px;
   }
   .logo-wrap img {
     width: 100%; height: auto;
     mix-blend-mode: multiply;
-    filter: drop-shadow(0 4px 24px rgba(40,60,80,0.1));
   }
 
   /* ── Hero text ────────────────────────────────────── */
@@ -126,33 +67,32 @@
     font-size: 48px; font-weight: 600;
     letter-spacing: 8px; text-transform: uppercase;
     text-align: center; line-height: 1.15;
-    color: #3a5a72;
-    text-shadow: 0 1px 3px rgba(100,160,200,0.15);
+    color: #5a9ec8;
     position: relative; z-index: 2;
   }
   .hero-title span {
     display: block; font-size: 15px; font-weight: 400;
     letter-spacing: 7px; margin-top: 12px;
-    color: rgba(100,155,190,0.6);
+    color: rgba(100,165,210,0.5);
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
   }
 
   .hero-line {
     width: 100px; height: 1px; margin: 28px auto;
-    background: linear-gradient(90deg, transparent, rgba(135,190,220,0.5), transparent);
+    background: linear-gradient(90deg, transparent, rgba(120,185,220,0.4), transparent);
     position: relative; z-index: 2;
   }
   .hero-line::before {
     content: ''; position: absolute; top: -3px; left: 50%; transform: translateX(-50%) rotate(45deg);
-    width: 7px; height: 7px; border: 1px solid rgba(135,190,220,0.5);
-    background: #f4f8fc;
+    width: 7px; height: 7px; border: 1px solid rgba(120,185,220,0.4);
+    background: #f5f0e8;
   }
 
   .hero-subtitle {
     font-family: 'Cormorant Garamond', serif;
     font-size: 17px; font-style: italic;
-    color: rgba(80,130,160,0.5);
+    color: rgba(100,160,200,0.45);
     text-align: center; z-index: 2; position: relative;
     letter-spacing: 2px;
   }
@@ -164,11 +104,11 @@
   }
   .scroll-hint span {
     font-family: 'Cinzel', serif;
-    font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: rgba(100,155,190,0.5);
+    font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: rgba(100,165,210,0.45);
   }
   .scroll-hint .chevron {
     width: 14px; height: 14px;
-    border-right: 1px solid rgba(135,190,220,0.5); border-bottom: 1px solid rgba(135,190,220,0.5);
+    border-right: 1px solid rgba(120,185,220,0.4); border-bottom: 1px solid rgba(120,185,220,0.4);
     transform: rotate(45deg); animation: chevronBounce 2s ease-in-out infinite;
   }
   @keyframes scrollFade { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.15; } }
@@ -181,122 +121,122 @@
   .section-label {
     font-family: 'Cinzel', serif;
     font-size: 11px; letter-spacing: 5px; text-transform: uppercase;
-    color: rgba(100,160,200,0.5); margin-bottom: 12px;
+    color: rgba(100,165,210,0.45); margin-bottom: 12px;
   }
   .section-title {
     font-family: 'Cinzel', serif;
     font-size: 36px; font-weight: 500; letter-spacing: 4px;
-    color: #4a8ab0; margin-bottom: 16px;
+    color: #5a9ec8; margin-bottom: 16px;
   }
   .section-divider {
     width: 80px; height: 1px;
-    background: linear-gradient(90deg, rgba(135,190,220,0.5), transparent);
+    background: linear-gradient(90deg, rgba(120,185,220,0.4), transparent);
     margin-bottom: 48px; position: relative;
   }
   .section-divider::before {
     content: ''; position: absolute; top: -2.5px; left: 0;
-    width: 6px; height: 6px; border: 1px solid rgba(135,190,220,0.5);
-    transform: rotate(45deg); background: #f4f8fc;
+    width: 6px; height: 6px; border: 1px solid rgba(120,185,220,0.4);
+    transform: rotate(45deg); background: #f5f0e8;
   }
 
   /* ── Cards ────────────────────────────────────────── */
   .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
   .card {
-    background: #ffffff;
-    border: 1px solid rgba(135,190,220,0.2);
+    background: #faf6f0;
+    border: 1px solid rgba(120,185,220,0.15);
     border-radius: 6px; padding: 36px; transition: all 0.5s ease;
     position: relative; overflow: hidden;
-    box-shadow: 0 2px 12px rgba(100,160,200,0.06);
+    box-shadow: 0 2px 12px rgba(100,160,200,0.05);
   }
   .card::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(135,190,220,0.4), transparent);
+    background: linear-gradient(90deg, transparent, rgba(120,185,220,0.35), transparent);
     opacity: 0; transition: opacity 0.5s ease;
   }
   .card:hover {
-    background: #fcfeff;
-    border-color: rgba(135,190,220,0.35);
+    background: #fdfaf5;
+    border-color: rgba(120,185,220,0.3);
     transform: translateY(-4px);
-    box-shadow: 0 8px 30px rgba(100,160,200,0.1);
+    box-shadow: 0 8px 30px rgba(100,160,200,0.08);
   }
   .card:hover::before { opacity: 1; }
   .card h3 {
     font-family: 'Cinzel', serif;
-    font-size: 19px; font-weight: 500; color: #4a8ab0; margin-bottom: 10px;
+    font-size: 19px; font-weight: 500; color: #5a9ec8; margin-bottom: 10px;
   }
   .card .meta {
     font-family: 'Cinzel', serif;
     font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-    color: rgba(100,160,200,0.5); margin-bottom: 14px;
+    color: rgba(100,165,210,0.45); margin-bottom: 14px;
   }
-  .card p { font-size: 15.5px; line-height: 1.8; color: rgba(60,80,100,0.6); }
+  .card p { font-size: 15.5px; line-height: 1.8; color: rgba(60,75,90,0.6); }
 
   .services-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; }
 
   /* ── Pricing ──────────────────────────────────────── */
   .pricing-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px; }
   .pricing-card {
-    background: #ffffff; border: 1px solid rgba(135,190,220,0.2);
+    background: #faf6f0; border: 1px solid rgba(120,185,220,0.15);
     border-radius: 6px; padding: 40px 32px; text-align: center;
     transition: all 0.5s ease; position: relative;
-    box-shadow: 0 2px 12px rgba(100,160,200,0.06);
+    box-shadow: 0 2px 12px rgba(100,160,200,0.05);
   }
-  .pricing-card.featured { border-color: rgba(100,170,210,0.4); background: #f8fcff; box-shadow: 0 4px 24px rgba(100,160,200,0.1); }
-  .pricing-card:hover { border-color: rgba(135,190,220,0.4); transform: translateY(-4px); box-shadow: 0 8px 30px rgba(100,160,200,0.1); }
-  .pricing-card h3 { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 500; color: #4a8ab0; margin-bottom: 8px; }
-  .pricing-card .price { font-family: 'Cinzel', serif; font-size: 34px; font-weight: 600; color: #3a5a72; margin: 18px 0; }
-  .pricing-card .price span { font-size: 14px; font-weight: 400; color: rgba(80,130,160,0.45); }
-  .pricing-card .tier-desc { font-size: 14px; color: rgba(80,130,160,0.5); margin-bottom: 22px; font-style: italic; }
+  .pricing-card.featured { border-color: rgba(100,175,220,0.35); background: #fdfaf5; box-shadow: 0 4px 24px rgba(100,160,200,0.08); }
+  .pricing-card:hover { border-color: rgba(120,185,220,0.35); transform: translateY(-4px); box-shadow: 0 8px 30px rgba(100,160,200,0.08); }
+  .pricing-card h3 { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 500; color: #5a9ec8; margin-bottom: 8px; }
+  .pricing-card .price { font-family: 'Cinzel', serif; font-size: 34px; font-weight: 600; color: #4a7a98; margin: 18px 0; }
+  .pricing-card .price span { font-size: 14px; font-weight: 400; color: rgba(90,140,180,0.4); }
+  .pricing-card .tier-desc { font-size: 14px; color: rgba(90,140,180,0.45); margin-bottom: 22px; font-style: italic; }
   .pricing-card ul { list-style: none; text-align: left; margin-bottom: 28px; }
-  .pricing-card li { font-size: 15px; color: rgba(60,80,100,0.6); padding: 8px 0; border-bottom: 1px solid rgba(135,190,220,0.08); }
-  .pricing-card li::before { content: '\2022 '; color: rgba(100,170,210,0.5); }
+  .pricing-card li { font-size: 15px; color: rgba(60,75,90,0.6); padding: 8px 0; border-bottom: 1px solid rgba(120,185,220,0.06); }
+  .pricing-card li::before { content: '\2022 '; color: rgba(100,175,220,0.4); }
   .pricing-btn {
     display: inline-block; padding: 12px 30px; background: transparent;
-    border: 1px solid rgba(100,170,210,0.35); border-radius: 4px;
-    color: #4a8ab0; font-family: 'Cinzel', serif; font-size: 11px;
+    border: 1px solid rgba(100,175,220,0.3); border-radius: 4px;
+    color: #5a9ec8; font-family: 'Cinzel', serif; font-size: 11px;
     letter-spacing: 3px; text-transform: uppercase; text-decoration: none;
     cursor: pointer; transition: all 0.4s ease;
   }
-  .pricing-btn:hover { background: rgba(135,190,220,0.08); border-color: rgba(100,170,210,0.55); }
+  .pricing-btn:hover { background: rgba(120,185,220,0.06); border-color: rgba(100,175,220,0.5); }
 
   /* ── About ────────────────────────────────────────── */
   .about-text { max-width: 760px; }
-  .about-text p { font-size: 17px; line-height: 2; color: rgba(60,80,100,0.6); margin-bottom: 24px; }
+  .about-text p { font-size: 17px; line-height: 2; color: rgba(60,75,90,0.6); margin-bottom: 24px; }
 
   /* ── Contact ──────────────────────────────────────── */
   .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
-  .contact-info p { font-size: 17px; line-height: 2; color: rgba(60,80,100,0.55); margin-bottom: 28px; }
+  .contact-info p { font-size: 17px; line-height: 2; color: rgba(60,75,90,0.55); margin-bottom: 28px; }
   .contact-detail { display: flex; flex-direction: column; gap: 18px; }
-  .contact-detail a { color: rgba(70,130,170,0.75); text-decoration: none; font-size: 16px; letter-spacing: 1px; transition: color 0.3s ease; }
-  .contact-detail a:hover { color: #4a8ab0; }
+  .contact-detail a { color: rgba(80,145,190,0.7); text-decoration: none; font-size: 16px; letter-spacing: 1px; transition: color 0.3s ease; }
+  .contact-detail a:hover { color: #5a9ec8; }
   .contact-form { display: flex; flex-direction: column; gap: 22px; }
   .contact-form input, .contact-form textarea {
     width: 100%; padding: 14px 18px;
-    background: #ffffff;
-    border: 1px solid rgba(135,190,220,0.2); border-radius: 4px;
-    color: #3a5a72; font-family: 'Cormorant Garamond', serif; font-size: 16px;
+    background: #faf6f0;
+    border: 1px solid rgba(120,185,220,0.15); border-radius: 4px;
+    color: #4a7a98; font-family: 'Cormorant Garamond', serif; font-size: 16px;
     outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
-  .contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(100,155,190,0.35); }
-  .contact-form input:focus, .contact-form textarea:focus { border-color: rgba(100,170,210,0.4); box-shadow: 0 0 16px rgba(135,190,220,0.1); }
+  .contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(100,160,200,0.3); }
+  .contact-form input:focus, .contact-form textarea:focus { border-color: rgba(100,175,220,0.35); box-shadow: 0 0 16px rgba(120,185,220,0.08); }
   .contact-form textarea { min-height: 130px; resize: vertical; }
   .contact-form button {
     align-self: flex-start; padding: 13px 36px; background: transparent;
-    border: 1px solid rgba(100,170,210,0.35); border-radius: 4px;
-    color: #4a8ab0; font-family: 'Cinzel', serif; font-size: 12px;
+    border: 1px solid rgba(100,175,220,0.3); border-radius: 4px;
+    color: #5a9ec8; font-family: 'Cinzel', serif; font-size: 12px;
     letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease;
   }
-  .contact-form button:hover { background: rgba(135,190,220,0.08); border-color: rgba(100,170,210,0.55); }
+  .contact-form button:hover { background: rgba(120,185,220,0.06); border-color: rgba(100,175,220,0.5); }
 
   /* ── Footer ───────────────────────────────────────── */
   footer {
     text-align: center; padding: 56px 40px;
-    border-top: 1px solid rgba(135,190,220,0.12);
-    background: #f0f6fb;
+    border-top: 1px solid rgba(120,185,220,0.1);
+    background: #efe9df;
   }
   footer p {
     font-family: 'Cinzel', serif;
-    font-size: 11px; letter-spacing: 3px; color: rgba(100,155,190,0.35); text-transform: uppercase;
+    font-size: 11px; letter-spacing: 3px; color: rgba(100,160,200,0.3); text-transform: uppercase;
   }
 
   /* ── Reveal ───────────────────────────────────────── */
@@ -308,10 +248,7 @@
   @media (max-width: 768px) {
     nav ul { gap: 20px; } nav a { font-size: 10px; letter-spacing: 2px; }
     .hero-title { font-size: 28px; letter-spacing: 4px; }
-    .column-frame { width: 95vw; height: 72vh; }
-    .column-svg { width: 50px; }
-    .entablature-top, .entablature-bottom { left: 36px; right: 36px; }
-    .logo-wrap { max-width: 320px; }
+    .logo-wrap { max-width: 300px; }
     .projects-grid { grid-template-columns: 1fr; }
     .contact-layout { grid-template-columns: 1fr; }
     section { padding: 80px 24px; } .section-title { font-size: 26px; }
@@ -329,164 +266,6 @@
 </ul></nav>
 
 <div class="hero">
-  <!-- Column frame -->
-  <div class="column-frame">
-    <div class="entablature-top"></div>
-    <div class="entablature-bottom"></div>
-
-    <!-- Left Column (SVG) -->
-    <div class="column-svg left">
-      <svg viewBox="0 0 80 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="shaftGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#92bcd4"/>
-            <stop offset="15%" stop-color="#b0d0e4"/>
-            <stop offset="30%" stop-color="#c8e0f0"/>
-            <stop offset="50%" stop-color="#d6eaf6"/>
-            <stop offset="70%" stop-color="#c8e0f0"/>
-            <stop offset="85%" stop-color="#b0d0e4"/>
-            <stop offset="100%" stop-color="#92bcd4"/>
-          </linearGradient>
-          <linearGradient id="capGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#c8ddef"/>
-            <stop offset="50%" stop-color="#b0ccdf"/>
-            <stop offset="100%" stop-color="#a0c0d6"/>
-          </linearGradient>
-          <linearGradient id="baseGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#a0c0d6"/>
-            <stop offset="50%" stop-color="#b8d4e6"/>
-            <stop offset="100%" stop-color="#c8ddef"/>
-          </linearGradient>
-        </defs>
-
-        <!-- ═══ Corinthian Capital ═══ -->
-        <!-- Abacus (top slab) -->
-        <rect x="2" y="16" width="76" height="10" rx="1" fill="url(#capGrad)" stroke="#88b8d0" stroke-width="1.2"/>
-        <!-- Echinus curve -->
-        <path d="M8 26 Q40 30 72 26 L72 32 Q40 36 8 32 Z" fill="#b0ccdf" stroke="#88b8d0" stroke-width="0.8"/>
-        <!-- Volute scrolls - left -->
-        <path d="M10 34 Q6 38 8 44 Q10 50 16 48 Q20 46 18 40 Q16 36 12 36" fill="none" stroke="#7aabc4" stroke-width="1.5"/>
-        <circle cx="14" cy="42" r="2.5" fill="#c0d8ea" stroke="#7aabc4" stroke-width="1"/>
-        <!-- Volute scrolls - right -->
-        <path d="M70 34 Q74 38 72 44 Q70 50 64 48 Q60 46 62 40 Q64 36 68 36" fill="none" stroke="#7aabc4" stroke-width="1.5"/>
-        <circle cx="66" cy="42" r="2.5" fill="#c0d8ea" stroke="#7aabc4" stroke-width="1"/>
-        <!-- Acanthus leaves -->
-        <path d="M24 48 Q20 42 22 34 Q24 28 28 32 Q30 38 26 46" fill="#bcd6e8" stroke="#7aabc4" stroke-width="0.8"/>
-        <path d="M32 48 Q30 40 32 32 Q34 26 38 30 Q40 36 34 46" fill="#bcd6e8" stroke="#7aabc4" stroke-width="0.8"/>
-        <path d="M40 48 Q38 38 40 30 Q42 24 44 30 Q46 38 42 48" fill="#c4dcec" stroke="#7aabc4" stroke-width="0.8"/>
-        <path d="M48 48 Q46 40 48 32 Q50 26 54 30 Q56 36 50 46" fill="#bcd6e8" stroke="#7aabc4" stroke-width="0.8"/>
-        <path d="M56 48 Q54 42 56 34 Q58 28 62 32 Q64 38 58 46" fill="#bcd6e8" stroke="#7aabc4" stroke-width="0.8"/>
-        <!-- Astragal (bead ring below capital) -->
-        <rect x="14" y="50" width="52" height="4" rx="2" fill="#a8cce0" stroke="#88b8d0" stroke-width="0.8"/>
-        <!-- Necking -->
-        <rect x="16" y="54" width="48" height="6" fill="#b8d4e6" stroke="#88b8d0" stroke-width="0.6"/>
-
-        <!-- ═══ Fluted Shaft ═══ -->
-        <!-- Main shaft with entasis taper -->
-        <path d="M18 60 L16 540 L64 540 L62 60 Z" fill="url(#shaftGrad)" stroke="#88b8d0" stroke-width="1"/>
-        <!-- 20 fluting channels -->
-        <g stroke="#8ab4cc" stroke-width="0.6" opacity="0.5">
-          <line x1="21" y1="62" x2="19" y2="538"/>
-          <line x1="24" y1="62" x2="22" y2="538"/>
-          <line x1="27" y1="62" x2="25.5" y2="538"/>
-          <line x1="30" y1="62" x2="28.5" y2="538"/>
-          <line x1="33" y1="62" x2="31.5" y2="538"/>
-          <line x1="36" y1="62" x2="35" y2="538"/>
-          <line x1="39" y1="62" x2="38" y2="538"/>
-          <line x1="42" y1="62" x2="41" y2="538"/>
-          <line x1="45" y1="62" x2="44.5" y2="538"/>
-          <line x1="48" y1="62" x2="47.5" y2="538"/>
-          <line x1="51" y1="62" x2="50.5" y2="538"/>
-          <line x1="54" y1="62" x2="53.5" y2="538"/>
-          <line x1="57" y1="62" x2="56.5" y2="538"/>
-          <line x1="60" y1="62" x2="59.5" y2="538"/>
-        </g>
-        <!-- Highlight reflection down shaft -->
-        <path d="M34 62 L33 538" stroke="rgba(255,255,255,0.25)" stroke-width="3"/>
-        <path d="M38 62 L37 538" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
-
-        <!-- ═══ Attic Base ═══ -->
-        <!-- Upper torus -->
-        <ellipse cx="40" cy="542" rx="26" ry="5" fill="#b8d4e6" stroke="#88b8d0" stroke-width="1"/>
-        <!-- Scotia (concave groove) -->
-        <rect x="16" y="546" width="48" height="6" fill="#a0c0d6" stroke="#88b8d0" stroke-width="0.6"/>
-        <path d="M18 546 Q40 552 62 546" fill="none" stroke="#78a8c4" stroke-width="0.5"/>
-        <!-- Lower torus -->
-        <ellipse cx="40" cy="555" rx="28" ry="5.5" fill="#b8d4e6" stroke="#88b8d0" stroke-width="1"/>
-        <!-- Plinth -->
-        <rect x="8" y="558" width="64" height="12" rx="1" fill="url(#baseGrad)" stroke="#88b8d0" stroke-width="1.2"/>
-        <!-- Plinth highlight -->
-        <rect x="10" y="560" width="60" height="3" rx="1" fill="rgba(255,255,255,0.2)"/>
-      </svg>
-    </div>
-
-    <!-- Right Column (SVG, mirrored) -->
-    <div class="column-svg right">
-      <svg viewBox="0 0 80 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <use href="#leftCol" x="0" y="0"/>
-        <rect x="2" y="16" width="76" height="10" rx="1" fill="url(#capGrad)" stroke="#88b8d0" stroke-width="1.2"/>
-        <path d="M8 26 Q40 30 72 26 L72 32 Q40 36 8 32 Z" fill="#b0ccdf" stroke="#88b8d0" stroke-width="0.8"/>
-        <path d="M10 34 Q6 38 8 44 Q10 50 16 48 Q20 46 18 40 Q16 36 12 36" fill="none" stroke="#7aabc4" stroke-width="1.5"/>
-        <circle cx="14" cy="42" r="2.5" fill="#c0d8ea" stroke="#7aabc4" stroke-width="1"/>
-        <path d="M70 34 Q74 38 72 44 Q70 50 64 48 Q60 46 62 40 Q64 36 68 36" fill="none" stroke="#7aabc4" stroke-width="1.5"/>
-        <circle cx="66" cy="42" r="2.5" fill="#c0d8ea" stroke="#7aabc4" stroke-width="1"/>
-        <path d="M24 48 Q20 42 22 34 Q24 28 28 32 Q30 38 26 46" fill="#bcd6e8" stroke="#7aabc4" stroke-width="0.8"/>
-        <path d="M32 48 Q30 40 32 32 Q34 26 38 30 Q40 36 34 46" fill="#bcd6e8" stroke="#7aabc4" stroke-width="0.8"/>
-        <path d="M40 48 Q38 38 40 30 Q42 24 44 30 Q46 38 42 48" fill="#c4dcec" stroke="#7aabc4" stroke-width="0.8"/>
-        <path d="M48 48 Q46 40 48 32 Q50 26 54 30 Q56 36 50 46" fill="#bcd6e8" stroke="#7aabc4" stroke-width="0.8"/>
-        <path d="M56 48 Q54 42 56 34 Q58 28 62 32 Q64 38 58 46" fill="#bcd6e8" stroke="#7aabc4" stroke-width="0.8"/>
-        <rect x="14" y="50" width="52" height="4" rx="2" fill="#a8cce0" stroke="#88b8d0" stroke-width="0.8"/>
-        <rect x="16" y="54" width="48" height="6" fill="#b8d4e6" stroke="#88b8d0" stroke-width="0.6"/>
-        <defs>
-          <linearGradient id="shaftGrad2" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#92bcd4"/>
-            <stop offset="15%" stop-color="#b0d0e4"/>
-            <stop offset="30%" stop-color="#c8e0f0"/>
-            <stop offset="50%" stop-color="#d6eaf6"/>
-            <stop offset="70%" stop-color="#c8e0f0"/>
-            <stop offset="85%" stop-color="#b0d0e4"/>
-            <stop offset="100%" stop-color="#92bcd4"/>
-          </linearGradient>
-          <linearGradient id="capGrad2" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#c8ddef"/>
-            <stop offset="50%" stop-color="#b0ccdf"/>
-            <stop offset="100%" stop-color="#a0c0d6"/>
-          </linearGradient>
-          <linearGradient id="baseGrad2" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#a0c0d6"/>
-            <stop offset="50%" stop-color="#b8d4e6"/>
-            <stop offset="100%" stop-color="#c8ddef"/>
-          </linearGradient>
-        </defs>
-        <path d="M18 60 L16 540 L64 540 L62 60 Z" fill="url(#shaftGrad2)" stroke="#88b8d0" stroke-width="1"/>
-        <g stroke="#8ab4cc" stroke-width="0.6" opacity="0.5">
-          <line x1="21" y1="62" x2="19" y2="538"/>
-          <line x1="24" y1="62" x2="22" y2="538"/>
-          <line x1="27" y1="62" x2="25.5" y2="538"/>
-          <line x1="30" y1="62" x2="28.5" y2="538"/>
-          <line x1="33" y1="62" x2="31.5" y2="538"/>
-          <line x1="36" y1="62" x2="35" y2="538"/>
-          <line x1="39" y1="62" x2="38" y2="538"/>
-          <line x1="42" y1="62" x2="41" y2="538"/>
-          <line x1="45" y1="62" x2="44.5" y2="538"/>
-          <line x1="48" y1="62" x2="47.5" y2="538"/>
-          <line x1="51" y1="62" x2="50.5" y2="538"/>
-          <line x1="54" y1="62" x2="53.5" y2="538"/>
-          <line x1="57" y1="62" x2="56.5" y2="538"/>
-          <line x1="60" y1="62" x2="59.5" y2="538"/>
-        </g>
-        <path d="M34 62 L33 538" stroke="rgba(255,255,255,0.25)" stroke-width="3"/>
-        <path d="M38 62 L37 538" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
-        <ellipse cx="40" cy="542" rx="26" ry="5" fill="#b8d4e6" stroke="#88b8d0" stroke-width="1"/>
-        <rect x="16" y="546" width="48" height="6" fill="#a0c0d6" stroke="#88b8d0" stroke-width="0.6"/>
-        <path d="M18 546 Q40 552 62 546" fill="none" stroke="#78a8c4" stroke-width="0.5"/>
-        <ellipse cx="40" cy="555" rx="28" ry="5.5" fill="#b8d4e6" stroke="#88b8d0" stroke-width="1"/>
-        <rect x="8" y="558" width="64" height="12" rx="1" fill="url(#baseGrad2)" stroke="#88b8d0" stroke-width="1.2"/>
-        <rect x="10" y="560" width="60" height="3" rx="1" fill="rgba(255,255,255,0.2)"/>
-      </svg>
-    </div>
-  </div>
-
   <!-- Colosseum Logo -->
   <div class="logo-wrap">
     <img src="colosseum-logo.png" alt="Helios Web Architecture - Colosseum Logo">
@@ -553,7 +332,7 @@
       <p>Whether you have a project in mind or simply want to start a conversation about what's possible, we'd love to hear from you.</p>
       <div class="contact-detail">
         <a href="mailto:studio@heliosarch.com">studio@heliosarch.com</a>
-        <span style="font-size:15px;color:rgba(80,130,160,0.4);">Wilmington, North Carolina</span>
+        <span style="font-size:15px;color:rgba(90,140,180,0.35);">Wilmington, North Carolina</span>
       </div>
     </div>
     <form class="contact-form reveal" onsubmit="event.preventDefault();">
