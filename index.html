@@ -47,7 +47,7 @@
     align-items: center; justify-content: center;
     padding: 80px 40px 50px;
     overflow: hidden;
-    background: linear-gradient(180deg, #081220 0%, #0d2035 30%, #0f2840 60%, #0b1a2a 100%);
+    background: linear-gradient(180deg, rgba(8,18,32,0.85) 0%, rgba(13,32,53,0.75) 30%, rgba(15,40,64,0.7) 60%, rgba(11,26,42,0.65) 100%);
   }
 
   /* ── Cloud animation ───────────────────────────────── */
@@ -103,8 +103,8 @@
 
   /* Capital */
   .hero-col .col-capital {
-    flex-shrink: 0; height: 78px; width: 100%;
-    position: relative;
+    flex-shrink: 0; height: 90px; width: 120%;
+    margin-left: -10%; position: relative;
   }
   .hero-col .col-capital svg { width: 100%; height: 100%; }
 
@@ -112,28 +112,28 @@
   .hero-col .col-shaft {
     flex: 1; width: 100%; position: relative;
     background: linear-gradient(90deg,
-      rgba(212,197,169,0.06) 0%,
-      rgba(212,197,169,0.22) 8%,
-      rgba(200,185,155,0.16) 16%,
-      rgba(212,197,169,0.22) 24%,
-      rgba(200,185,155,0.16) 32%,
-      rgba(212,197,169,0.24) 40%,
-      rgba(200,185,155,0.16) 48%,
-      rgba(212,197,169,0.26) 56%,
-      rgba(200,185,155,0.16) 64%,
-      rgba(212,197,169,0.22) 72%,
-      rgba(200,185,155,0.16) 80%,
-      rgba(212,197,169,0.22) 88%,
-      rgba(212,197,169,0.06) 100%
+      rgba(212,197,169,0.03) 0%,
+      rgba(212,197,169,0.12) 8%,
+      rgba(200,185,155,0.08) 16%,
+      rgba(212,197,169,0.12) 24%,
+      rgba(200,185,155,0.08) 32%,
+      rgba(212,197,169,0.14) 40%,
+      rgba(200,185,155,0.08) 48%,
+      rgba(212,197,169,0.15) 56%,
+      rgba(200,185,155,0.08) 64%,
+      rgba(212,197,169,0.12) 72%,
+      rgba(200,185,155,0.08) 80%,
+      rgba(212,197,169,0.12) 88%,
+      rgba(212,197,169,0.03) 100%
     );
-    border-left: 1.5px solid rgba(212,197,169,0.15);
-    border-right: 1.5px solid rgba(212,197,169,0.15);
+    border-left: 1px solid rgba(212,197,169,0.1);
+    border-right: 1px solid rgba(212,197,169,0.1);
   }
   .hero-col .col-shaft::before {
     content: ''; position: absolute; inset: 0;
     background: repeating-linear-gradient(90deg,
       transparent 0px,
-      rgba(201,184,150,0.1) 4px,
+      rgba(201,184,150,0.06) 4px,
       transparent 8px,
       transparent 11px
     );
@@ -144,37 +144,6 @@
     flex-shrink: 0; height: 70px; width: 100%;
   }
   .hero-col .col-base svg { width: 100%; height: 100%; }
-
-  /* Entablature beam connecting columns at the bottom */
-  .entablature {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    height: 28px; z-index: 2; pointer-events: none;
-  }
-  .entablature-inner {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    height: 28px;
-    background: linear-gradient(180deg,
-      rgba(212,197,169,0.02) 0%,
-      rgba(212,197,169,0.12) 20%,
-      rgba(212,197,169,0.18) 50%,
-      rgba(212,197,169,0.25) 80%,
-      rgba(212,197,169,0.3) 100%
-    );
-    border-bottom: 2px solid rgba(212,197,169,0.3);
-    border-top: 1px solid rgba(212,197,169,0.1);
-  }
-  /* Decorative molding pattern on entablature */
-  .entablature-inner::before {
-    content: ''; position: absolute; bottom: 2px; left: 0; right: 0;
-    height: 6px;
-    background: repeating-linear-gradient(90deg,
-      rgba(212,197,169,0.08) 0px,
-      rgba(212,197,169,0.2) 2px,
-      rgba(212,197,169,0.08) 4px,
-      transparent 4px,
-      transparent 20px
-    );
-  }
 
   /* ── Logo ───────────────────────────────────────────── */
   .logo-wrap {
@@ -305,18 +274,16 @@
 
   /* ── Pricing (Single Offer) ────────────────────────── */
   .pricing-layout {
-    display: flex; align-items: center; justify-content: center; gap: 48px;
-    max-width: 900px; margin: 0 auto;
+    display: flex; flex-direction: column; align-items: center; gap: 0;
+    max-width: 580px; margin: 0 auto;
   }
   .pricing-bust {
-    flex-shrink: 0; width: 260px;
+    width: 200px; margin-bottom: -20px; position: relative; z-index: 2;
   }
   .pricing-bust img {
     width: 100%; height: auto;
-    filter: drop-shadow(0 0 30px rgba(100,170,220,0.12))
-            brightness(0.85) saturate(0.7);
-    opacity: 0.85;
-    mix-blend-mode: lighten;
+    filter: drop-shadow(0 0 25px rgba(180,165,135,0.2))
+            drop-shadow(0 0 60px rgba(160,145,115,0.1));
   }
   .pricing-single {
     flex: 1; max-width: 520px; text-align: center;
@@ -439,8 +406,7 @@
   /* ── Responsive ───────────────────────────────────── */
   @media (max-width: 900px) {
     .services-grid { grid-template-columns: 1fr; }
-    .pricing-layout { flex-direction: column; }
-    .pricing-bust { width: 180px; }
+    .pricing-bust { width: 160px; }
   }
   @media (max-width: 768px) {
     nav ul { gap: 18px; flex-wrap: wrap; justify-content: center; }
@@ -448,7 +414,6 @@
     .hero-title { font-size: 30px; letter-spacing: 5px; }
     .logo-wrap { max-width: 340px; }
     .hero-col { display: none; }
-    .entablature { display: none; }
     .projects-grid { grid-template-columns: 1fr; }
     .contact-layout { grid-template-columns: 1fr; }
     section { padding: 80px 24px; }
@@ -570,11 +535,6 @@
     </div>
   </div>
 
-  <!-- Entablature beam spanning bottom of hero -->
-  <div class="entablature">
-    <div class="entablature-inner"></div>
-  </div>
-
   <!-- Logo -->
   <div class="logo-wrap">
     <img src="logo.png?v=3" alt="Helios Web Architecture Logo">
@@ -659,10 +619,10 @@
   <div class="reveal"><p class="section-label">Investment</p><h2 class="section-title">Pricing</h2><div class="section-divider"></div></div>
   <div class="pricing-layout reveal">
     <div class="pricing-bust">
-      <img src="bust.png" alt="Roman bust">
+      <img src="bust.jpg" alt="Roman bust sculpture">
     </div>
     <div class="pricing-single">
-      <h3>Your Vision, Built</h3>
+      <h3>Your Vision, Sculpted</h3>
       <p class="tier-desc">A fully custom, professionally designed website</p>
       <div class="price">$1,500 <span>flat rate</span></div>
       <p class="offer-desc">No templates. No shortcuts. Just clean, modern design built for speed, performance, and results. We move fast so you can launch faster.</p>
@@ -767,17 +727,10 @@
   window.addEventListener('resize', resize);
   resize();
 
-  // Get the Y position where stars should begin (below hero + first spear)
-  function getStarStartY() {
-    const hero = document.querySelector('.hero');
-    return hero ? hero.offsetHeight + 30 : 500;
-  }
-
-  // Create stars
+  // Create stars across the entire page
   function createStars() {
     stars = [];
-    const startY = getStarStartY();
-    const count = Math.floor((W * (H - startY)) / 8000);
+    const count = Math.floor((W * H) / 6000);
     for (let i = 0; i < count; i++) {
       const colorRand = Math.random();
       let r, g, b;
@@ -799,7 +752,7 @@
       }
       stars.push({
         x: Math.random() * W,
-        y: startY + Math.random() * (H - startY),
+        y: Math.random() * H,
         radius: Math.random() * 1.6 + 0.3,
         baseAlpha: Math.random() * 0.4 + 0.1,
         alpha: 0,
@@ -818,10 +771,9 @@
   function maybeSpawnShootingStar(time) {
     if (time - lastShoot > 4000 + Math.random() * 8000) {
       lastShoot = time;
-      const startY = getStarStartY();
       shootingStars.push({
         x: Math.random() * W * 0.8,
-        y: startY + Math.random() * (H - startY) * 0.5,
+        y: Math.random() * H * 0.7,
         vx: 4 + Math.random() * 4,
         vy: 2 + Math.random() * 2,
         life: 1,
