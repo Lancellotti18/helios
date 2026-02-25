@@ -404,24 +404,116 @@
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
+  /* ── Mobile Nav Toggle ────────────────────────────── */
+  .nav-toggle {
+    display: none; background: none; border: none; cursor: pointer;
+    padding: 8px; position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px; background: #d4c5a9;
+    margin: 5px 0; transition: all 0.3s ease; border-radius: 2px;
+  }
+  .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+  .nav-toggle.active span:nth-child(2) { opacity: 0; }
+  .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
   /* ── Responsive ───────────────────────────────────── */
   @media (max-width: 900px) {
     .services-grid { grid-template-columns: 1fr; }
-    .pricing-bust { width: 160px; }
   }
+
   @media (max-width: 768px) {
-    nav ul { gap: 18px; flex-wrap: wrap; justify-content: center; }
-    nav a { font-size: 12px; letter-spacing: 2px; }
-    .hero-title { font-size: 30px; letter-spacing: 5px; }
-    .logo-wrap { max-width: 340px; }
+    /* Nav — hamburger menu */
+    nav { justify-content: center; }
+    .nav-toggle { display: block; }
+    nav ul {
+      position: fixed; top: 78px; left: 0; right: 0;
+      flex-direction: column; align-items: center;
+      background: rgba(8,18,32,0.97); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      padding: 24px 0 32px; gap: 0;
+      border-bottom: 1px solid rgba(212,197,169,0.1);
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.4s ease;
+    }
+    nav ul.open {
+      max-height: 400px; opacity: 1; padding: 24px 0 32px;
+    }
+    nav ul li { padding: 12px 0; }
+    nav a { font-size: 14px; letter-spacing: 3px; }
+
+    /* Hero */
+    .hero { padding: 80px 24px 40px; min-height: 100vh; }
+    .hero-title { font-size: 26px; letter-spacing: 4px; }
+    .hero-title span { font-size: 14px; letter-spacing: 4px; margin-top: 10px; }
+    .logo-wrap { max-width: 280px; margin-bottom: 20px; }
     .hero-col { display: none; }
-    .projects-grid { grid-template-columns: 1fr; }
-    .contact-layout { grid-template-columns: 1fr; }
-    section { padding: 80px 24px; }
-    .section-title { font-size: 30px; }
-    .pricing-single { padding: 40px 28px; }
-    .pricing-single .price { font-size: 42px; }
-    .pricing-bust { width: 150px; }
+    .hero-subtitle { font-size: 16px; letter-spacing: 1px; }
+    .hero-line { width: 80px; margin: 16px auto; }
+
+    /* Sections */
+    section { padding: 60px 20px; }
+    .section-label { font-size: 11px; letter-spacing: 4px; }
+    .section-title { font-size: 28px; letter-spacing: 2px; margin-bottom: 14px; }
+    .section-divider { margin-bottom: 36px; }
+
+    /* Cards */
+    .projects-grid { grid-template-columns: 1fr; gap: 20px; }
+    .services-grid { gap: 20px; }
+    .card { padding: 28px 24px; }
+    .card h3 { font-size: 19px; }
+    .card p { font-size: 15px; line-height: 1.7; }
+    .card .meta { font-size: 10px; letter-spacing: 2px; }
+
+    /* Pricing */
+    .pricing-single { padding: 36px 24px; }
+    .pricing-single h3 { font-size: 22px; letter-spacing: 2px; }
+    .pricing-single .price { font-size: 40px; }
+    .pricing-single .price span { font-size: 13px; letter-spacing: 3px; }
+    .pricing-single .offer-desc { font-size: 16px; line-height: 1.8; }
+    .pricing-single li { font-size: 15px; padding: 8px 0; }
+    .pricing-single .g-tag { font-size: 11px; padding: 8px 20px; letter-spacing: 2px; }
+    .pricing-btn { padding: 14px 32px; font-size: 12px; letter-spacing: 2px; }
+
+    /* About */
+    .about-text p { font-size: 16px; line-height: 1.8; }
+
+    /* Contact */
+    .contact-layout { grid-template-columns: 1fr; gap: 36px; }
+    .contact-info p { font-size: 16px; line-height: 1.8; }
+    .contact-form input, .contact-form textarea { font-size: 16px; padding: 14px 16px; }
+    .contact-form button { align-self: center; width: 100%; padding: 16px; }
+
+    /* Spear dividers */
+    .spear-divider { padding: 0 16px; }
+    .spear-divider svg { max-width: 320px; }
+
+    /* Footer */
+    footer { padding: 40px 20px; }
+    footer p { font-size: 11px; letter-spacing: 2px; }
+  }
+
+  /* ── Small phones ────────────────────────────────── */
+  @media (max-width: 420px) {
+    .hero { padding: 70px 16px 32px; }
+    .hero-title { font-size: 22px; letter-spacing: 3px; }
+    .hero-title span { font-size: 12px; letter-spacing: 3px; }
+    .logo-wrap { max-width: 220px; }
+    .hero-subtitle { font-size: 14px; }
+
+    section { padding: 48px 16px; }
+    .section-title { font-size: 24px; }
+
+    .card { padding: 24px 20px; }
+    .card h3 { font-size: 17px; }
+
+    .pricing-single { padding: 32px 20px; }
+    .pricing-single h3 { font-size: 20px; }
+    .pricing-single .price { font-size: 36px; }
+    .pricing-single .offer-desc { font-size: 15px; }
+    .pricing-single ul { margin: 0 auto 28px; }
+
+    .contact-detail a { font-size: 15px; }
+    .spear-divider svg { max-width: 240px; }
   }
 </style>
 </head>
@@ -430,13 +522,18 @@
 <!-- Starfield Canvas -->
 <canvas class="starfield" id="starfield"></canvas>
 
-<nav><ul>
-  <li><a href="#projects">Past Projects</a></li>
-  <li><a href="#services">Services</a></li>
-  <li><a href="#pricing">Pricing</a></li>
-  <li><a href="#about">About Us</a></li>
-  <li><a href="#contact">Contact</a></li>
-</ul></nav>
+<nav>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="navMenu">
+    <li><a href="#projects">Past Projects</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#about">About Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
 <div class="hero">
   <!-- Animated clouds -->
@@ -766,6 +863,23 @@
     e.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.15 });
   r.forEach(el => o.observe(el));
+})();
+
+// Mobile Nav Toggle
+(function(){
+  const toggle = document.getElementById('navToggle');
+  const menu = document.getElementById('navMenu');
+  toggle.addEventListener('click', function() {
+    toggle.classList.toggle('active');
+    menu.classList.toggle('open');
+  });
+  // Close menu when a link is tapped
+  menu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      toggle.classList.remove('active');
+      menu.classList.remove('open');
+    });
+  });
 })();
 
 // ── Starfield Animation ────────────────────────────────
