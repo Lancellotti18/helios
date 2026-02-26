@@ -446,7 +446,11 @@
     .hero-title { font-size: 26px; letter-spacing: 4px; }
     .hero-title span { font-size: 14px; letter-spacing: 4px; margin-top: 10px; }
     .logo-wrap { max-width: 280px; margin-bottom: 20px; }
-    .hero-col { display: none; }
+    .hero-col { width: 50px; }
+    .hero-col.left { left: 1vw; }
+    .hero-col.right { right: 1vw; }
+    .hero-col .col-capital { height: 65px; }
+    .hero-col .col-base { height: 50px; }
     .hero-subtitle { font-size: 16px; letter-spacing: 1px; }
     .hero-line { width: 80px; margin: 16px auto; }
 
@@ -527,9 +531,8 @@
     <span></span><span></span><span></span>
   </button>
   <ul id="navMenu">
-    <li><a href="#projects">Past Projects</a></li>
     <li><a href="#services">Services</a></li>
-    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#projects">Past Projects</a></li>
     <li><a href="#about">About Us</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -719,30 +722,6 @@
 </div>
 
 <!-- Sections -->
-<section id="projects">
-  <div class="reveal"><p class="section-label">Portfolio</p><h2 class="section-title">Past Projects</h2><div class="section-divider"></div></div>
-  <div class="projects-grid">
-    <div class="card reveal"><h3>Solaris Tower</h3><p class="meta">Commercial &middot; 2024</p><p>A 42-story mixed-use tower featuring a solar-responsive facade that shifts orientation throughout the day, maximizing natural light while maintaining thermal efficiency.</p></div>
-    <div class="card reveal"><h3>Ember Pavilion</h3><p class="meta">Cultural &middot; 2023</p><p>An open-air exhibition space with a canopy inspired by classical Roman vaulting, casting dynamic shadow plays across the gallery floor as the earth rotates.</p></div>
-    <div class="card reveal"><h3>Aurelius Residence</h3><p class="meta">Residential &middot; 2023</p><p>A private hillside retreat designed around a central atrium that channels light deep into the living spaces, blurring the boundary between interior and sky.</p></div>
-    <div class="card reveal"><h3>Forum Research Lab</h3><p class="meta">Institutional &middot; 2022</p><p>A research facility whose radial floor plan mirrors the structure of the Roman forum, fostering collaborative discovery across disciplines.</p></div>
-  </div>
-</section>
-
-<!-- ═══ Spear Divider ═══ -->
-<div class="spear-divider">
-  <svg viewBox="0 0 500 24" xmlns="http://www.w3.org/2000/svg">
-    <polygon points="0,12 18,5 22,12 18,19" fill="rgba(212,197,169,0.4)"/>
-    <polygon points="18,5 24,5 22,12 24,19 18,19" fill="rgba(212,197,169,0.25)"/>
-    <line x1="24" y1="12" x2="235" y2="12" stroke="rgba(212,197,169,0.3)" stroke-width="1.2"/>
-    <polygon points="250,3 260,12 250,21 240,12" fill="rgba(212,197,169,0.35)" stroke="rgba(212,197,169,0.2)" stroke-width="0.5"/>
-    <polygon points="250,7 255,12 250,17 245,12" fill="rgba(212,197,169,0.15)"/>
-    <line x1="265" y1="12" x2="476" y2="12" stroke="rgba(212,197,169,0.3)" stroke-width="1.2"/>
-    <polygon points="500,12 482,5 478,12 482,19" fill="rgba(212,197,169,0.4)"/>
-    <polygon points="482,5 476,5 478,12 476,19 482,19" fill="rgba(212,197,169,0.25)"/>
-  </svg>
-</div>
-
 <section id="services">
   <div class="reveal"><p class="section-label">What We Do</p><h2 class="section-title">Services</h2><div class="section-divider"></div></div>
   <div class="services-grid">
@@ -769,25 +748,13 @@
   </svg>
 </div>
 
-<section id="pricing">
-  <div class="reveal"><p class="section-label">Investment</p><h2 class="section-title">Pricing</h2><div class="section-divider"></div></div>
-  <div class="pricing-layout reveal">
-    <div class="pricing-single">
-      <h3>Your Vision, Sculpted</h3>
-      <p class="tier-desc">A fully custom, professionally designed website</p>
-      <div class="price">$1,500 <span>flat rate</span></div>
-      <p class="offer-desc">No templates. No shortcuts. Just clean, modern design built for speed, performance, and results. We move fast so you can launch faster.</p>
-      <ul>
-        <li>Fully custom website design & development</li>
-        <li>Responsive across all devices</li>
-        <li>2 revision rounds included</li>
-        <li>Source files delivered</li>
-        <li>14-day turnaround guaranteed</li>
-      </ul>
-      <div class="g-tag">14-Day Delivery Guarantee</div>
-      <br>
-      <a href="#contact" class="pricing-btn">Get Started</a>
-    </div>
+<section id="projects">
+  <div class="reveal"><p class="section-label">Portfolio</p><h2 class="section-title">Past Projects</h2><div class="section-divider"></div></div>
+  <div class="projects-grid">
+    <div class="card reveal"><h3>Solaris Tower</h3><p class="meta">Commercial &middot; 2024</p><p>A 42-story mixed-use tower featuring a solar-responsive facade that shifts orientation throughout the day, maximizing natural light while maintaining thermal efficiency.</p></div>
+    <div class="card reveal"><h3>Ember Pavilion</h3><p class="meta">Cultural &middot; 2023</p><p>An open-air exhibition space with a canopy inspired by classical Roman vaulting, casting dynamic shadow plays across the gallery floor as the earth rotates.</p></div>
+    <div class="card reveal"><h3>Aurelius Residence</h3><p class="meta">Residential &middot; 2023</p><p>A private hillside retreat designed around a central atrium that channels light deep into the living spaces, blurring the boundary between interior and sky.</p></div>
+    <div class="card reveal"><h3>Forum Research Lab</h3><p class="meta">Institutional &middot; 2022</p><p>A research facility whose radial floor plan mirrors the structure of the Roman forum, fostering collaborative discovery across disciplines.</p></div>
   </div>
 </section>
 
@@ -837,6 +804,7 @@
       <div class="contact-detail">
         <a href="mailto:helios.archstudios@gmail.com">helios.archstudios@gmail.com</a>
         <span style="font-size:16px;font-weight:500;color:rgba(212,197,169,0.35);">Wilmington, North Carolina</span>
+        <img src="logo.png?v=3" alt="Helios Logo" style="width:80px;height:auto;margin-top:20px;opacity:0.4;filter:drop-shadow(0 0 10px rgba(100,180,235,0.1));">
       </div>
     </div>
     <form class="contact-form reveal" id="contactForm" action="https://formsubmit.co/helios.archstudios@gmail.com" method="POST">
@@ -895,25 +863,22 @@
   window.addEventListener('resize', resize);
   resize();
 
-  // Create stars across the entire page
+  // Create stars across the entire page — brighter and denser
   function createStars() {
     stars = [];
-    const count = Math.floor((W * H) / 6000);
+    const count = Math.floor((W * H) / 3500);
     for (let i = 0; i < count; i++) {
       const colorRand = Math.random();
       let r, g, b;
       if (colorRand < 0.4) {
-        // Cream
         r = 212 + Math.random() * 30;
         g = 197 + Math.random() * 25;
         b = 169 + Math.random() * 20;
       } else if (colorRand < 0.7) {
-        // Warm white
         r = 235 + Math.random() * 20;
         g = 230 + Math.random() * 20;
         b = 220 + Math.random() * 20;
       } else {
-        // Beige
         r = 200 + Math.random() * 20;
         g = 185 + Math.random() * 15;
         b = 155 + Math.random() * 15;
@@ -921,8 +886,8 @@
       stars.push({
         x: Math.random() * W,
         y: Math.random() * H,
-        radius: Math.random() * 1.6 + 0.3,
-        baseAlpha: Math.random() * 0.4 + 0.1,
+        radius: Math.random() * 2.0 + 0.4,
+        baseAlpha: Math.random() * 0.6 + 0.2,
         alpha: 0,
         phase: Math.random() * Math.PI * 2,
         speed: Math.random() * 0.008 + 0.003,
@@ -933,6 +898,55 @@
     }
   }
   createStars();
+
+  // Constellations — defined as relative positions (0-1 range), placed across the page
+  var constellations = [
+    // Orion-like (upper left area)
+    { ox: 0.12, oy: 0.08, pts: [[0,0],[30,15],[60,5],[55,40],[30,55],[5,40],[30,30]], lines: [[0,1],[1,2],[2,3],[3,4],[4,5],[5,0],[1,6],[5,6]] },
+    // Big Dipper (upper right)
+    { ox: 0.7, oy: 0.05, pts: [[0,0],[35,5],[65,0],[90,10],[80,35],[55,30],[35,25]], lines: [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6]] },
+    // Cassiopeia W (middle left)
+    { ox: 0.08, oy: 0.35, pts: [[0,20],[20,0],[40,25],[60,5],[80,22]], lines: [[0,1],[1,2],[2,3],[3,4]] },
+    // Triangle (lower right)
+    { ox: 0.75, oy: 0.45, pts: [[0,40],[50,0],[100,40]], lines: [[0,1],[1,2],[2,0]] },
+    // Small cross (mid page)
+    { ox: 0.45, oy: 0.25, pts: [[25,0],[25,50],[0,25],[50,25]], lines: [[0,1],[2,3]] },
+    // Crown / Corona (lower area)
+    { ox: 0.3, oy: 0.6, pts: [[0,20],[20,0],[40,10],[60,0],[80,20],[60,30],[20,30]], lines: [[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,0]] },
+    // Arrow (far right mid)
+    { ox: 0.88, oy: 0.3, pts: [[0,30],[30,0],[60,30],[30,15]], lines: [[0,1],[1,2],[0,3],[2,3]] },
+    // Lyra-like (upper center)
+    { ox: 0.5, oy: 0.1, pts: [[20,0],[0,20],[10,45],[30,45],[40,20]], lines: [[0,1],[1,2],[2,3],[3,4],[4,0]] }
+  ];
+
+  function drawConstellations() {
+    for (var c = 0; c < constellations.length; c++) {
+      var con = constellations[c];
+      var bx = con.ox * W, by = con.oy * H;
+      // Draw lines
+      ctx.strokeStyle = 'rgba(212,197,169,0.12)';
+      ctx.lineWidth = 0.8;
+      for (var l = 0; l < con.lines.length; l++) {
+        var a = con.pts[con.lines[l][0]], b = con.pts[con.lines[l][1]];
+        ctx.beginPath();
+        ctx.moveTo(bx + a[0], by + a[1]);
+        ctx.lineTo(bx + b[0], by + b[1]);
+        ctx.stroke();
+      }
+      // Draw constellation stars (brighter, larger)
+      for (var p = 0; p < con.pts.length; p++) {
+        ctx.beginPath();
+        ctx.arc(bx + con.pts[p][0], by + con.pts[p][1], 1.8, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(235,228,210,0.6)';
+        ctx.fill();
+        // Glow
+        ctx.beginPath();
+        ctx.arc(bx + con.pts[p][0], by + con.pts[p][1], 4, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(212,197,169,0.08)';
+        ctx.fill();
+      }
+    }
+  }
 
   // Shooting star spawner
   let lastShoot = 0;
@@ -964,6 +978,9 @@
       ctx.fillStyle = 'rgba(' + s.r + ',' + s.g + ',' + s.b + ',' + s.alpha.toFixed(3) + ')';
       ctx.fill();
     }
+
+    // Draw constellations
+    drawConstellations();
 
     // Draw shooting stars
     maybeSpawnShootingStar(time);
