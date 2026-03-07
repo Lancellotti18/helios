@@ -169,6 +169,52 @@
     65%       { opacity: 0.20; }
   }
 
+  /* ── Hero → Services cinematic fade transition ──────── */
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 340px;
+    background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(18,14,8,0.45) 40%,
+      rgba(18,14,8,0.82) 72%,
+      #120e08 100%
+    );
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  /* ── Hero tagline ───────────────────────────────────── */
+  .hero-tagline-wrap {
+    position: absolute;
+    bottom: 26%; left: 0; right: 0;
+    z-index: 4;
+    text-align: center;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .hero-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px; font-style: italic; font-weight: 500;
+    color: rgba(232,215,175,0.82);
+    letter-spacing: 3px;
+    text-shadow: 0 1px 16px rgba(0,0,0,0.75);
+  }
+
+  /* ── Animated double spear ornament ─────────────────── */
+  .hero-ornament svg {
+    width: 260px; height: 36px;
+    animation: ornamentGlow 5s ease-in-out infinite;
+    filter: drop-shadow(0 0 3px rgba(210,185,130,0.15));
+  }
+  @keyframes ornamentGlow {
+    0%, 100% { opacity: 0.58; filter: drop-shadow(0 0 2px rgba(210,185,130,0.10)); }
+    50%       { opacity: 1.00; filter: drop-shadow(0 0 9px rgba(210,185,130,0.45)); }
+  }
 
   /* ── Starfield ─────────────────────────────────────── */
   .starfield {
@@ -413,6 +459,9 @@
     .nav-quote-btn { font-size: 13px !important; letter-spacing: 2px !important; padding: 6px 14px !important; }
 
     .hero { padding: 80px 24px 40px; min-height: 100vh; }
+    .hero-tagline { font-size: 16px; letter-spacing: 2px; }
+    .hero-ornament svg { width: 180px; }
+    .hero-tagline-wrap { bottom: 22%; gap: 14px; }
 
     section { padding: 60px 20px; }
     .section-label { font-size: 11px; letter-spacing: 4px; }
@@ -503,6 +552,28 @@
     <div class="cloud"></div>
     <div class="cloud"></div>
     <div class="cloud"></div>
+  </div>
+
+  <!-- Tagline + animated double spear ornament -->
+  <div class="hero-tagline-wrap">
+    <p class="hero-tagline">Where Your Vision Meets Timeless Craft</p>
+    <div class="hero-ornament">
+      <svg viewBox="0 0 280 36" xmlns="http://www.w3.org/2000/svg">
+        <!-- Primary spear line -->
+        <polygon points="0,10 13,4 16,10 13,16" fill="rgba(210,185,130,0.58)"/>
+        <polygon points="13,4 19,4 16,10 19,16 13,16" fill="rgba(210,185,130,0.32)"/>
+        <line x1="19" y1="10" x2="122" y2="10" stroke="rgba(210,185,130,0.42)" stroke-width="1.2"/>
+        <polygon points="140,2 151,10 140,18 129,10" fill="rgba(210,185,130,0.52)" stroke="rgba(210,185,130,0.22)" stroke-width="0.5"/>
+        <polygon points="140,6 145,10 140,14 135,10" fill="rgba(210,185,130,0.20)"/>
+        <line x1="158" y1="10" x2="261" y2="10" stroke="rgba(210,185,130,0.42)" stroke-width="1.2"/>
+        <polygon points="280,10 267,4 264,10 267,16" fill="rgba(210,185,130,0.58)"/>
+        <polygon points="267,4 261,4 264,10 261,16 267,16" fill="rgba(210,185,130,0.32)"/>
+        <!-- Secondary (double) inner line -->
+        <line x1="58" y1="26" x2="124" y2="26" stroke="rgba(210,185,130,0.24)" stroke-width="0.8"/>
+        <polygon points="140,20 148,26 140,32 132,26" fill="rgba(210,185,130,0.30)" stroke="rgba(210,185,130,0.14)" stroke-width="0.4"/>
+        <line x1="156" y1="26" x2="222" y2="26" stroke="rgba(210,185,130,0.24)" stroke-width="0.8"/>
+      </svg>
+    </div>
   </div>
 
 </div>
