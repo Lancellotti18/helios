@@ -169,91 +169,6 @@
     65%       { opacity: 0.20; }
   }
 
-  /* ── Hero Columns ──────────────────────────────────── */
-  .hero-columns {
-    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-    pointer-events: none; z-index: 3; overflow: hidden;
-  }
-  .hero-col {
-    position: absolute; top: 0; bottom: 0;
-    display: flex; flex-direction: column;
-    width: 80px;
-  }
-  .hero-col.left { left: 4vw; }
-  .hero-col.right { right: 4vw; }
-  .hero-col .col-capital {
-    flex-shrink: 0; height: 90px; width: 120%;
-    margin-left: -10%; position: relative;
-  }
-  .hero-col .col-capital svg { width: 100%; height: 100%; }
-  .hero-col .col-shaft {
-    flex: 1; width: 100%; position: relative;
-    background: linear-gradient(90deg,
-      rgba(210,185,140,0.03) 0%,
-      rgba(210,185,140,0.11) 8%,
-      rgba(195,170,125,0.07) 16%,
-      rgba(210,185,140,0.11) 24%,
-      rgba(195,170,125,0.07) 32%,
-      rgba(210,185,140,0.13) 40%,
-      rgba(195,170,125,0.07) 48%,
-      rgba(210,185,140,0.14) 56%,
-      rgba(195,170,125,0.07) 64%,
-      rgba(210,185,140,0.11) 72%,
-      rgba(195,170,125,0.07) 80%,
-      rgba(210,185,140,0.11) 88%,
-      rgba(210,185,140,0.03) 100%
-    );
-    border-left: 1px solid rgba(210,185,140,0.10);
-    border-right: 1px solid rgba(210,185,140,0.10);
-  }
-  .hero-col .col-shaft::before {
-    content: ''; position: absolute; inset: 0;
-    background: repeating-linear-gradient(90deg,
-      transparent 0px, rgba(198,175,135,0.06) 4px,
-      transparent 8px, transparent 11px
-    );
-  }
-  .hero-col .col-base {
-    flex-shrink: 0; height: 70px; width: 100%;
-  }
-  .hero-col .col-base svg { width: 100%; height: 100%; }
-
-  /* ── Hero text ─────────────────────────────────────── */
-  .hero-title {
-    font-family: 'Cinzel', serif;
-    font-size: 52px; font-weight: 700;
-    letter-spacing: 10px; text-transform: uppercase;
-    text-align: center; line-height: 1.15;
-    color: #f5f0e8;
-    text-shadow: 0 2px 24px rgba(0,0,0,0.65), 0 0 60px rgba(200,160,70,0.18);
-    position: relative; z-index: 4;
-  }
-  .hero-title span {
-    display: block; font-size: 16px; font-weight: 500;
-    letter-spacing: 8px; margin-top: 14px;
-    color: rgba(220,195,145,0.70);
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    text-shadow: 0 1px 10px rgba(0,0,0,0.6);
-  }
-  .hero-line {
-    width: 120px; height: 1px; margin: 22px auto;
-    background: linear-gradient(90deg, transparent, rgba(210,185,130,0.55), transparent);
-    position: relative; z-index: 4;
-  }
-  .hero-line::before {
-    content: ''; position: absolute; top: -3px; left: 50%; transform: translateX(-50%) rotate(45deg);
-    width: 7px; height: 7px; border: 1px solid rgba(210,185,130,0.50);
-    background: rgba(10,6,2,0.65);
-  }
-  .hero-subtitle {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 19px; font-style: italic; font-weight: 500;
-    color: rgba(215,190,138,0.60);
-    text-align: center; z-index: 4; position: relative;
-    letter-spacing: 2px;
-    text-shadow: 0 1px 10px rgba(0,0,0,0.6);
-  }
 
   /* ── Starfield ─────────────────────────────────────── */
   .starfield {
@@ -498,15 +413,6 @@
     .nav-quote-btn { font-size: 13px !important; letter-spacing: 2px !important; padding: 6px 14px !important; }
 
     .hero { padding: 80px 24px 40px; min-height: 100vh; }
-    .hero-title { font-size: 26px; letter-spacing: 4px; }
-    .hero-title span { font-size: 14px; letter-spacing: 4px; margin-top: 10px; }
-    .hero-col { width: 50px; }
-    .hero-col.left { left: 1vw; }
-    .hero-col.right { right: 1vw; }
-    .hero-col .col-capital { height: 65px; }
-    .hero-col .col-base { height: 50px; }
-    .hero-subtitle { font-size: 16px; letter-spacing: 1px; }
-    .hero-line { width: 80px; margin: 16px auto; }
 
     section { padding: 60px 20px; }
     .section-label { font-size: 11px; letter-spacing: 4px; }
@@ -545,9 +451,6 @@
 
   @media (max-width: 420px) {
     .hero { padding: 70px 16px 32px; }
-    .hero-title { font-size: 22px; letter-spacing: 3px; }
-    .hero-title span { font-size: 12px; letter-spacing: 3px; }
-    .hero-subtitle { font-size: 14px; }
 
     section { padding: 48px 16px; }
     .section-title { font-size: 24px; }
@@ -602,75 +505,6 @@
     <div class="cloud"></div>
   </div>
 
-  <!-- Architectural Columns -->
-  <div class="hero-columns">
-    <!-- Left Column -->
-    <div class="hero-col left">
-      <div class="col-capital">
-        <svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet" style="transform:scaleY(-1)">
-          <rect x="18" y="0" width="64" height="7" rx="3" fill="rgba(210,185,140,0.20)"/>
-          <rect x="14" y="9" width="72" height="9" rx="1" fill="rgba(210,185,140,0.18)"/>
-          <rect x="14" y="9" width="72" height="9" rx="1" fill="none" stroke="rgba(210,185,140,0.12)" stroke-width="0.6"/>
-          <rect x="10" y="20" width="80" height="9" rx="3" fill="rgba(210,185,140,0.24)"/>
-          <rect x="4" y="33" width="92" height="16" rx="1" fill="rgba(210,185,140,0.28)"/>
-          <rect x="4" y="33" width="92" height="16" rx="1" fill="none" stroke="rgba(210,185,140,0.14)" stroke-width="0.6"/>
-          <rect x="0" y="53" width="100" height="12" rx="1" fill="rgba(210,185,140,0.22)"/>
-          <rect x="0" y="68" width="100" height="22" rx="0" fill="rgba(210,185,140,0.06)"/>
-        </svg>
-      </div>
-      <div class="col-shaft"></div>
-      <div class="col-base">
-        <svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
-          <rect x="18" y="0" width="64" height="7" rx="3" fill="rgba(210,185,140,0.20)"/>
-          <rect x="14" y="9" width="72" height="9" rx="1" fill="rgba(210,185,140,0.18)"/>
-          <rect x="14" y="9" width="72" height="9" rx="1" fill="none" stroke="rgba(210,185,140,0.12)" stroke-width="0.6"/>
-          <rect x="10" y="20" width="80" height="9" rx="3" fill="rgba(210,185,140,0.24)"/>
-          <rect x="4" y="33" width="92" height="16" rx="1" fill="rgba(210,185,140,0.28)"/>
-          <rect x="4" y="33" width="92" height="16" rx="1" fill="none" stroke="rgba(210,185,140,0.14)" stroke-width="0.6"/>
-          <rect x="0" y="53" width="100" height="12" rx="1" fill="rgba(210,185,140,0.22)"/>
-          <rect x="0" y="68" width="100" height="22" rx="0" fill="rgba(210,185,140,0.06)"/>
-        </svg>
-      </div>
-    </div>
-
-    <!-- Right Column -->
-    <div class="hero-col right">
-      <div class="col-capital">
-        <svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet" style="transform:scaleY(-1)">
-          <rect x="18" y="0" width="64" height="7" rx="3" fill="rgba(210,185,140,0.20)"/>
-          <rect x="14" y="9" width="72" height="9" rx="1" fill="rgba(210,185,140,0.18)"/>
-          <rect x="14" y="9" width="72" height="9" rx="1" fill="none" stroke="rgba(210,185,140,0.12)" stroke-width="0.6"/>
-          <rect x="10" y="20" width="80" height="9" rx="3" fill="rgba(210,185,140,0.24)"/>
-          <rect x="4" y="33" width="92" height="16" rx="1" fill="rgba(210,185,140,0.28)"/>
-          <rect x="4" y="33" width="92" height="16" rx="1" fill="none" stroke="rgba(210,185,140,0.14)" stroke-width="0.6"/>
-          <rect x="0" y="53" width="100" height="12" rx="1" fill="rgba(210,185,140,0.22)"/>
-          <rect x="0" y="68" width="100" height="22" rx="0" fill="rgba(210,185,140,0.06)"/>
-        </svg>
-      </div>
-      <div class="col-shaft"></div>
-      <div class="col-base">
-        <svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
-          <rect x="18" y="0" width="64" height="7" rx="3" fill="rgba(210,185,140,0.20)"/>
-          <rect x="14" y="9" width="72" height="9" rx="1" fill="rgba(210,185,140,0.18)"/>
-          <rect x="14" y="9" width="72" height="9" rx="1" fill="none" stroke="rgba(210,185,140,0.12)" stroke-width="0.6"/>
-          <rect x="10" y="20" width="80" height="9" rx="3" fill="rgba(210,185,140,0.24)"/>
-          <rect x="4" y="33" width="92" height="16" rx="1" fill="rgba(210,185,140,0.28)"/>
-          <rect x="4" y="33" width="92" height="16" rx="1" fill="none" stroke="rgba(210,185,140,0.14)" stroke-width="0.6"/>
-          <rect x="0" y="53" width="100" height="12" rx="1" fill="rgba(210,185,140,0.22)"/>
-          <rect x="0" y="68" width="100" height="22" rx="0" fill="rgba(210,185,140,0.06)"/>
-        </svg>
-      </div>
-    </div>
-  </div>
-
-  <h1 class="hero-title">
-    Helios Web Architecture
-    <span>Design Forged in Legacy</span>
-  </h1>
-
-  <div class="hero-line"></div>
-
-  <p class="hero-subtitle">Where timeless craft meets modern vision</p>
 </div>
 
 <!-- ═══ Spear Divider ═══ -->
