@@ -7,13 +7,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; overflow-x: hidden; }
+  html { scroll-behavior: smooth; overflow-x: hidden; -webkit-text-size-adjust: 100%; }
   body {
     font-family: 'Cormorant Garamond', Georgia, serif;
     background: #120e08;
     color: #ede8dc;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
+  button, a { touch-action: manipulation; }
 
   /* ── Nav ───────────────────────────────────────────── */
   nav {
@@ -98,6 +100,7 @@
     position: absolute;
     border-radius: 50%;
     animation: cloudDrift linear infinite;
+    will-change: transform;
   }
   /* Large wispy clouds — white/cream, very subtle */
   .cloud:nth-child(1) {
@@ -148,6 +151,7 @@
     border-radius: 50%;
     animation: sunPulse 16s ease-in-out infinite;
     pointer-events: none; z-index: 2;
+    will-change: opacity, transform;
   }
   @keyframes sunPulse {
     0%   { opacity: 0.5;  transform: scale(1.00); }
@@ -442,8 +446,8 @@
   }
 
   /* ── Reveal ───────────────────────────────────────── */
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; will-change: opacity, transform; }
+  .reveal.visible { opacity: 1; transform: translateY(0); will-change: auto; }
 
   /* ── Mobile Nav Toggle ────────────────────────────── */
   .nav-toggle {
@@ -480,7 +484,7 @@
     nav a { font-size: 14px; letter-spacing: 3px; }
     .nav-quote-btn { font-size: 13px !important; letter-spacing: 2px !important; padding: 6px 14px !important; }
 
-    .hero { padding: 80px 24px 40px; min-height: 100vh; }
+    .hero { padding: 80px 24px 100px; min-height: 100svh; }
     .hero-title { font-size: 28px; letter-spacing: 5px; }
     .hero-tagline { font-size: 16px; letter-spacing: 2px; }
     .hero-ornament svg { width: 180px; }
@@ -521,8 +525,28 @@
     footer p { font-size: 11px; letter-spacing: 2px; }
   }
 
+  /* ── iOS safe area ────────────────────────────────────── */
+  footer { padding-bottom: calc(60px + env(safe-area-inset-bottom)); }
+  nav { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+
+  /* ── Disable heavy FX on touch/mobile for performance ── */
+  @media (pointer: coarse) {
+    .clouds, .sun-glow, .hero-light { display: none; }
+    .card:hover { transform: none; box-shadow: none; }
+    .card:active { background: rgba(52,36,14,0.75); border-color: rgba(210,180,120,0.26); }
+  }
+
+  /* ── Respect reduced motion preference ───────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .cloud, .sun-glow, .hero-light, .hero-ornament svg { animation: none; }
+    .reveal { transition: opacity 0.3s ease; transform: none; }
+    .card { transition: background 0.2s ease, border-color 0.2s ease; }
+    nav a, nav a::after { transition: none; }
+  }
+
   @media (max-width: 420px) {
-    .hero { padding: 70px 16px 32px; }
+    .hero { padding: 70px 16px 80px; }
 
     section { padding: 48px 16px; }
     .section-title { font-size: 24px; }
@@ -562,7 +586,7 @@
 
 <div class="hero">
   <!-- Looping background video -->
-  <video class="hero-video" autoplay muted loop playsinline>
+  <video class="hero-video" autoplay muted loop playsinline preload="auto">
     <source src="hero.mp4" type="video/mp4">
   </video>
 
@@ -738,17 +762,20 @@
   const canvas = document.getElementById('starfield');
   const ctx = canvas.getContext('2d');
   let W, H, stars = [], shootingStars = [];
+  const isMobile = () => window.innerWidth <= 768;
 
   function resize() {
     W = canvas.width = window.innerWidth;
-    H = canvas.height = document.documentElement.scrollHeight;
+    // On mobile use viewport height only — full scrollHeight is too slow
+    H = canvas.height = isMobile() ? window.innerHeight : document.documentElement.scrollHeight;
   }
   window.addEventListener('resize', resize);
   resize();
 
   function createStars() {
     stars = [];
-    const count = Math.floor((W * H) / 3800);
+    const density = isMobile() ? 7000 : 3800;
+    const count = Math.floor((W * H) / density);
     for (let i = 0; i < count; i++) {
       const colorRand = Math.random();
       let r, g, b;
@@ -832,8 +859,8 @@
       ctx.fillStyle = 'rgba(' + s.r + ',' + s.g + ',' + s.b + ',' + s.alpha.toFixed(3) + ')';
       ctx.fill();
     }
-    drawConstellations();
-    maybeSpawnShootingStar(time);
+    if (!isMobile()) drawConstellations();
+    if (!isMobile()) maybeSpawnShootingStar(time);
     for (let i = shootingStars.length - 1; i >= 0; i--) {
       const ss = shootingStars[i];
       ss.x += ss.vx; ss.y += ss.vy; ss.life -= ss.decay;
